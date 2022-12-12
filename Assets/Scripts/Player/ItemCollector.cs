@@ -1,0 +1,126 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using TMPro;
+
+public class ItemCollector : MonoBehaviour
+{
+    private Rigidbody2D rb;
+    private BoxCollider2D coll;
+
+    [SerializeField] private float time;
+    [SerializeField] private Animator breaking;
+    [SerializeField] private Transform move;
+    [SerializeField] private Tilemap baseTilemap;
+    [SerializeField] private Tilemap mineralTilemap;
+    [SerializeField] private TextMeshProUGUI moneyText;
+
+    private readonly int[,] directionAdders = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } }; // up, down, left, right
+
+    private bool mining;
+    private int currentDirectionNum;
+    private Vector3Int currentTile;
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        currentDirectionNum = 4;
+        currentTile = new Vector3Int(10000, 10000);
+        coll = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (!enabled) return;
+
+        CheckMining();
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (!mining)
+            {
+                currentDirectionNum = i;
+                CheckMining();
+                BreakTile();
+            }
+        }
+    }
+
+    private bool CheckMining()
+    {
+        float dirX = Input.GetAxis("Horizontal");
+        float dirY = Input.GetAxis("Vertical");
+
+        bool[] directionPressed = {
+            dirY > 0f && Input.GetButton("Vertical") && rb.velocity.y == 0f,
+            dirY < 0f && Input.GetButton("Vertical") && rb.velocity.y == 0f,
+            dirX < 0f && Input.GetButton("Horizontal") && rb.velocity.y == 0f,
+            dirX > 0f && Input.GetButton("Horizontal") && rb.velocity.y == 0f,
+            false
+        };
+
+        mining = directionPressed[currentDirectionNum];
+        currentDirectionNum = mining ? currentDirectionNum : 4;
+
+        return mining;
+    }
+
+    private void BreakTile()
+    {
+        int playerX = (int)Math.Floor(coll.bounds.center.x);
+        int playerY = (int)Math.Floor(coll.bounds.center.y);
+
+        if (currentDirectionNum == 4) return;
+        currentTile = new Vector3Int(playerX + directionAdders[currentDirectionNum, 0], playerY + directionAdders[currentDirectionNum, 1]);
+
+        TileBase tile = baseTilemap.GetTile(currentTile);
+        TileBase mineral = mineralTilemap.GetTile(currentTile);
+
+        //Debug.Log("Player pos: " + (int)Math.Floor(coll.bounds.center.x) + ", " + (int)Math.Floor(coll.bounds.center.y));
+
+        if (tile)
+        {
+            if (tile.name == "pxy-new_block" || tile.name == "stone") return;
+        }
+        if (mineral)
+        {
+            if (mineral.name == "pxy-lava_2a") return;
+        }
+        if (tile || mineral)
+        {
+            move.position = new Vector3(currentTile.x + 0.5f, currentTile.y + 0.5f, 2);
+            breaking.speed = 0.33f / time;
+            breaking.SetTrigger("break");
+            Invoke(nameof(RemoveTile), time);
+        }
+    }
+
+    private void RemoveTile()
+    {
+        if (CheckMining())
+        {
+            MineMineral();
+            baseTilemap.SetTile(currentTile, null);
+            mineralTilemap.SetTile(currentTile, null);
+        }
+
+    }
+
+    private void MineMineral()
+    {
+        TileBase mineral = mineralTilemap.GetTile(currentTile);
+
+        if (mineral)
+        {
+            if (mineral.name == "r-artefact_ring")
+            {
+                moneyText.text = "$" + (int.Parse(moneyText.text.Substring(1)) + 1000);
+            }
+        }
+
+    }
+}
