@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,8 +26,8 @@ public class Life : MonoBehaviour
 
     private void Update()
     {
-        int playerX = (int)Math.Floor(coll.bounds.center.x);
-        int playerY = (int)Math.Floor(coll.bounds.center.y);
+        int playerX = Mathf.FloorToInt(coll.bounds.center.x);
+        int playerY = Mathf.FloorToInt(coll.bounds.center.y);
 
         TileBase mineral = mineralTilemap.GetTile(new Vector3Int(playerX, playerY));
 

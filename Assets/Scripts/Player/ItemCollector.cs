@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +53,8 @@ public class ItemCollector : MonoBehaviour
     {
         float dirX = Input.GetAxis("Horizontal");
         float dirY = Input.GetAxis("Vertical");
+        
+        //Debug.Log("dirX " + dirX + "\n Horizontal? " + Input.GetButton("Horizontal") + " Velocity 0? " + (rb.velocity.y == 0f));
 
         bool[] directionPressed = {
             dirY > 0f && Input.GetButton("Vertical") && rb.velocity.y == 0f,
@@ -71,16 +72,18 @@ public class ItemCollector : MonoBehaviour
 
     private void BreakTile()
     {
-        int playerX = (int)Math.Floor(coll.bounds.center.x);
-        int playerY = (int)Math.Floor(coll.bounds.center.y);
+        int playerX = Mathf.FloorToInt(coll.bounds.center.x);
+        int playerY = Mathf.FloorToInt(coll.bounds.center.y);
 
         if (currentDirectionNum == 4) return;
         currentTile = new Vector3Int(playerX + directionAdders[currentDirectionNum, 0], playerY + directionAdders[currentDirectionNum, 1]);
 
+        //Debug.Log(currentTile.x + ", " + currentTile.y);
+
         TileBase tile = baseTilemap.GetTile(currentTile);
         TileBase mineral = mineralTilemap.GetTile(currentTile);
 
-        //Debug.Log("Player pos: " + (int)Math.Floor(coll.bounds.center.x) + ", " + (int)Math.Floor(coll.bounds.center.y));
+        //Debug.Log("Player pos: " + playerX + ", " + playerY);
 
         if (tile)
         {
