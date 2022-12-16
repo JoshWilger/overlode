@@ -87,11 +87,11 @@ public class ItemCollector : MonoBehaviour
 
         if (tile)
         {
-            if (tile.name == "pxy-new_block" || tile.name == "stone") return;
+            if (tile.name == "pxy-new_block") return;
         }
         if (mineral)
         {
-            if (mineral.name == "pxy-lava_2a") return;
+            if (mineral.name == "pxy-lava_2a" || mineral.name == "stone") return;
         }
         if (tile || mineral)
         {

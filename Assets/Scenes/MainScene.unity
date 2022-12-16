@@ -231,13 +231,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background:
   - {fileID: 11400000, guid: eca9250b66cbf2d479e4a2320f598083, type: 2}
+  - {fileID: 11400000, guid: f0e05c73510428340a603909fc9fc1c1, type: 2}
   ground:
   - {fileID: 11400000, guid: f088db01e917b5142bbb4d6f02a4ceab, type: 2}
   - {fileID: 11400000, guid: 06127950efd6bd84f9308e6194e82109, type: 2}
   - {fileID: 11400000, guid: b834eb8a608daae48a6cca2aa0fe0ebf, type: 2}
   - {fileID: 11400000, guid: 437f67f9ca80853468e78d023def6911, type: 2}
-  - {fileID: 11400000, guid: dbd877abf9dd00c48874ec03b71f8be1, type: 2}
-  - {fileID: 11400000, guid: 7f3fb2352a8894547862b33eaf83c5af, type: 2}
   - {fileID: 11400000, guid: 2e44ea4c55a5d8a4083a42713931befe, type: 2}
   - {fileID: 11400000, guid: cf6bbf827f571ad46b5a74b06ac091b7, type: 2}
   - {fileID: 11400000, guid: e505898ae51251b4184c8a11ca627af8, type: 2}
@@ -255,8 +254,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42e713661045a0d449f1b957709be489, type: 2}
   - {fileID: 11400000, guid: d9195127159c1894e9b90b44b6473b4d, type: 2}
   - {fileID: 11400000, guid: 266bab3f5f894664aa76913da8d1122f, type: 2}
+  extras:
+  - {fileID: 11400000, guid: 560e3b9e56e706942b63d112402bf405, type: 2}
+  - {fileID: 11400000, guid: 9b14d21fef713a24293d61d3ccc61096, type: 2}
+  - {fileID: 11400000, guid: dbd877abf9dd00c48874ec03b71f8be1, type: 2}
+  - {fileID: 11400000, guid: 7f3fb2352a8894547862b33eaf83c5af, type: 2}
+  artifacts:
+  - {fileID: 11400000, guid: 3e8dcdd394be95d45b5e7a94e280139c, type: 2}
+  - {fileID: 11400000, guid: b3d1b051dbe9b6547aff5781dc560dc3, type: 2}
+  - {fileID: 11400000, guid: b3d1b051dbe9b6547aff5781dc560dc3, type: 2}
   airChance: 0.2
   mineralChance: 0.15
+  stoneLavaChance: 0.05
+  width: 33
+  depth: 98
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +305,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.7411765, g: 0.93725497, b: 0.9686275, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1098,7 +1109,7 @@ Transform:
   m_GameObject: {fileID: 953822358}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1577181479}
