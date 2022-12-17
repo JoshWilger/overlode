@@ -87,7 +87,7 @@ public class ItemCollector : MonoBehaviour
 
         if (tile)
         {
-            if (tile.name == "pxy-new_block") return;
+            if (tile.name == "pxy-border") return;
         }
         if (mineral)
         {

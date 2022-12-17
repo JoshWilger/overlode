@@ -31,10 +31,11 @@ public class TerrainGeneration : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 Vector3Int tilePos = new(x, -y - 2);
-                int layerNum = Mathf.FloorToInt(y / ((float)(depth / Mathf.Min(ground.Length, minerals.Length)) + 1));
                 bool isAir = Random.Range(0f, 1f) < airChance;
                 float holyRolly = Random.Range(0f, 1f);
                 float dungeonRoll = 1 - holyRolly;
+                int layerLength = Mathf.Min(ground.Length, minerals.Length);
+                int layerNum = Mathf.Min(Mathf.FloorToInt(y / ((float)(depth / layerLength) + 1 + holyRolly)), layerLength);
 
                 tilemaps[0].SetTile(tilePos, dungeonRoll < artifactChance && !isAir && (y > depth / 16) ? background[1] : background[0]);
 
@@ -65,10 +66,12 @@ public class TerrainGeneration : MonoBehaviour
                 }
             }
         }
+
         Debug.Log("Artifacts: " + string.Join(" ", artifactCounter));
+        GenerateBottom();
     }
     
-    // TODO: Better mineral distribution
+    // TODO: Better mineral, lava, and stone distribution
     private int GetMineralNum(int y)
     {
         float mineralRoll = Random.Range(0f, 1f);
@@ -81,5 +84,11 @@ public class TerrainGeneration : MonoBehaviour
         if (mineralRoll < mineralChance) { return layer; }
 
         return -1;
+    }
+
+    private void GenerateBottom()
+    {
+        Vector3Int[] coords = { new Vector3Int(7, -depth - 3), new Vector3Int(21, -depth - 3), new Vector3Int(35, -depth - 3) };
+        tilemaps[1].SetTiles(coords, new TileBase[] { extras[4], extras[4], extras[4] });
     }
 }
