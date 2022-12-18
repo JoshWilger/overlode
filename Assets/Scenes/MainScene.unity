@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d225bca7a3cd2a34d95cf73131612795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   background:
   - {fileID: 11400000, guid: eca9250b66cbf2d479e4a2320f598083, type: 2}
   - {fileID: 11400000, guid: f0e05c73510428340a603909fc9fc1c1, type: 2}
@@ -243,17 +244,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8a9e923209c4d3948a0eb94c3b6861c3, type: 2}
   - {fileID: 11400000, guid: e57fe6b736ec2d54abfb238da4bcbc58, type: 2}
   - {fileID: 11400000, guid: f827bfb5b8a1fc1488f72e144e60d2b0, type: 2}
-  minerals:
-  - {fileID: 11400000, guid: 6e44e5473d04e4b489a8a637658005fb, type: 2}
-  - {fileID: 11400000, guid: f26fd79d5ed4f844f8cb40744ba23ac1, type: 2}
-  - {fileID: 11400000, guid: 7790a7fa642a5e5479ce3941a1d977c9, type: 2}
-  - {fileID: 11400000, guid: 618869b2a7bba0640a10695b7753a2ee, type: 2}
-  - {fileID: 11400000, guid: aece2463a47151545b61e53b6f81559e, type: 2}
-  - {fileID: 11400000, guid: d33a9f277942dc04883bc2ab9d4d706f, type: 2}
-  - {fileID: 11400000, guid: f6c4a72b45888744a9fb8ba333ac27ce, type: 2}
-  - {fileID: 11400000, guid: 42e713661045a0d449f1b957709be489, type: 2}
-  - {fileID: 11400000, guid: d9195127159c1894e9b90b44b6473b4d, type: 2}
-  - {fileID: 11400000, guid: 266bab3f5f894664aa76913da8d1122f, type: 2}
   extras:
   - {fileID: 11400000, guid: 560e3b9e56e706942b63d112402bf405, type: 2}
   - {fileID: 11400000, guid: 9b14d21fef713a24293d61d3ccc61096, type: 2}
@@ -261,10 +251,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7f3fb2352a8894547862b33eaf83c5af, type: 2}
   - {fileID: 11400000, guid: eb9e270c4058cb94abd529c5d330e13d, type: 2}
   - {fileID: 11400000, guid: 7eaf4642bd17e3444813af7a41984ecc, type: 2}
-  artifacts:
-  - {fileID: 11400000, guid: 3e8dcdd394be95d45b5e7a94e280139c, type: 2}
-  - {fileID: 11400000, guid: b3d1b051dbe9b6547aff5781dc560dc3, type: 2}
-  - {fileID: 11400000, guid: 440de32d564397a46b8cda21194add50, type: 2}
   airChance: 0.2
   mineralChance: 0.15
   stoneLavaChance: 0.05
@@ -325,7 +311,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -369,8 +355,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1577181479}
-  minPosition: 9
-  maxPosition: 27
+  minPosition: 7.5
+  maxPosition: 28.5
 --- !u!1 &529447277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,8 +1851,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281923839
-  m_fontColor: {r: 1, g: 0.972549, b: 0.21960784, a: 1}
+    rgba: 4278965467
+  m_fontColor: {r: 0.8584906, g: 0.82983077, b: 0.043734357, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1950,9 +1936,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 8, y: -44}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &1577181471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,6 +2007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3f50057ec913d4b8e8fe7ec797d03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   time: 0.5
   breaking: {fileID: 829915474}
   move: {fileID: 829915476}

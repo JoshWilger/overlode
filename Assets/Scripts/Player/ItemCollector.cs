@@ -8,6 +8,7 @@ public class ItemCollector : MonoBehaviour
 {
     private Rigidbody2D rb;
     private BoxCollider2D coll;
+    [SerializeField] private ItemAtlas atlas;
 
     [SerializeField] private float time;
     [SerializeField] private Animator breaking;
@@ -17,18 +18,21 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyText;
 
     private readonly int[,] directionAdders = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } }; // up, down, left, right
-
     private bool mining;
     private int currentDirectionNum;
     private Vector3Int currentTile;
+    private ItemClass[] artifacts;
+    private ItemClass[] minerals;
 
     // Start is called before the first frame update
     private void Start()
     {
-        currentDirectionNum = 4;
-        currentTile = new Vector3Int(10000, 10000);
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        currentDirectionNum = 4;
+        currentTile = new Vector3Int(10000, 10000);
+        artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
+        minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
     }
 
     // Update is called once per frame
@@ -119,9 +123,21 @@ public class ItemCollector : MonoBehaviour
 
         if (mineral)
         {
-            if (mineral.name == "r-artefact_ring")
+            foreach (var item in minerals)
             {
-                moneyText.text = "$" + (int.Parse(moneyText.text.Substring(1)) + 1000);
+                if (mineral.name == item.placeableTile.name)
+                {
+                    moneyText.text = "$" + (int.Parse(moneyText.text.Substring(1)) + item.itemWorth);
+                    return;
+                }
+            }
+            foreach (var artifact in artifacts)
+            {
+                if (mineral.name == artifact.placeableTile.name)
+                {
+                    moneyText.text = "$" + (int.Parse(moneyText.text.Substring(1)) + artifact.itemWorth);
+                    return;
+                }
             }
         }
 
