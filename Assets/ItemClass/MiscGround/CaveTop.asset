@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CaveTop
   m_EditorClassIdentifier: 
   itemName: RockyDirt2
-  placeableTile: {fileID: 11400000, guid: 7f3fb2352a8894547862b33eaf83c5af, type: 2}
+  placeableTile: {fileID: 11400000, guid: eb9e270c4058cb94abd529c5d330e13d, type: 2}
   itemType: 4
-  itemWorth: 40
+  itemWorth: 100

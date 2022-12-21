@@ -22,5 +22,3 @@ public class ItemAtlas : ScriptableObject
         return itemsByType.ToArray();
     }
 }
-
-

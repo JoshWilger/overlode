@@ -74,7 +74,12 @@ public class TerrainGeneration : MonoBehaviour
             }
         }
 
+        foreach (var item in minerals)
+        {
+            Debug.Log(item.itemName + " " + item.itemWorth);
+        }
         Debug.Log("Artifacts: " + string.Join(" ", artifactCounter));
+
         GenerateBottom();
     }
     

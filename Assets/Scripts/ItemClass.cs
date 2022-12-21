@@ -9,7 +9,7 @@ public class ItemClass : ScriptableObject
     public string itemName;
     public TileBase placeableTile;
     public ItemType itemType;
-    public int itemWorth;
+    public long itemWorth;
 
     public enum ItemType
     {

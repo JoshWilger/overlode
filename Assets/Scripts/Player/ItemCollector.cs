@@ -127,7 +127,7 @@ public class ItemCollector : MonoBehaviour
             {
                 if (mineral.name == item.placeableTile.name)
                 {
-                    moneyText.text = "$" + (int.Parse(moneyText.text.Substring(1)) + item.itemWorth);
+                    moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + item.itemWorth);
                     return;
                 }
             }
@@ -135,7 +135,7 @@ public class ItemCollector : MonoBehaviour
             {
                 if (mineral.name == artifact.placeableTile.name)
                 {
-                    moneyText.text = "$" + (int.Parse(moneyText.text.Substring(1)) + artifact.itemWorth);
+                    moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + artifact.itemWorth);
                     return;
                 }
             }
