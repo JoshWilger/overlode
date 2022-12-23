@@ -16,6 +16,7 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private Tilemap baseTilemap;
     [SerializeField] private Tilemap mineralTilemap;
     [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI[] mineralTexts;
 
     private readonly int[,] directionAdders = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } }; // up, down, left, right
     private bool mining;
@@ -33,6 +34,11 @@ public class ItemCollector : MonoBehaviour
         currentTile = new Vector3Int(10000, 10000);
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
+
+        foreach (var item in minerals)
+        {
+            item.amountCollected = 0;
+        }
     }
 
     // Update is called once per frame
@@ -123,11 +129,12 @@ public class ItemCollector : MonoBehaviour
 
         if (mineral)
         {
-            foreach (var item in minerals)
+            for (int i = 0; i < minerals.Length; i++)
             {
-                if (mineral.name == item.placeableTile.name)
+                if (mineral.name == minerals[i].placeableTile.name)
                 {
-                    moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + item.itemWorth);
+                    minerals[i].amountCollected++;
+                    mineralTexts[i].text = "x" + minerals[i].amountCollected;
                     return;
                 }
             }
