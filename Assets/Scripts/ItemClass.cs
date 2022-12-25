@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class ItemClass : ScriptableObject
 {
     public string itemName;
+    public string itemDescription;
     public TileBase placeableTile;
     public ItemType itemType;
     public long itemWorth;
@@ -18,6 +19,7 @@ public class ItemClass : ScriptableObject
         ground,
         artifact,
         background,
-        miscGround
+        miscGround,
+        shopItem
     };
 }
