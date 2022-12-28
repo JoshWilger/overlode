@@ -27,7 +27,7 @@ public class UIController : MonoBehaviour
 
         foreach (var item in toggles)
         {
-            item.onValueChanged.AddListener(SelectItem);
+            item.onValueChanged.AddListener(SelectedItem);
         }
         inventoryToggle.onValueChanged.AddListener((value) =>
         {
@@ -128,18 +128,23 @@ public class UIController : MonoBehaviour
         return inventoryTexts;
     }
 
-    private void SelectItem(bool value)
+    public void SelectedItem(bool value)
     {
         if (value)
         {
-            var image = selectedItem.GetComponentInChildren<Image>();
-            var image3 = image.GetComponentInChildren<Image>();
+            var image = selectedItem.GetComponentsInChildren<Image>().Last();
+            var rect = image.GetComponent<RectTransform>();
 
             var activeToggle = toggleGroup.ActiveToggles().FirstOrDefault();
             var image2 = activeToggle.GetComponentInChildren<Image>();
 
-            Debug.Log(image3.name);
-            Debug.Log(image2.name);
+            image.sprite = image2.sprite;
+
+            var text = selectedItem.GetComponentInChildren<TextMeshProUGUI>();
+            var text2 = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
+
+            text.text = text2.text;
+            rect.localScale = new Vector3(0.9f, 0.9f);
         }
     }
 }
