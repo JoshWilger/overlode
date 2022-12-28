@@ -9,6 +9,7 @@ public class ItemCollector : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private UIController controller;
 
     [SerializeField] private float time;
     [SerializeField] private Animator breaking;
@@ -16,7 +17,6 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private Tilemap baseTilemap;
     [SerializeField] private Tilemap mineralTilemap;
     [SerializeField] private TextMeshProUGUI moneyText;
-    [SerializeField] private TextMeshProUGUI[] mineralTexts;
 
     private readonly int[,] directionAdders = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } }; // up, down, left, right
     private bool mining;
@@ -24,6 +24,7 @@ public class ItemCollector : MonoBehaviour
     private Vector3Int currentTile;
     private ItemClass[] artifacts;
     private ItemClass[] minerals;
+    private TextMeshProUGUI[] inventoryMineralTexts;
 
     // Start is called before the first frame update
     private void Start()
@@ -34,6 +35,7 @@ public class ItemCollector : MonoBehaviour
         currentTile = new Vector3Int(10000, 10000);
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
+        inventoryMineralTexts = controller.RetrieveInventoryText(ItemClass.ItemType.mineral);
 
         foreach (var item in minerals)
         {
@@ -134,7 +136,7 @@ public class ItemCollector : MonoBehaviour
                 if (mineral.name == minerals[i].placeableTile.name)
                 {
                     minerals[i].amountCollected++;
-                    mineralTexts[i].text = "x" + minerals[i].amountCollected;
+                    inventoryMineralTexts[i].text = "x" + minerals[i].amountCollected;
                     return;
                 }
             }

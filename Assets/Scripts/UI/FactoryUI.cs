@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class FactoryUI : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private UIController controller;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private Button sellButton;
 
@@ -16,21 +16,15 @@ public class FactoryUI : MonoBehaviour
     private TextMeshProUGUI[] quantity;
     private TextMeshProUGUI[] mineralInfo;
     private ItemClass[] minerals;
+    private TextMeshProUGUI[] inventoryMineralTexts;
 
     // Start is called before the first frame update
-    private void Start()
-    {
-        sellButton.onClick.AddListener(SellAll);
-    }
-
-
-
-    // Update is called once per frame
-    private void OnEnable()
+    private void Awake()
     {
         TextMeshProUGUI[] children = GetComponentsInChildren<TextMeshProUGUI>();
         quantity = new TextMeshProUGUI[children.Length / 2 - 1];
         mineralInfo = new TextMeshProUGUI[children.Length / 2 - 1];
+        inventoryMineralTexts = controller.RetrieveInventoryText(ItemClass.ItemType.mineral);
 
         for (int i = 0; i < children.Length; i++)
         {
@@ -47,8 +41,19 @@ public class FactoryUI : MonoBehaviour
                 mineralInfo[i / 2] = children[i];
             }
         }
+    }
+
+
+    private void OnEnable()
+    {
+        sellButton.onClick.AddListener(SellAll);
 
         UpdateText();
+    }
+
+    private void OnDisable()
+    {
+        sellButton.onClick.RemoveAllListeners();
     }
 
     private void UpdateText()
@@ -61,6 +66,7 @@ public class FactoryUI : MonoBehaviour
             long addMe = minerals[i].amountCollected * minerals[i].itemWorth;
 
             quantity[i].text = "x" + minerals[i].amountCollected;
+            inventoryMineralTexts[i].text = "x" + minerals[i].amountCollected;
             mineralInfo[i].text = minerals[i].name + "  ($" + minerals[i].itemWorth + ")\n$" + addMe;
             totalCounter += addMe;
         }

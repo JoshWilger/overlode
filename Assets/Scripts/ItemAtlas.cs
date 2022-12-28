@@ -7,7 +7,7 @@ public class ItemAtlas : ScriptableObject
 {
     [SerializeField] private ItemClass[] items;
      
-    public ItemClass[] CreateInstance( ItemClass.ItemType type)
+    public ItemClass[] CreateInstance( ItemClass.ItemType type, bool sort = true)
     {
         List<ItemClass> itemsByType = new();
         foreach (var item in items)
@@ -17,7 +17,10 @@ public class ItemAtlas : ScriptableObject
                 itemsByType.Add(item);
             }
         }
-        itemsByType.Sort((x, y) => x.itemWorth.CompareTo(y.itemWorth));
+        if (sort)
+        {
+            itemsByType.Sort((x, y) => x.itemWorth.CompareTo(y.itemWorth));
+        }
 
         return itemsByType.ToArray();
     }

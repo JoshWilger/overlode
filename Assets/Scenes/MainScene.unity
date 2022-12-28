@@ -1711,7 +1711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 125, y: -25}
+  m_AnchoredPosition: {x: 150, y: -25}
   m_SizeDelta: {x: 150, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &134231444
@@ -5697,6 +5697,7 @@ GameObject:
   - component: {fileID: 420992234}
   - component: {fileID: 420992236}
   - component: {fileID: 420992235}
+  - component: {fileID: 420992237}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -5767,6 +5768,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 420992233}
   m_CullTransparentMesh: 1
+--- !u!114 &420992237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420992233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 117ec96ffd981904fae5f15049fbd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
+  controller: {fileID: 1577181480}
+  moneyText: {fileID: 1391833717}
+  costText: {fileID: 195402302}
+  purchaseButton: {fileID: 1733492764}
 --- !u!1 &422262493
 GameObject:
   m_ObjectHideFlags: 0
@@ -12209,7 +12227,6 @@ GameObject:
   - component: {fileID: 870028331}
   - component: {fileID: 870028334}
   - component: {fileID: 870028333}
-  - component: {fileID: 870028332}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -12237,50 +12254,6 @@ RectTransform:
   m_AnchoredPosition: {x: -30, y: 25}
   m_SizeDelta: {x: 60, y: 50}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &870028332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870028330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.07
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 870028333}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &870028333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19184,6 +19157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
+  controller: {fileID: 1577181480}
   moneyText: {fileID: 1391833717}
   sellButton: {fileID: 1065952855}
 --- !u!1 &1301642338
@@ -20302,7 +20276,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $0
+  m_text: $100000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -22817,23 +22791,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
+  controller: {fileID: 1577181480}
   time: 0.5
   breaking: {fileID: 829915474}
   move: {fileID: 829915476}
   baseTilemap: {fileID: 1262024722}
   mineralTilemap: {fileID: 1663141666}
   moneyText: {fileID: 1391833717}
-  mineralTexts:
-  - {fileID: 1487571075}
-  - {fileID: 594469840}
-  - {fileID: 632805159}
-  - {fileID: 1371632315}
-  - {fileID: 1027133668}
-  - {fileID: 833027892}
-  - {fileID: 590013707}
-  - {fileID: 1444364382}
-  - {fileID: 1242092369}
-  - {fileID: 1973219424}
 --- !u!114 &1577181475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28296,7 +28260,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &2000770073
 GameObject:
   m_ObjectHideFlags: 0
