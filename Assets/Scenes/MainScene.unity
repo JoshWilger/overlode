@@ -6110,7 +6110,7 @@ EdgeCollider2D:
   m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.1
   m_Points:
   - {x: 0, y: 10000}
   - {x: 0, y: -10000}
@@ -17977,7 +17977,7 @@ CompositeCollider2D:
   m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -18078,7 +18078,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.007692337, y: 0.007692337, z: 0}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -22798,6 +22798,9 @@ MonoBehaviour:
   baseTilemap: {fileID: 1262024722}
   mineralTilemap: {fileID: 1663141666}
   moneyText: {fileID: 1391833717}
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1577181475
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,5 +16,5 @@ MonoBehaviour:
   itemDescription: Places unretrievable ground beneath you.
   placeableTile: {fileID: 0}
   itemType: 5
-  itemWorth: 4000
+  itemWorth: 3000
   amountCollected: 0

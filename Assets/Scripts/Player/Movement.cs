@@ -10,8 +10,8 @@ public class Movement : MonoBehaviour
     private SpriteRenderer sprite;
     private Animator anim;
 
-    private float dirX;
-    private float dirY;
+    public float dirX;
+    public float dirY;
 
     [SerializeField] private LayerMask ground;
     [SerializeField] private float moveSpeed = 7f;
