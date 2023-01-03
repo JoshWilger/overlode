@@ -22794,7 +22794,7 @@ MonoBehaviour:
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   controller: {fileID: 1577181480}
   time: 0.5
-  tileMiningDistance: 0.001
+  tileMiningDistance: 0.217
   breaking: {fileID: 829915474}
   move: {fileID: 829915476}
   baseTilemap: {fileID: 1262024722}
