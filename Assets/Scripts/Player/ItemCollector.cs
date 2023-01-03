@@ -12,6 +12,7 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private UIController controller;
 
     [SerializeField] private float time;
+    [SerializeField, Range(0, 1)] private float tileMiningDistance;
     [SerializeField] private Animator breaking;
     [SerializeField] private Transform move;
     [SerializeField] private Tilemap baseTilemap;
@@ -19,7 +20,7 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private LayerMask ground;
 
-    private readonly int[,] directionAdders = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } }; // up, down, left, right
+    private float[,] directionAdders;
     private bool mining;
     private int currentDirectionNum;
     private int previousDirectionNum;
@@ -34,6 +35,7 @@ public class ItemCollector : MonoBehaviour
     {
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        directionAdders = new[,] { { 0, 1 }, { 0, -1 }, { -tileMiningDistance, 0 }, { tileMiningDistance, 0 } }; // up, down, left, right
         currentDirectionNum = 4;
         currentTile = new Vector3Int(10000, 10000);
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
@@ -77,16 +79,7 @@ public class ItemCollector : MonoBehaviour
     }
     private bool BreakTile()
     {
-        int playerX = Mathf.FloorToInt(coll.bounds.center.x);
-        int playerY = Mathf.FloorToInt(coll.bounds.center.y);
-
-        if (baseTilemap.GetTile(new Vector3Int(playerX, playerY)))
-        {
-            Debug.Log("Player is in a tile!");
-            return false;
-        }
-
-        currentTile = new Vector3Int(playerX + directionAdders[currentDirectionNum, 0], playerY + directionAdders[currentDirectionNum, 1]);
+        currentTile = GetCurrentTile();
         TileBase tile = baseTilemap.GetTile(currentTile);
         TileBase mineral = mineralTilemap.GetTile(currentTile);
 
@@ -122,17 +115,7 @@ public class ItemCollector : MonoBehaviour
 
     private void RemoveTile()
     {
-        int playerX = Mathf.FloorToInt(coll.bounds.center.x);
-        int playerY = Mathf.FloorToInt(coll.bounds.center.y);
-
-        if (baseTilemap.GetTile(new Vector3Int(playerX, playerY)))
-        {
-            Debug.Log("Player is in a tile!");
-            mining = false;
-            return;
-        }
-
-        currentTile = new Vector3Int(playerX + directionAdders[currentDirectionNum, 0], playerY + directionAdders[currentDirectionNum, 1]);
+        currentTile = GetCurrentTile();
 
         if (mining && currentDirectionNum == previousDirectionNum && currentTile == previousTile)
         {
@@ -172,5 +155,19 @@ public class ItemCollector : MonoBehaviour
     private bool IsGrounded()
     {
         return baseTilemap.GetTile(new Vector3Int(Mathf.FloorToInt(coll.bounds.center.x), Mathf.FloorToInt(coll.bounds.center.y) - 1));
+    }
+
+    private Vector3Int GetCurrentTile()
+    {
+        float playerX = coll.bounds.center.x;
+        float playerY = coll.bounds.center.y;
+
+        if (baseTilemap.GetTile(new Vector3Int(Mathf.FloorToInt(playerX), Mathf.FloorToInt(playerY))))
+        {
+            Debug.Log("Player is in a tile!");
+            return new Vector3Int(10000, 10000);
+        }
+
+        return new Vector3Int(Mathf.FloorToInt(playerX + directionAdders[currentDirectionNum, 0]), Mathf.FloorToInt(playerY + directionAdders[currentDirectionNum, 1]));
     }
 }
