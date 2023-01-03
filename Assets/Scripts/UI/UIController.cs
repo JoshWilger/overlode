@@ -144,7 +144,7 @@ public class UIController : MonoBehaviour
             var text2 = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
 
             text.text = text2.text;
-            rect.localScale = new Vector3(0.9f, 0.9f);
+            rect.localScale = new Vector3(0.8f, 0.8f);
         }
     }
 }
