@@ -12,6 +12,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private UIController controller;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI costText;
+    [SerializeField] private TextMeshProUGUI selectedItemQuantityText;
     [SerializeField] private Button purchaseButton;
 
     private TextMeshProUGUI shopItemNameText;
@@ -83,17 +84,22 @@ public class ShopUI : MonoBehaviour
             quantity[i].text = "x" + shopItems[i].amountCollected;
             inventoryShopItemTexts[i].text = "x" + shopItems[i].amountCollected;
         }
+
+        if (selectedItemQuantityText.text != "")
+        {
+            selectedItemQuantityText.text = controller.activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
+        }
     }
 
     private void PurchaseItem()
     {
-            long money = long.Parse(moneyText.text.Substring(1));
+        long money = long.Parse(moneyText.text.Substring(1));
 
-            if (money - shopItems[currentIndex].itemWorth >= 0)
-            {
-                moneyText.text = "$" + (money - shopItems[currentIndex].itemWorth);
-                shopItems[currentIndex].amountCollected++;
-            }
+        if (money - shopItems[currentIndex].itemWorth >= 0)
+        {
+            moneyText.text = "$" + (money - shopItems[currentIndex].itemWorth);
+            shopItems[currentIndex].amountCollected++;
+        }
 
         UpdateText();
     }

@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour
 
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
-    private Toggle activeToggle;
+    public Toggle activeToggle;
 
     // Start is called before the first frame update
     private void Start()
