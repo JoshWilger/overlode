@@ -5808,6 +5808,7 @@ MonoBehaviour:
   controller: {fileID: 1577181480}
   moneyText: {fileID: 1391833717}
   costText: {fileID: 195402302}
+  selectedItemQuantityText: {fileID: 323617624}
   purchaseButton: {fileID: 1733492764}
 --- !u!1 &422262493
 GameObject:
@@ -23031,6 +23032,7 @@ MonoBehaviour:
   factory: {fileID: 1299802031}
   garage: {fileID: 1488862283}
   shop: {fileID: 420992233}
+  activeToggle: {fileID: 0}
 --- !u!1 &1578190599
 GameObject:
   m_ObjectHideFlags: 0
