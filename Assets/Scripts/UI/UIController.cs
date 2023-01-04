@@ -18,12 +18,14 @@ public class UIController : MonoBehaviour
 
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
+    private Toggle activeToggle;
 
     // Start is called before the first frame update
     private void Start()
     {
         toggleGroup = inventoryActive.GetComponent<ToggleGroup>();
         toggles = inventoryActive.GetComponentsInChildren<Toggle>();
+        activeToggle = toggles[0];
 
         foreach (var item in toggles)
         {
@@ -38,7 +40,20 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+
+
+        if (!enabled) return;
+
+        Vector2 mouseScrolling = Input.mouseScrollDelta;
+
+        if (mouseScrolling.y > 0)
+        {
+            ChangeActiveToggle(-1);
+        }
+        if (mouseScrolling.y < 0)
+        {
+            ChangeActiveToggle(1);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,17 +65,17 @@ public class UIController : MonoBehaviour
             charging.SetActive(true);
             collided = true;
         }
-        if (collision.gameObject.CompareTag("Factory"))
+        else if (collision.gameObject.CompareTag("Factory"))
         {
             factory.SetActive(true);
             collided = true;
         }
-        if (collision.gameObject.CompareTag("Garage"))
+        else if (collision.gameObject.CompareTag("Garage"))
         {
             garage.SetActive(true);
             collided = true;
         }
-        if (collision.gameObject.CompareTag("Shop"))
+        else if (collision.gameObject.CompareTag("Shop"))
         {
             shop.SetActive(true);
             collided = true;
@@ -80,17 +95,17 @@ public class UIController : MonoBehaviour
             charging.SetActive(false);
             collided = true;
         }
-        if (collision.gameObject.CompareTag("Factory"))
+        else if (collision.gameObject.CompareTag("Factory"))
         {
             factory.SetActive(false);
             collided = true;
         }
-        if (collision.gameObject.CompareTag("Garage"))
+        else if (collision.gameObject.CompareTag("Garage"))
         {
             garage.SetActive(false);
             collided = true;
         }
-        if (collision.gameObject.CompareTag("Shop"))
+        else if (collision.gameObject.CompareTag("Shop"))
         {
             shop.SetActive(false);
             collided = true;
@@ -128,14 +143,18 @@ public class UIController : MonoBehaviour
         return inventoryTexts;
     }
 
-    public void SelectedItem(bool value)
+    private void SelectedItem(bool value)
     {
         if (value)
         {
             var image = selectedItem.GetComponentsInChildren<Image>().Last();
             var rect = image.GetComponent<RectTransform>();
 
-            var activeToggle = toggleGroup.ActiveToggles().FirstOrDefault();
+            var maybeActiveToggle = toggleGroup.ActiveToggles().FirstOrDefault();
+            if (maybeActiveToggle)
+            {
+                activeToggle = maybeActiveToggle;
+            }
             var image2 = activeToggle.GetComponentInChildren<Image>();
 
             image.sprite = image2.sprite;
@@ -145,6 +164,28 @@ public class UIController : MonoBehaviour
 
             text.text = text2.text;
             rect.localScale = new Vector3(0.8f, 0.8f);
+        }
+    }
+
+    private void ChangeActiveToggle(int relativeIndex)
+    {
+        for (int i = 0; i < toggles.Length; i++)
+        {
+            if (toggles[i].isOn)
+            {
+                int adder = i + relativeIndex;
+                int newActiveIndex = adder < 0 ? adder + toggles.Length : adder > toggles.Length - 1 ? adder - toggles.Length : adder;
+
+                toggles[newActiveIndex].isOn = true;
+                toggles[i].isOn = false;
+
+                activeToggle = toggles[newActiveIndex];
+                toggleGroup.EnsureValidState();
+
+                SelectedItem(true);
+
+                return;
+            }
         }
     }
 }
