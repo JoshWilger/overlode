@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class ShopUI : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
-    [SerializeField] private UIController controller;
+    [SerializeField] private HudUI controller;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private TextMeshProUGUI selectedItemQuantityText;

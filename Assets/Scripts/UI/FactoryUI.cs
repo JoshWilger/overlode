@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class FactoryUI : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
-    [SerializeField] private UIController controller;
+    [SerializeField] private HudUI controller;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private Button sellButton;
 

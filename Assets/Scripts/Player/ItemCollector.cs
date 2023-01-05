@@ -9,7 +9,7 @@ public class ItemCollector : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     [SerializeField] private ItemAtlas atlas;
-    [SerializeField] private UIController controller;
+    [SerializeField] private HudUI controller;
 
     [SerializeField] private float time;
     [SerializeField, Range(0, 1)] private float tileMiningDistance;
