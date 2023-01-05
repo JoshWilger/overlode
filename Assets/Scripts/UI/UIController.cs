@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    [SerializeField] private Toggle pauseToggle;
     [SerializeField] private Toggle inventoryToggle;
     [SerializeField] private GameObject inventoryActive;
     [SerializeField] private GameObject selectedItem;
@@ -16,6 +18,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject garage;
     [SerializeField] private GameObject shop;
 
+    private Movement movementScript;
+    private ItemCollector itemCollectorScript;
+    private Rigidbody2D rb;
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
     public Toggle activeToggle;
@@ -23,6 +28,9 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        movementScript = GetComponent<Movement>();
+        itemCollectorScript = GetComponent<ItemCollector>();
+        rb = GetComponent<Rigidbody2D>();
         toggleGroup = inventoryActive.GetComponent<ToggleGroup>();
         toggles = inventoryActive.GetComponentsInChildren<Toggle>();
         activeToggle = toggles[0];
@@ -34,13 +42,17 @@ public class UIController : MonoBehaviour
         inventoryToggle.onValueChanged.AddListener((value) =>
         {
             InventoryActive(value);
+        }); 
+        pauseToggle.onValueChanged.AddListener((value) =>
+        {
+            Paused(value);
         });
     }
 
     // Update is called once per frame
     private void Update()
     {
-
+        EscapePressed(Input.GetButtonDown("Cancel"));
 
         if (!enabled) return;
 
@@ -54,6 +66,47 @@ public class UIController : MonoBehaviour
         {
             ChangeActiveToggle(1);
         }
+    }
+
+    private void EscapePressed(bool isPressed)
+    {
+        if (isPressed)
+        {
+            if (charging.activeSelf)
+            {
+                charging.SetActive(false);
+                focus.SetActive(false);
+            }
+            else if (factory.activeSelf)
+            {
+                factory.SetActive(false);
+                focus.SetActive(false);
+            }
+            else if (garage.activeSelf)
+            {
+                garage.SetActive(false);
+                focus.SetActive(false);
+            }
+            else if (shop.activeSelf)
+            {
+                shop.SetActive(false);
+                focus.SetActive(false);
+            }
+            else
+            {
+                pauseToggle.isOn = !pauseToggle.isOn;
+                Debug.Log("Toggled with esc");
+            }
+        }
+    }
+
+    public void Paused(bool isPressed)
+    {
+        rb.bodyType = isPressed ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
+        movementScript.enabled = !isPressed;
+        itemCollectorScript.enabled = !isPressed;
+        focus.SetActive(isPressed);
+        Debug.Log(isPressed);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -112,7 +165,7 @@ public class UIController : MonoBehaviour
         }
         if (collided)
         {
-            focus.SetActive(false);
+            focus.SetActive(pauseToggle.isOn);
         }
     }
 
