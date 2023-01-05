@@ -52,9 +52,10 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        EscapePressed(Input.GetButtonDown("Cancel"));
-
         if (!enabled) return;
+
+        EscapePressed(Input.GetButtonDown("Cancel"));
+        InventoryKeyPressed(Input.GetKeyDown(KeyCode.E));
 
         Vector2 mouseScrolling = Input.mouseScrollDelta;
 
@@ -65,6 +66,14 @@ public class UIController : MonoBehaviour
         if (mouseScrolling.y < 0)
         {
             ChangeActiveToggle(1);
+        }
+    }
+
+    private void InventoryKeyPressed(bool isPressed)
+    {
+        if (isPressed)
+        {
+            inventoryToggle.isOn = !inventoryToggle.isOn;
         }
     }
 
