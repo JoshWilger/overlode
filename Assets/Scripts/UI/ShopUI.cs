@@ -50,11 +50,12 @@ public class ShopUI : MonoBehaviour
             }
         }
 
-        UpdateText();
+        shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
         foreach (var item in shopItems)
         {
             item.amountCollected = 0;
         }
+        UpdateText();
     }
 
     private void OnEnable()

@@ -75,7 +75,6 @@ public class UIController : MonoBehaviour
             else
             {
                 pauseToggle.isOn = !pauseToggle.isOn;
-                Debug.Log("Toggled with esc");
             }
         }
     }

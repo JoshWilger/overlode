@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,17 @@ using UnityEngine.UI;
 
 public class HudUI : MonoBehaviour
 {
+    [SerializeField] private ItemAtlas atlas;
     [SerializeField] private Toggle inventoryToggle;
     [SerializeField] private GameObject inventoryActive;
     [SerializeField] private GameObject selectedItem;
     [SerializeField] private GameObject focus;
+    [SerializeField] private TextMeshProUGUI selectedItemQuantityText;
 
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
     public Toggle activeToggle;
+    private ItemClass[] shopItems;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +35,10 @@ public class HudUI : MonoBehaviour
         {
             InventoryActive(value);
         });
+        foreach (var item in shopItems)
+        {
+            item.amountCollected = 0;
+        }
     }
 
     // Update is called once per frame
@@ -38,6 +46,7 @@ public class HudUI : MonoBehaviour
     {
         if (!enabled) return;
 
+        UseItemKeyPressed(Input.GetButtonDown("Jump"));
         InventoryKeyPressed(Input.GetKeyDown(KeyCode.E));
 
         Vector2 mouseScrolling = Input.mouseScrollDelta;
@@ -51,6 +60,28 @@ public class HudUI : MonoBehaviour
             ChangeActiveToggle(1);
         }
     }
+
+    private void UseItemKeyPressed(bool isPressed)
+    {
+        if (isPressed)
+        {
+            shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
+            int currentIndex = Array.IndexOf(toggles, activeToggle);
+
+            if (shopItems[currentIndex].amountCollected - 1 >= 0)
+            {
+                var toggleText = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
+                shopItems[currentIndex].amountCollected--;
+                toggleText.text = "x" + shopItems[currentIndex].amountCollected;
+
+                if (selectedItemQuantityText.text != "")
+                {
+                    selectedItemQuantityText.text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
+                }
+            }
+        }
+    }
+
     private void InventoryKeyPressed(bool isPressed)
     {
         if (isPressed)
