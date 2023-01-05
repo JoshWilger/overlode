@@ -5805,7 +5805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
-  controller: {fileID: 1577181480}
+  controller: {fileID: 468181597}
   moneyText: {fileID: 1391833717}
   costText: {fileID: 195402302}
   selectedItemQuantityText: {fileID: 323617624}
@@ -6622,6 +6622,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 468181596}
+  - component: {fileID: 468181597}
   m_Layer: 5
   m_Name: Hud
   m_TagString: Untagged
@@ -6655,6 +6656,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &468181597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468181595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73aac18389d63554c89e2d309ac861b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryToggle: {fileID: 1598029544}
+  inventoryActive: {fileID: 806378737}
+  selectedItem: {fileID: 1582934386}
+  focus: {fileID: 222692589}
+  activeToggle: {fileID: 0}
 --- !u!1 &497426748
 GameObject:
   m_ObjectHideFlags: 0
@@ -19230,7 +19248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
-  controller: {fileID: 1577181480}
+  controller: {fileID: 468181597}
   moneyText: {fileID: 1391833717}
   sellButton: {fileID: 1065952855}
 --- !u!1 &1301642338
@@ -22864,7 +22882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
-  controller: {fileID: 1577181480}
+  controller: {fileID: 468181597}
   time: 0.5
   tileMiningDistance: 0.217
   breaking: {fileID: 829915474}
@@ -23023,16 +23041,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bf5ee6c5f667648860cb4d2006bc3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseToggle: {fileID: 2033704553}
-  inventoryToggle: {fileID: 1598029544}
-  inventoryActive: {fileID: 806378737}
-  selectedItem: {fileID: 1582934386}
+  hudController: {fileID: 468181597}
   focus: {fileID: 222692589}
   charging: {fileID: 1625807157}
   factory: {fileID: 1299802031}
   garage: {fileID: 1488862283}
   shop: {fileID: 420992233}
-  activeToggle: {fileID: 0}
+  pauseToggle: {fileID: 2033704553}
 --- !u!1 &1578190599
 GameObject:
   m_ObjectHideFlags: 0
