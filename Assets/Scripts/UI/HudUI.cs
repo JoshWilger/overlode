@@ -9,19 +9,20 @@ using UnityEngine.UI;
 public class HudUI : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private ItemUsage itemUsageScript;
     [SerializeField] private Toggle inventoryToggle;
     [SerializeField] private GameObject inventoryActive;
     [SerializeField] private GameObject selectedItem;
-    [SerializeField] private GameObject focus;
-    [SerializeField] private TextMeshProUGUI selectedItemQuantityText;
 
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
     public Toggle activeToggle;
     private ItemClass[] shopItems;
 
+    private enum ShopItemTypes { energy, health, teleport, dynamite, c4, block }
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         toggleGroup = inventoryActive.GetComponent<ToggleGroup>();
         toggles = inventoryActive.GetComponentsInChildren<Toggle>();
@@ -35,6 +36,9 @@ public class HudUI : MonoBehaviour
         {
             InventoryActive(value);
         });
+        selectedItem.GetComponent<Button>().onClick.AddListener(UseItemKeyPressed);
+
+        shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
         foreach (var item in shopItems)
         {
             item.amountCollected = 0;
@@ -42,11 +46,11 @@ public class HudUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!enabled) return;
 
-        UseItemKeyPressed(Input.GetButtonDown("Jump"));
+        if (Input.GetButtonDown("Jump")) UseItemKeyPressed();
         InventoryKeyPressed(Input.GetKeyDown(KeyCode.E));
 
         Vector2 mouseScrolling = Input.mouseScrollDelta;
@@ -61,24 +65,49 @@ public class HudUI : MonoBehaviour
         }
     }
 
-    private void UseItemKeyPressed(bool isPressed)
+    private void UseItemKeyPressed()
     {
-        if (isPressed)
+        shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
+        int currentIndex = Array.IndexOf(toggles, activeToggle);
+        TextMeshProUGUI selectedItemQuantityText = selectedItem.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (shopItems[currentIndex].amountCollected - 1 >= 0 && selectedItemQuantityText.text != "")
         {
-            shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
-            int currentIndex = Array.IndexOf(toggles, activeToggle);
-
-            if (shopItems[currentIndex].amountCollected - 1 >= 0)
+            switch (currentIndex)
             {
-                var toggleText = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
-                shopItems[currentIndex].amountCollected--;
-                toggleText.text = "x" + shopItems[currentIndex].amountCollected;
+                case (int)ShopItemTypes.energy:
+                    itemUsageScript.ActivateEnergy();
+                    break;
 
-                if (selectedItemQuantityText.text != "")
-                {
-                    selectedItemQuantityText.text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
-                }
+                case (int)ShopItemTypes.health:
+                    itemUsageScript.ActivateHealth();
+                    break;
+
+                case (int)ShopItemTypes.teleport:
+                    itemUsageScript.ActivateTeleport();
+                    break;
+
+                case (int)ShopItemTypes.dynamite:
+                    itemUsageScript.ActivateDynamite();
+                    break;
+
+                case (int)ShopItemTypes.c4:
+                    itemUsageScript.ActivateC4();
+                    break;
+
+                case (int)ShopItemTypes.block:
+                    itemUsageScript.ActivateBlock();
+                    break;
+
+                default:
+                    break;
             }
+
+            var toggleText = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
+            shopItems[currentIndex].amountCollected--;
+            toggleText.text = "x" + shopItems[currentIndex].amountCollected;
+
+            selectedItemQuantityText.text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
         }
     }
 
@@ -121,23 +150,19 @@ public class HudUI : MonoBehaviour
     {
         if (value)
         {
-            var image = selectedItem.GetComponentsInChildren<Image>().Last();
-            var rect = image.GetComponent<RectTransform>();
-
             var maybeActiveToggle = toggleGroup.ActiveToggles().FirstOrDefault();
             if (maybeActiveToggle)
             {
                 activeToggle = maybeActiveToggle;
             }
-            var image2 = activeToggle.GetComponentInChildren<Image>();
+            var selectedImage = selectedItem.GetComponentsInChildren<Image>().Last();
+            var activeImage = activeToggle.GetComponentInChildren<Image>();
 
-            image.sprite = image2.sprite;
+            selectedImage.sprite = activeImage.sprite;
 
-            var text = selectedItem.GetComponentInChildren<TextMeshProUGUI>();
-            var text2 = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
+            selectedItem.GetComponentInChildren<TextMeshProUGUI>().text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
 
-            text.text = text2.text;
-            rect.localScale = new Vector3(0.8f, 0.8f);
+            selectedImage.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f);
         }
     }
 

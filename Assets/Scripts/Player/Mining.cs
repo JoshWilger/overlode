@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
 
-public class ItemCollector : MonoBehaviour
+public class Mining : MonoBehaviour
 {
     private Rigidbody2D rb;
     private BoxCollider2D coll;

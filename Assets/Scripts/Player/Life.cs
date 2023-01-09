@@ -9,7 +9,7 @@ public class Life : MonoBehaviour
     private Animator anim;
     private BoxCollider2D coll;
     private Movement movementScript;
-    private ItemCollector itemCollectorScript;
+    private Mining MiningScript;
     private bool dead;
 
     [SerializeField] private Tilemap mineralTilemap;
@@ -21,7 +21,7 @@ public class Life : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         movementScript = GetComponent<Movement>();
-        itemCollectorScript = GetComponent<ItemCollector>();
+        MiningScript = GetComponent<Mining>();
     }
 
     private void Update()
@@ -44,7 +44,7 @@ public class Life : MonoBehaviour
     {
         dead = true;
         movementScript.enabled = false;
-        itemCollectorScript.enabled = false;
+        MiningScript.enabled = false;
         anim.SetTrigger("death");
         Debug.Log("Dying...");
         Invoke(nameof(RestartLevel), 1.1f);
@@ -55,7 +55,7 @@ public class Life : MonoBehaviour
         Debug.Log("Restarting...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         movementScript.enabled = true;
-        itemCollectorScript.enabled = true;
+        MiningScript.enabled = true;
         dead = false;
     }
 }

@@ -17,14 +17,14 @@ public class UIController : MonoBehaviour
     [SerializeField] public Toggle pauseToggle;
 
     private Movement movementScript;
-    private ItemCollector itemCollectorScript;
+    private Mining miningScript;
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
     private void Start()
     {
         movementScript = GetComponent<Movement>();
-        itemCollectorScript = GetComponent<ItemCollector>();
+        miningScript = GetComponent<Mining>();
         rb = GetComponent<Rigidbody2D>();
 
         pauseToggle.onValueChanged.AddListener((value) =>
@@ -43,7 +43,7 @@ public class UIController : MonoBehaviour
     {
         rb.bodyType = isPressed ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
         movementScript.enabled = !isPressed;
-        itemCollectorScript.enabled = !isPressed;
+        miningScript.enabled = !isPressed;
         hudController.enabled = !isPressed;
         focus.SetActive(isPressed);
     }
