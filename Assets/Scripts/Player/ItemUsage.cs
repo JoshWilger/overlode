@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ItemUsage : MonoBehaviour
 {
+    [SerializeField] private float dynamiteDelay;
+    [SerializeField] private float c4Delay;
     [SerializeField] private GameObject item;
-    private BoxCollider2D coll;
+    [SerializeField] private Tilemap baseTilemap;
+    [SerializeField] private Tilemap mineralTilemap;
 
     private Movement movementScript;
     private Mining miningScript;
+    private BoxCollider2D coll;
+    private Rigidbody2D rb;
     private Animator itemAnim;
-    private Transform itemMove;
 
     // Start is called before the first frame update
     private void Start()
@@ -18,8 +24,8 @@ public class ItemUsage : MonoBehaviour
         movementScript = GetComponent<Movement>();
         miningScript = GetComponent<Mining>();
         coll = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
         itemAnim = item.GetComponent<Animator>();
-        itemMove = item.GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -33,7 +39,7 @@ public class ItemUsage : MonoBehaviour
         float playerX = coll.bounds.center.x;
         float playerY = coll.bounds.center.y;
 
-        itemMove.position = new Vector3(playerX, playerY);
+        item.transform.position = new Vector3(playerX, playerY);
         itemAnim.SetTrigger(animationName);
     }
 
@@ -52,18 +58,58 @@ public class ItemUsage : MonoBehaviour
     public void ActivateTeleport()
     {
         Animate("teleport");
+        rb.bodyType = RigidbodyType2D.Static;
+        movementScript.enabled = false;
+        miningScript.enabled = false;
 
+        AnimationClip animation = itemAnim.runtimeAnimatorController.animationClips.Where((anim) => anim.name == "teleport").FirstOrDefault();
+        Invoke(nameof(RestOfTeleport), animation.length);
+    }
+
+    private void RestOfTeleport()
+    {
+        rb.position = new Vector3(8.5f, 1.5f);
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        movementScript.enabled = true;
+        miningScript.enabled = true;
     }
 
     public void ActivateDynamite()
     {
         Animate("dynamite");
+        Invoke(nameof(RestOfDynamite), dynamiteDelay);
+    }
 
+    private void RestOfDynamite()
+    {
+        RemoveTiles(3);
     }
 
     public void ActivateC4()
     {
         Animate("c4");
+        Invoke(nameof(RestOfC4), c4Delay);
+    }
+    
+    private void RestOfC4()
+    {
+        RemoveTiles(5);
+    }
+
+    private void RemoveTiles(int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                int x = Mathf.FloorToInt(item.transform.position.x) + i - size / 2;
+                int y = Mathf.FloorToInt(item.transform.position.y) + j - size / 2;
+
+                baseTilemap.SetTile(new Vector3Int(x, y), null);
+                mineralTilemap.SetTile(new Vector3Int(x, y), null);
+            }
+        }
+
 
     }
 

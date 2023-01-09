@@ -6778,6 +6778,7 @@ MonoBehaviour:
   inventoryToggle: {fileID: 1598029544}
   inventoryActive: {fileID: 806378737}
   selectedItem: {fileID: 1582934386}
+  itemCooldown: 1.5
   activeToggle: {fileID: 0}
 --- !u!1 &497426748
 GameObject:
@@ -23167,7 +23168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8bd318fbf65554f924a405cb9b55a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dynamiteDelay: 2.4
+  c4Delay: 0.4
   item: {fileID: 347971519}
+  baseTilemap: {fileID: 1262024722}
+  mineralTilemap: {fileID: 1663141666}
 --- !u!1 &1578190599
 GameObject:
   m_ObjectHideFlags: 0

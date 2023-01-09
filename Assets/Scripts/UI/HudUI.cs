@@ -13,11 +13,13 @@ public class HudUI : MonoBehaviour
     [SerializeField] private Toggle inventoryToggle;
     [SerializeField] private GameObject inventoryActive;
     [SerializeField] private GameObject selectedItem;
+    [SerializeField] private float itemCooldown;
 
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
     public Toggle activeToggle;
     private ItemClass[] shopItems;
+    private bool canActivateItem = true;
 
     private enum ShopItemTypes { energy, health, teleport, dynamite, c4, block }
 
@@ -41,7 +43,7 @@ public class HudUI : MonoBehaviour
         shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
         foreach (var item in shopItems)
         {
-            item.amountCollected = 0;
+            item.amountCollected = 1; // TESTING
         }
     }
 
@@ -71,8 +73,11 @@ public class HudUI : MonoBehaviour
         int currentIndex = Array.IndexOf(toggles, activeToggle);
         TextMeshProUGUI selectedItemQuantityText = selectedItem.GetComponentInChildren<TextMeshProUGUI>();
 
-        if (shopItems[currentIndex].amountCollected - 1 >= 0 && selectedItemQuantityText.text != "")
+        if (canActivateItem && shopItems[currentIndex].amountCollected - 1 >= 0 && selectedItemQuantityText.text != "")
         {
+            canActivateItem = false;
+            Invoke(nameof(ActivateItemTrue), itemCooldown);
+
             switch (currentIndex)
             {
                 case (int)ShopItemTypes.energy:
@@ -85,6 +90,7 @@ public class HudUI : MonoBehaviour
 
                 case (int)ShopItemTypes.teleport:
                     itemUsageScript.ActivateTeleport();
+                    //Debug.Log(nameof(ShopItemTypes.teleport));
                     break;
 
                 case (int)ShopItemTypes.dynamite:
@@ -104,11 +110,16 @@ public class HudUI : MonoBehaviour
             }
 
             var toggleText = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
-            shopItems[currentIndex].amountCollected--;
+            // TESTING shopItems[currentIndex].amountCollected--;
             toggleText.text = "x" + shopItems[currentIndex].amountCollected;
 
             selectedItemQuantityText.text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
         }
+    }
+
+    private void ActivateItemTrue()
+    {
+        canActivateItem = true;
     }
 
     private void InventoryKeyPressed(bool isPressed)
