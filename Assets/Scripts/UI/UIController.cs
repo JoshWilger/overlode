@@ -16,17 +16,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject shop;
     [SerializeField] public Toggle pauseToggle;
 
-    private Movement movementScript;
-    private Mining miningScript;
-    private Rigidbody2D rb;
-
     // Start is called before the first frame update
     private void Start()
     {
-        movementScript = GetComponent<Movement>();
-        miningScript = GetComponent<Mining>();
-        rb = GetComponent<Rigidbody2D>();
-
         pauseToggle.onValueChanged.AddListener((value) =>
         {
             Paused(value);
@@ -41,11 +33,12 @@ public class UIController : MonoBehaviour
 
     public void Paused(bool isPressed)
     {
-        rb.bodyType = isPressed ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
-        movementScript.enabled = !isPressed;
-        miningScript.enabled = !isPressed;
+        Time.timeScale = isPressed ? 0f : 1;
         hudController.enabled = !isPressed;
-        focus.SetActive(isPressed);
+        if (!(charging.activeSelf || factory.activeSelf || garage.activeSelf || shop.activeSelf))
+        {
+            focus.SetActive(isPressed);
+        }
     }
 
     private void EscapePressed(bool isPressed)
@@ -135,7 +128,7 @@ public class UIController : MonoBehaviour
         }
         if (collided)
         {
-            focus.SetActive(pauseToggle.isOn);
+            focus.SetActive(false);
         }
     }
 }

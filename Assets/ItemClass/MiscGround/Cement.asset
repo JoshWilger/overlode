@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0d82b938d3269743aebadb5df86e997, type: 3}
-  m_Name: CaveTop
+  m_Name: Cement
   m_EditorClassIdentifier: 
-  itemName: CaveTop
+  itemName: Cement
   itemDescription: 
-  placeableTile: {fileID: 11400000, guid: eb9e270c4058cb94abd529c5d330e13d, type: 2}
+  placeableTile: {fileID: 11400000, guid: 230ca9b1905002e468422f129253cda3, type: 2}
   itemType: 4
-  itemWorth: 100
+  itemWorth: 200
   amountCollected: 0

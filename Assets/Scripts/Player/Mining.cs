@@ -85,14 +85,14 @@ public class Mining : MonoBehaviour
 
         if (tile)
         {
-            if (tile.name == "pxy-border")
+            if (atlas.IsUnminable(tile.name))
             {
                 return false;
             }
         }
         if (mineral)
         {
-            if (mineral.name == "pxy-lava_2a" || mineral.name == "stone")
+            if (atlas.IsUnminable(mineral.name))
             {
                 return false;
             }
@@ -168,6 +168,7 @@ public class Mining : MonoBehaviour
             return new Vector3Int(10000, 10000);
         }
 
-        return new Vector3Int(Mathf.FloorToInt(playerX + directionAdders[currentDirectionNum, 0]), Mathf.FloorToInt(playerY + directionAdders[currentDirectionNum, 1]));
+        return new Vector3Int(Mathf.FloorToInt(playerX + directionAdders[currentDirectionNum, 0]), 
+            Mathf.FloorToInt(playerY + directionAdders[currentDirectionNum, 1]));
     }
 }

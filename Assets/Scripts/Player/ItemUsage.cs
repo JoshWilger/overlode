@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class ItemUsage : MonoBehaviour
 {
+    [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private HudUI hudUiScript;
     [SerializeField] private float dynamiteDelay;
     [SerializeField] private float c4Delay;
     [SerializeField] private GameObject item;
@@ -61,6 +63,7 @@ public class ItemUsage : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static;
         movementScript.enabled = false;
         miningScript.enabled = false;
+        hudUiScript.enabled = false;
 
         AnimationClip animation = itemAnim.runtimeAnimatorController.animationClips.Where((anim) => anim.name == "teleport").FirstOrDefault();
         Invoke(nameof(RestOfTeleport), animation.length);
@@ -72,6 +75,7 @@ public class ItemUsage : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         movementScript.enabled = true;
         miningScript.enabled = true;
+        hudUiScript.enabled = true;
     }
 
     public void ActivateDynamite()
@@ -102,15 +106,32 @@ public class ItemUsage : MonoBehaviour
         {
             for (int j = 0; j < size; j++)
             {
-                int x = Mathf.FloorToInt(item.transform.position.x) + i - size / 2;
-                int y = Mathf.FloorToInt(item.transform.position.y) + j - size / 2;
+                Vector3Int currentPosition = new(Mathf.FloorToInt(item.transform.position.x) + i - size / 2, 
+                    Mathf.FloorToInt(item.transform.position.y) + j - size / 2);
+                TileBase tile = baseTilemap.GetTile(currentPosition);
+                TileBase mineral = mineralTilemap.GetTile(currentPosition);
 
-                baseTilemap.SetTile(new Vector3Int(x, y), null);
-                mineralTilemap.SetTile(new Vector3Int(x, y), null);
+                if (tile)
+                {
+                    if (atlas.IsIndestructable(tile.name))
+                    {
+                        continue;
+                    }
+                }
+                if (mineral)
+                {
+                    if (atlas.IsIndestructable(mineral.name))
+                    {
+                        continue;
+                    }
+                }
+                if (tile || mineral)
+                {
+                    baseTilemap.SetTile(currentPosition, null);
+                    mineralTilemap.SetTile(currentPosition, null);
+                }
             }
         }
-
-
     }
 
     public void ActivateBlock()

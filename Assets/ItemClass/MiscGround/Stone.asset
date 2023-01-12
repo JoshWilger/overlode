@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   itemName: Stone
+  itemDescription: 
   placeableTile: {fileID: 11400000, guid: 9b14d21fef713a24293d61d3ccc61096, type: 2}
   itemType: 4
+  destructable: 1
   itemWorth: 10
+  amountCollected: 0
