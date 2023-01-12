@@ -134,9 +134,23 @@ public class ItemUsage : MonoBehaviour
         }
     }
 
-    public void ActivateBlock()
+    public void ActivateBlock(ItemClass blockItem)
     {
-        Animate("block");
+        int playerX = Mathf.FloorToInt(coll.bounds.center.x);
+        int playerY = Mathf.FloorToInt(coll.bounds.center.y);
+        int[,] directionAdders = new[,] { { 0, 1 }, { -1, 0 }, { 1, 0 } };
+        TileBase currentTile;
+
+        for (int i = 0; i < directionAdders.Length; i++)
+        {
+            currentTile = baseTilemap.GetTile(new Vector3Int(playerX + directionAdders[i, 0], playerY + directionAdders[i, 1]));
+            if (!currentTile)
+            {
+                transform.position = new Vector3(playerX + 0.5f + directionAdders[i, 0], playerY + directionAdders[i, 1]);
+                baseTilemap.SetTile(new Vector3Int(playerX, playerY), blockItem.placeableTile);
+                return;
+            }
+        }
 
     }
 }

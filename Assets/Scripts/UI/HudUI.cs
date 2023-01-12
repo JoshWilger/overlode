@@ -102,7 +102,7 @@ public class HudUI : MonoBehaviour
                     break;
 
                 case (int)ShopItemTypes.block:
-                    itemUsageScript.ActivateBlock();
+                    itemUsageScript.ActivateBlock(shopItems[currentIndex]);
                     break;
 
                 default:
