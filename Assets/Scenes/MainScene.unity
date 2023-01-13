@@ -22976,6 +22976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abfb539809bb5048bf6b741c69679ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hudUiScript: {fileID: 468181597}
   mineralTilemap: {fileID: 1663141666}
 --- !u!114 &1577181474
 MonoBehaviour:
