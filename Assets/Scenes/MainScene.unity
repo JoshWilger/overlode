@@ -6774,6 +6774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
+  miningScript: {fileID: 1577181474}
   itemUsageScript: {fileID: 1577181481}
   inventoryToggle: {fileID: 1598029544}
   inventoryActive: {fileID: 806378737}
