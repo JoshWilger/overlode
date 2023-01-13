@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: C4
   m_EditorClassIdentifier: 
   itemName: C4 Explosive
-  itemDescription: Blasts a 5x5 area clear when activated.
+  itemDescription: Creates a huge explosion removing a 5x5 area after a few seconds.
   placeableTile: {fileID: 0}
   itemType: 5
   itemWorth: 5000

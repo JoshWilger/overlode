@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dynamite
   m_EditorClassIdentifier: 
   itemName: Dynamite
-  itemDescription: Blasts a 3x3 area clear after a few seconds.
+  itemDescription: Blasts a 3x3 area clear after a moment or two.
   placeableTile: {fileID: 0}
   itemType: 5
   itemWorth: 2000

@@ -8,8 +8,7 @@ public class ItemUsage : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private HudUI hudUiScript;
-    [SerializeField] private float dynamiteDelay;
-    [SerializeField] private float c4Delay;
+    [SerializeField] private float explosionDelay;
     [SerializeField] private GameObject item;
     [SerializeField] private Tilemap baseTilemap;
     [SerializeField] private Tilemap mineralTilemap;
@@ -88,7 +87,7 @@ public class ItemUsage : MonoBehaviour
     public void ActivateDynamite()
     {
         Animate("dynamite");
-        Invoke(nameof(RestOfDynamite), dynamiteDelay);
+        Invoke(nameof(RestOfDynamite), explosionDelay);
     }
 
     private void RestOfDynamite()
@@ -100,7 +99,7 @@ public class ItemUsage : MonoBehaviour
     public void ActivateC4()
     {
         Animate("c4");
-        Invoke(nameof(RestOfC4), c4Delay);
+        Invoke(nameof(RestOfC4), explosionDelay);
     }
     
     private void RestOfC4()
@@ -165,7 +164,7 @@ public class ItemUsage : MonoBehaviour
 
     private void Finish()
     {
-        Destroy(items.First(), dynamiteDelay);
+        Destroy(items.First(), explosionDelay);
         items.Remove(items.First());
     }
 }

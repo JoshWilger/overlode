@@ -23171,8 +23171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   hudUiScript: {fileID: 468181597}
-  dynamiteDelay: 2.4
-  c4Delay: 0.4
+  explosionDelay: 2.4
   item: {fileID: 347971519}
   baseTilemap: {fileID: 1262024722}
   mineralTilemap: {fileID: 1663141666}
