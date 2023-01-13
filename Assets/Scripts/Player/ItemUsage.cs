@@ -15,6 +15,7 @@ public class ItemUsage : MonoBehaviour
 
     private Movement movementScript;
     private Mining miningScript;
+    private Energy energyScript;
     private BoxCollider2D coll;
     private Rigidbody2D rb;
     private Animator itemAnim;
@@ -25,6 +26,7 @@ public class ItemUsage : MonoBehaviour
     {
         movementScript = GetComponent<Movement>();
         miningScript = GetComponent<Mining>();
+        energyScript = GetComponent<Energy>();
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         itemAnim = item.GetComponent<Animator>();
@@ -51,7 +53,7 @@ public class ItemUsage : MonoBehaviour
     public void ActivateEnergy()
     {
         Animate("energy");
-
+        energyScript.energy = 1;
         Finish();
     }
 
@@ -69,6 +71,7 @@ public class ItemUsage : MonoBehaviour
         movementScript.enabled = false;
         miningScript.enabled = false;
         hudUiScript.enabled = false;
+        energyScript.decreaseEnergy = false;
 
         AnimationClip animation = itemAnim.runtimeAnimatorController.animationClips.Where((anim) => anim.name == "teleport").FirstOrDefault();
         Invoke(nameof(RestOfTeleport), animation.length);
@@ -81,6 +84,7 @@ public class ItemUsage : MonoBehaviour
         movementScript.enabled = true;
         miningScript.enabled = true;
         hudUiScript.enabled = true;
+        energyScript.decreaseEnergy = true;
         Finish();
     }
 

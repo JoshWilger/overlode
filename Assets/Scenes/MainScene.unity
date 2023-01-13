@@ -11762,7 +11762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5c1efd300ac89df4d9f9cfce174e13f4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c491816463bf22d48b7aafbdb321d28d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22938,6 +22938,7 @@ GameObject:
   - component: {fileID: 1577181472}
   - component: {fileID: 1577181480}
   - component: {fileID: 1577181481}
+  - component: {fileID: 1577181482}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -23176,6 +23177,22 @@ MonoBehaviour:
   item: {fileID: 347971519}
   baseTilemap: {fileID: 1262024722}
   mineralTilemap: {fileID: 1663141666}
+--- !u!114 &1577181482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577181471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff3ec927c3432848b6471a428a30d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyBar: {fileID: 1235079245}
+  energy: 0
+  energyLossAmount: 0.0001
+  decreaseEnergy: 0
 --- !u!1 &1578190599
 GameObject:
   m_ObjectHideFlags: 0
@@ -23818,6 +23835,7 @@ GameObject:
   - component: {fileID: 1625807158}
   - component: {fileID: 1625807160}
   - component: {fileID: 1625807159}
+  - component: {fileID: 1625807161}
   m_Layer: 5
   m_Name: Charging
   m_TagString: Untagged
@@ -23889,6 +23907,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1625807157}
   m_CullTransparentMesh: 1
+--- !u!114 &1625807161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625807157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354bf56d6fc0c4d43b5ebbf15f5472ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyScript: {fileID: 1577181482}
+  moneyText: {fileID: 1391833717}
+  pricePerLiter: 3
 --- !u!1 &1626156067
 GameObject:
   m_ObjectHideFlags: 0
@@ -24282,7 +24315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d2d2695e04502cc41b3ca6474397d025, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3550420306a27174ab865d108b5885d9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

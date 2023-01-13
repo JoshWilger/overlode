@@ -16,9 +16,12 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject shop;
     [SerializeField] public Toggle pauseToggle;
 
+    private Energy energyScript;
+
     // Start is called before the first frame update
     private void Start()
     {
+        energyScript = GetComponent<Energy>();
         pauseToggle.onValueChanged.AddListener((value) =>
         {
             Paused(value);
@@ -35,6 +38,7 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = isPressed ? 0f : 1;
         hudController.enabled = !isPressed;
+        energyScript.decreaseEnergy = !isPressed;
         if (!(charging.activeSelf || factory.activeSelf || garage.activeSelf || shop.activeSelf))
         {
             focus.SetActive(isPressed);
@@ -99,6 +103,7 @@ public class UIController : MonoBehaviour
         if (collided)
         {
             focus.SetActive(true);
+            energyScript.decreaseEnergy = false;
         }
     }
 
@@ -129,6 +134,7 @@ public class UIController : MonoBehaviour
         if (collided)
         {
             focus.SetActive(false);
+            energyScript.decreaseEnergy = true;
         }
     }
 }
