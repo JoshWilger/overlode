@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class HudUI : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private Mining miningScript;
     [SerializeField] private ItemUsage itemUsageScript;
     [SerializeField] private Toggle inventoryToggle;
     [SerializeField] private GameObject inventoryActive;
@@ -73,7 +74,10 @@ public class HudUI : MonoBehaviour
         int currentIndex = Array.IndexOf(toggles, activeToggle);
         TextMeshProUGUI selectedItemQuantityText = selectedItem.GetComponentInChildren<TextMeshProUGUI>();
 
-        if (canActivateItem && shopItems[currentIndex].amountCollected - 1 >= 0 && selectedItemQuantityText.text != "")
+        if (canActivateItem && 
+            miningScript.IsGrounded() && 
+            shopItems[currentIndex].amountCollected - 1 >= 0 && 
+            selectedItemQuantityText.text != "")
         {
             canActivateItem = false;
             Invoke(nameof(ActivateItemTrue), itemCooldown);
@@ -90,7 +94,6 @@ public class HudUI : MonoBehaviour
 
                 case (int)ShopItemTypes.teleport:
                     itemUsageScript.ActivateTeleport();
-                    //Debug.Log(nameof(ShopItemTypes.teleport));
                     break;
 
                 case (int)ShopItemTypes.dynamite:
