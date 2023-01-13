@@ -19,6 +19,7 @@ public class ItemUsage : MonoBehaviour
     private BoxCollider2D coll;
     private Rigidbody2D rb;
     private Animator itemAnim;
+    private List<GameObject> items;
 
     // Start is called before the first frame update
     private void Start()
@@ -28,6 +29,7 @@ public class ItemUsage : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         itemAnim = item.GetComponent<Animator>();
+        items = new();
     }
 
     // Update is called once per frame
@@ -40,8 +42,10 @@ public class ItemUsage : MonoBehaviour
     {
         float playerX = coll.bounds.center.x;
         float playerY = coll.bounds.center.y;
+        items.Add(Instantiate(item));
+        itemAnim = items.Last().GetComponent<Animator>();
 
-        item.transform.position = new Vector3(playerX, playerY);
+        items.Last().transform.position = new Vector3(playerX, playerY);
         itemAnim.SetTrigger(animationName);
     }
 
@@ -49,12 +53,14 @@ public class ItemUsage : MonoBehaviour
     {
         Animate("energy");
 
+        Finish();
     }
 
     public void ActivateHealth()
     {
         Animate("health");
 
+        Finish();
     }
 
     public void ActivateTeleport()
@@ -76,6 +82,7 @@ public class ItemUsage : MonoBehaviour
         movementScript.enabled = true;
         miningScript.enabled = true;
         hudUiScript.enabled = true;
+        Finish();
     }
 
     public void ActivateDynamite()
@@ -87,6 +94,7 @@ public class ItemUsage : MonoBehaviour
     private void RestOfDynamite()
     {
         RemoveTiles(3);
+        Finish();
     }
 
     public void ActivateC4()
@@ -98,6 +106,7 @@ public class ItemUsage : MonoBehaviour
     private void RestOfC4()
     {
         RemoveTiles(5);
+        Finish();
     }
 
     private void RemoveTiles(int size)
@@ -106,8 +115,8 @@ public class ItemUsage : MonoBehaviour
         {
             for (int j = 0; j < size; j++)
             {
-                Vector3Int currentPosition = new(Mathf.FloorToInt(item.transform.position.x) + i - size / 2, 
-                    Mathf.FloorToInt(item.transform.position.y) + j - size / 2);
+                Vector3Int currentPosition = new(Mathf.FloorToInt(items.First().transform.position.x) + i - size / 2, 
+                    Mathf.FloorToInt(items.First().transform.position.y) + j - size / 2);
                 TileBase tile = baseTilemap.GetTile(currentPosition);
                 TileBase mineral = mineralTilemap.GetTile(currentPosition);
 
@@ -152,5 +161,11 @@ public class ItemUsage : MonoBehaviour
             }
         }
 
+    }
+
+    private void Finish()
+    {
+        Destroy(items.First(), dynamiteDelay);
+        items.Remove(items.First());
     }
 }

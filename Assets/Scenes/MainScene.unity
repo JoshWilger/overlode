@@ -6778,7 +6778,7 @@ MonoBehaviour:
   inventoryToggle: {fileID: 1598029544}
   inventoryActive: {fileID: 806378737}
   selectedItem: {fileID: 1582934386}
-  itemCooldown: 1.5
+  itemCooldown: 0.5
   activeToggle: {fileID: 0}
 --- !u!1 &497426748
 GameObject:

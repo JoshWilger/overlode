@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class Life : MonoBehaviour
 {
+    [SerializeField] private HudUI hudUiScript;
+
     private Animator anim;
     private BoxCollider2D coll;
     private Movement movementScript;
     private Mining miningScript;
-    private ItemUsage itemUsageScript;
     private bool dead;
 
     [SerializeField] private Tilemap mineralTilemap;
@@ -23,7 +24,6 @@ public class Life : MonoBehaviour
         anim = GetComponent<Animator>();
         movementScript = GetComponent<Movement>();
         miningScript = GetComponent<Mining>();
-        itemUsageScript = GetComponent<ItemUsage>();
     }
 
     private void Update()
@@ -47,7 +47,7 @@ public class Life : MonoBehaviour
         dead = true;
         movementScript.enabled = false;
         miningScript.enabled = false;
-        itemUsageScript.enabled = false;
+        hudUiScript.enabled = false;
         anim.SetTrigger("death");
         Debug.Log("Dying...");
         Invoke(nameof(RestartLevel), 1.1f);
@@ -59,7 +59,7 @@ public class Life : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         movementScript.enabled = true;
         miningScript.enabled = true;
-        itemUsageScript.enabled = true;
+        hudUiScript.enabled = true;
         dead = false;
     }
 }
