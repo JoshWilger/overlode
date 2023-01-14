@@ -16,6 +16,7 @@ public class ItemUsage : MonoBehaviour
     private Movement movementScript;
     private Mining miningScript;
     private Energy energyScript;
+    private Health healthScript;
     private BoxCollider2D coll;
     private Rigidbody2D rb;
     private Animator itemAnim;
@@ -27,6 +28,7 @@ public class ItemUsage : MonoBehaviour
         movementScript = GetComponent<Movement>();
         miningScript = GetComponent<Mining>();
         energyScript = GetComponent<Energy>();
+        healthScript = GetComponent<Health>();
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         itemAnim = item.GetComponent<Animator>();
@@ -54,13 +56,15 @@ public class ItemUsage : MonoBehaviour
     {
         Animate("energy");
         energyScript.energy = 1;
+        energyScript.UpdateEnergyBar();
         Finish();
     }
 
     public void ActivateHealth()
     {
         Animate("health");
-
+        healthScript.health = 1;
+        healthScript.UpdateHealthBar();
         Finish();
     }
 

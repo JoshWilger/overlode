@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Energy : MonoBehaviour
 {
-    [SerializeField] public Image energyBar;
+    [SerializeField] private Image energyBar;
 
     public float energy;
     public float energyLossAmount;

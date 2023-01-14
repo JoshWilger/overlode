@@ -13,6 +13,7 @@ public class Life : MonoBehaviour
     private Movement movementScript;
     private Mining miningScript;
     private Energy energyScript;
+    private Health healthScript;
     private bool dead;
 
     [SerializeField] private Tilemap mineralTilemap;
@@ -26,6 +27,7 @@ public class Life : MonoBehaviour
         movementScript = GetComponent<Movement>();
         miningScript = GetComponent<Mining>();
         energyScript = GetComponent<Energy>();
+        healthScript = GetComponent<Health>();
     }
 
     private void Update()
@@ -43,6 +45,10 @@ public class Life : MonoBehaviour
             }
         }
         else if (energyScript.energy <= 0)
+        {
+            Die();
+        }
+        else if (healthScript.health <= 0)
         {
             Die();
         }

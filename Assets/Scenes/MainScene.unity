@@ -5827,6 +5827,7 @@ GameObject:
   - component: {fileID: 420992236}
   - component: {fileID: 420992235}
   - component: {fileID: 420992237}
+  - component: {fileID: 420992238}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -5915,6 +5916,25 @@ MonoBehaviour:
   costText: {fileID: 195402302}
   selectedItemQuantityText: {fileID: 323617624}
   purchaseButton: {fileID: 1733492764}
+--- !u!114 &420992238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420992233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a0787d266c09b47a29672d1fc3f82d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthScript: {fileID: 1577181483}
+  moneyText: {fileID: 1391833717}
+  pricePerLiter: 15
+  healthProgress: {fileID: 1244294920}
+  progressText: {fileID: 402021599}
+  costText: {fileID: 1430325255}
+  refillButton: {fileID: 215077322}
 --- !u!1 &422262493
 GameObject:
   m_ObjectHideFlags: 0
@@ -22939,6 +22959,7 @@ GameObject:
   - component: {fileID: 1577181480}
   - component: {fileID: 1577181481}
   - component: {fileID: 1577181482}
+  - component: {fileID: 1577181483}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -23193,6 +23214,26 @@ MonoBehaviour:
   energy: 0
   energyLossAmount: 0.0001
   decreaseEnergy: 0
+--- !u!114 &1577181483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577181471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f32b9a258496564d8f997cfff6a5cd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
+  healthBar: {fileID: 386488571}
+  xVelocityDamageThreshold: 14
+  yVelocityDamageThreshold: 8
+  damageCooldownTime: 0.5
+  health: 0
 --- !u!1 &1578190599
 GameObject:
   m_ObjectHideFlags: 0
