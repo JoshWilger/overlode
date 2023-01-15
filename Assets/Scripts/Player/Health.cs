@@ -10,11 +10,14 @@ public class Health : MonoBehaviour
     [SerializeField] private float xVelocityDamageThreshold;
     [SerializeField] private float yVelocityDamageThreshold;
     [SerializeField] private float damageCooldownTime;
+    [SerializeField] private Animator hurt;
 
     public float health;
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private bool canBeDamaged;
+    private bool hasHitCeil;
+    private bool hasHitWall;
 
     // Start is called before the first frame update
     void Start()
@@ -23,17 +26,49 @@ public class Health : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         health = 1;
         canBeDamaged = true;
+        hasHitCeil = false;
+        hasHitWall = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsGrounded() && rb.velocity.y < -yVelocityDamageThreshold && canBeDamaged)
+        if (!IsWall(Vector2.up))
+        {
+            hasHitCeil = false;
+        }
+        if (!IsWall(Vector2.left) || !IsWall(Vector2.right))
+        {
+            hasHitWall = false;
+        }
+        if (IsWall(Vector2.up) && Mathf.Abs(rb.velocity.y) > yVelocityDamageThreshold && canBeDamaged && !hasHitCeil)
+        {
+            canBeDamaged = false;
+            hasHitCeil = true;
+            var damage = (Mathf.Abs(rb.velocity.y) - xVelocityDamageThreshold) / xVelocityDamageThreshold;
+
+            Debug.Log("Ow! " + damage);
+            UpdateHealth(damage);
+            Invoke(nameof(DamageCooldown), damageCooldownTime);
+        }
+        else if (IsWall(Vector2.down) && rb.velocity.y < -yVelocityDamageThreshold && canBeDamaged)
         {
             canBeDamaged = false;
             var damage = Mathf.Abs(rb.velocity.y + yVelocityDamageThreshold) / yVelocityDamageThreshold;
 
-            Debug.Log(damage);
+            Debug.Log("Ahh! " + damage);
+            UpdateHealth(damage);
+            Invoke(nameof(DamageCooldown), damageCooldownTime);
+        }
+
+        else if ((IsWall(Vector2.left) || IsWall(Vector2.right)) && Mathf.Abs(rb.velocity.x) > xVelocityDamageThreshold && canBeDamaged && !hasHitCeil)
+        {
+            canBeDamaged = false;
+            hasHitWall = true;
+            var damage = (Mathf.Abs(rb.velocity.x) - xVelocityDamageThreshold) / xVelocityDamageThreshold;
+
+            Debug.Log("Oof! " + damage);
             UpdateHealth(damage);
             Invoke(nameof(DamageCooldown), damageCooldownTime);
         }
@@ -48,6 +83,7 @@ public class Health : MonoBehaviour
     {
         health -= removalAmount;
         UpdateHealthBar();
+        hurt.SetTrigger("hurt");
     }
 
     public void UpdateHealthBar()
@@ -55,27 +91,8 @@ public class Health : MonoBehaviour
         healthBar.fillAmount = health;
     }
 
-    private bool IsGrounded()
+    private bool IsWall(Vector2 direction)
     {
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, ground);
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, direction, 0.1f, ground);
     }
-
-    /*    private void OnCollisionEnter2D(Collision2D collision)
-        {
-            ApplyCollisionDamage(collision);
-        }
-
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            ApplyCollisionDamage(collision);
-        }
-
-        private void ApplyCollisionDamage(Collision2D collision)
-        {
-            if (collision.relativeVelocity.x >= xVelocityDamageThreshold || collision.relativeVelocity.y >= yVelocityDamageThreshold)
-            {
-                Debug.Log(collision.relativeVelocity);
-                UpdateHealth(Mathf.Max(collision.relativeVelocity.x, collision.relativeVelocity.y) / 100f);
-            }
-        }*/
 }

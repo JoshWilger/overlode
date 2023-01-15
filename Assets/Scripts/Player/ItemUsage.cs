@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -147,6 +148,20 @@ public class ItemUsage : MonoBehaviour
                     mineralTilemap.SetTile(currentPosition, null);
                 }
             }
+        }
+        DoDamageIfClose(size);
+    }
+
+    private void DoDamageIfClose(int size)
+    {
+        float playerX = coll.bounds.center.x;
+        float playerY = coll.bounds.center.y;
+        float distance = Mathf.Max(Mathf.Abs(playerX - items.First().transform.position.x), Math.Abs(playerY - items.First().transform.position.y));
+
+        if (distance <= size / 2f)
+        {
+            var damage = 1 - (distance / (size / 2f));
+            healthScript.UpdateHealth(damage);
         }
     }
 
