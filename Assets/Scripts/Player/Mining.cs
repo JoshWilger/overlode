@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
+using UnityEngine.UI;
 
 public class Mining : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class Mining : MonoBehaviour
     private ItemClass[] artifacts;
     private ItemClass[] minerals;
     private TextMeshProUGUI[] inventoryMineralTexts;
+    private Image[] inventoryMineralImages;
 
     // Start is called before the first frame update
     private void Start()
@@ -41,6 +43,7 @@ public class Mining : MonoBehaviour
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
         inventoryMineralTexts = controller.RetrieveInventoryText(ItemClass.ItemType.mineral);
+        inventoryMineralImages = controller.RetrieveInventoryImage(ItemClass.ItemType.mineral);
 
         foreach (var item in minerals)
         {
@@ -138,6 +141,10 @@ public class Mining : MonoBehaviour
                 {
                     minerals[i].amountCollected++;
                     inventoryMineralTexts[i].text = "x" + minerals[i].amountCollected;
+                    inventoryMineralTexts[i].alpha = 1;
+
+                    var color = inventoryMineralImages[i].color;
+                    inventoryMineralImages[i].color = new(color.r, color.g, color.b, 1);
                     return;
                 }
             }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,8 @@ public class FactoryUI : MonoBehaviour
     private TextMeshProUGUI[] mineralInfo;
     private ItemClass[] minerals;
     private TextMeshProUGUI[] inventoryMineralTexts;
+    private Image[] inventoryMineralImages;
+    private Image[] mineralImages;
 
     // Start is called before the first frame update
     private void Awake()
@@ -25,6 +28,8 @@ public class FactoryUI : MonoBehaviour
         quantity = new TextMeshProUGUI[children.Length / 2 - 1];
         mineralInfo = new TextMeshProUGUI[children.Length / 2 - 1];
         inventoryMineralTexts = controller.RetrieveInventoryText(ItemClass.ItemType.mineral);
+        inventoryMineralImages = controller.RetrieveInventoryImage(ItemClass.ItemType.mineral);
+        mineralImages = GetComponentsInChildren<Image>().Where((mineral) => mineral.name.Contains("Mineral")).ToArray();
 
         for (int i = 0; i < children.Length; i++)
         {
@@ -48,7 +53,7 @@ public class FactoryUI : MonoBehaviour
     {
         sellButton.onClick.AddListener(SellAll);
 
-        UpdateText();
+        UpdateInfo();
     }
 
     private void OnDisable()
@@ -56,7 +61,7 @@ public class FactoryUI : MonoBehaviour
         sellButton.onClick.RemoveAllListeners();
     }
 
-    private void UpdateText()
+    private void UpdateInfo()
     {
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
         long totalCounter = 0;
@@ -65,6 +70,8 @@ public class FactoryUI : MonoBehaviour
         {
             long addMe = minerals[i].amountCollected * minerals[i].itemWorth;
 
+            UpdateAlpha(i);
+
             quantity[i].text = "x" + minerals[i].amountCollected;
             inventoryMineralTexts[i].text = "x" + minerals[i].amountCollected;
             mineralInfo[i].text = minerals[i].itemName + " \t($" + minerals[i].itemWorth + ")\n$" + addMe;
@@ -72,6 +79,30 @@ public class FactoryUI : MonoBehaviour
         }
 
         total.text = "Total: $" + totalCounter;
+        sellButton.interactable = totalCounter > 0;
+    }
+
+    private void UpdateAlpha(int i)
+    {
+        var color = mineralImages[i].color;
+        var invColor = inventoryMineralImages[i].color;
+
+        if (minerals[i].amountCollected == 0)
+        {
+            mineralImages[i].color = new(color.r, color.g, color.b, controller.disabledTransparency);
+            quantity[i].alpha = controller.disabledTransparency;
+            mineralInfo[i].alpha = controller.disabledTransparency;
+            inventoryMineralImages[i].color = new(invColor.r, invColor.g, invColor.b, controller.disabledTransparency);
+            inventoryMineralTexts[i].alpha = controller.disabledTransparency;
+        }
+        else
+        {
+            mineralImages[i].color = new(color.r, color.g, color.b, 1);
+            quantity[i].alpha = 1;
+            mineralInfo[i].alpha = 1;
+            inventoryMineralImages[i].color = new(invColor.r, invColor.g, invColor.b, 1);
+            inventoryMineralTexts[i].alpha = 1;
+        }
     }
 
     private void SellAll()
@@ -82,7 +113,7 @@ public class FactoryUI : MonoBehaviour
         {
             item.amountCollected = 0;
         }
-        UpdateText();
+        UpdateInfo();
         moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + tempTotal);
     }
 }

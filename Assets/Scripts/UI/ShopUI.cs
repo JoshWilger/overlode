@@ -20,16 +20,25 @@ public class ShopUI : MonoBehaviour
     private TextMeshProUGUI[] quantity;
     private ItemClass[] shopItems;
     private TextMeshProUGUI[] inventoryShopItemTexts;
+    private Image[] inventoryShopItemImages;
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
+    private Image[] shopItemImages;
     private int currentIndex = 0;
 
     // Start is called before the first frame update
     private void Awake()
     {
         inventoryShopItemTexts = controller.RetrieveInventoryText(ItemClass.ItemType.shopItem);
+        inventoryShopItemImages = controller.RetrieveInventoryImage(ItemClass.ItemType.shopItem);
         toggleGroup = GetComponentInChildren<ToggleGroup>();
         toggles = toggleGroup.GetComponentsInChildren<Toggle>();
+
+        shopItemImages = new Image[toggles.Length];
+        for (int i = 0; i < toggles.Length; i++)
+        {
+            shopItemImages[i] = toggles[i].image;
+        }
 
         TextMeshProUGUI[] children = GetComponentsInChildren<TextMeshProUGUI>();
         quantity = new TextMeshProUGUI[6];
@@ -48,12 +57,6 @@ public class ShopUI : MonoBehaviour
             {
                 quantity[i - 2] = children[i];
             }
-        }
-
-        shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
-        foreach (var item in shopItems)
-        {
-            item.amountCollected = 0;
         }
         UpdateText();
     }
@@ -82,13 +85,45 @@ public class ShopUI : MonoBehaviour
 
         for (int i = 0; i < shopItems.Length; i++)
         {
+            UpdateAlpha(i);
+
             quantity[i].text = "x" + shopItems[i].amountCollected;
             inventoryShopItemTexts[i].text = "x" + shopItems[i].amountCollected;
         }
 
         if (selectedItemQuantityText.text != "")
         {
-            selectedItemQuantityText.text = controller.activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
+            controller.UpdateInfo();
+        }
+        purchaseButton.interactable = long.Parse(moneyText.text.Substring(1)) - shopItems[currentIndex].itemWorth >= 0;
+    }
+
+    private void UpdateAlpha(int i)
+    {
+        var money = long.Parse(moneyText.text.Substring(1));
+
+        var color = shopItemImages[i].color;
+        if (money - shopItems[i].itemWorth < 0)
+        {
+            shopItemImages[i].color = new(color.r, color.g, color.b, controller.disabledTransparency);
+        }
+        else
+        {
+            shopItemImages[i].color = new(color.r, color.g, color.b, 1);
+        }
+        
+        var invColor = inventoryShopItemImages[i].color;
+        if (shopItems[i].amountCollected == 0)
+        {
+            quantity[i].alpha = controller.disabledTransparency;
+            inventoryShopItemImages[i].color = new(invColor.r, invColor.g, invColor.b, controller.disabledTransparency);
+            inventoryShopItemTexts[i].alpha = controller.disabledTransparency;
+        }
+        else
+        {
+            quantity[i].alpha = 1;
+            inventoryShopItemImages[i].color = new(invColor.r, invColor.g, invColor.b, 1);
+            inventoryShopItemTexts[i].alpha = 1;
         }
     }
 
@@ -113,6 +148,7 @@ public class ShopUI : MonoBehaviour
             shopItemNameText.text = shopItems[currentIndex].itemName;
             shopItemDescriptionText.text = shopItems[currentIndex].itemDescription;
             costText.text = "Cost: $" + shopItems[currentIndex].itemWorth;
+            purchaseButton.interactable = long.Parse(moneyText.text.Substring(1)) - shopItems[currentIndex].itemWorth >= 0;
         }
     }
 }

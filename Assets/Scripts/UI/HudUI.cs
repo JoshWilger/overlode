@@ -15,12 +15,15 @@ public class HudUI : MonoBehaviour
     [SerializeField] private GameObject inventoryActive;
     [SerializeField] private GameObject selectedItem;
     [SerializeField] private float itemCooldown;
+    [SerializeField] public float disabledTransparency;
 
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
     public Toggle activeToggle;
     private ItemClass[] shopItems;
     private bool canActivateItem = true;
+    private TextMeshProUGUI[] invTexts;
+    private Image[] shopImages;
 
     private enum ShopItemTypes { energy, health, teleport, dynamite, c4, block }
 
@@ -44,7 +47,23 @@ public class HudUI : MonoBehaviour
         shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
         foreach (var item in shopItems)
         {
-            item.amountCollected = 1; // TESTING
+            item.amountCollected = 10; // TESTING
+        }
+
+        invTexts = RetrieveInventoryText(ItemClass.ItemType.miscGround);
+        foreach (var item in invTexts)
+        {
+            item.alpha = disabledTransparency;
+        }
+        shopImages = RetrieveInventoryImage(ItemClass.ItemType.shopItem);
+        foreach (var item in shopImages)
+        {
+            item.color = new(item.color.r, item.color.g, item.color.b, disabledTransparency);
+        }
+        var mineralImages = RetrieveInventoryImage(ItemClass.ItemType.mineral);
+        foreach (var item in mineralImages)
+        {
+            item.color = new(item.color.r, item.color.g, item.color.b, disabledTransparency);
         }
     }
 
@@ -111,13 +130,40 @@ public class HudUI : MonoBehaviour
                 default:
                     break;
             }
+            shopItems[currentIndex].amountCollected--;
 
-            var toggleText = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
-            // TESTING shopItems[currentIndex].amountCollected--;
-            toggleText.text = "x" + shopItems[currentIndex].amountCollected;
-
-            selectedItemQuantityText.text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
+            UpdateInfo();
         }
+    }
+
+    public void UpdateInfo()
+    {
+        TextMeshProUGUI selectedItemQuantityText = selectedItem.GetComponentInChildren<TextMeshProUGUI>();
+        Image selectedItemImage = selectedItem.GetComponentsInChildren<Image>().Last();
+        int currentIndex = Array.IndexOf(toggles, activeToggle);
+        var toggleText = activeToggle.GetComponentInChildren<TextMeshProUGUI>();
+
+        toggleText.text = "x" + shopItems[currentIndex].amountCollected;
+
+        var color = shopImages[currentIndex].color;
+        var selTextColor = selectedItemQuantityText.color;
+        var selImageColor = selectedItemImage.color;
+        if (shopItems[currentIndex].amountCollected == 0)
+        {
+            invTexts[currentIndex].alpha = disabledTransparency;
+            shopImages[currentIndex].color = new(color.r, color.g, color.b, disabledTransparency);
+            selectedItemQuantityText.color = new(selTextColor.r, selTextColor.g, selTextColor.b, disabledTransparency);
+            selectedItemImage.color = new(selImageColor.r, selImageColor.g, selImageColor.b, disabledTransparency);
+        }
+        else
+        {
+            invTexts[currentIndex].alpha = 1;
+            shopImages[currentIndex].color = new(color.r, color.g, color.b, 1);
+            selectedItemQuantityText.color = new(selTextColor.r, selTextColor.g, selTextColor.b, 1);
+            selectedItemImage.color = new(selImageColor.r, selImageColor.g, selImageColor.b, 1);
+        }
+
+        selectedItemQuantityText.text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;        
     }
 
     private void ActivateItemTrue()
@@ -160,6 +206,29 @@ public class HudUI : MonoBehaviour
         return inventoryTexts;
     }
 
+    public Image[] RetrieveInventoryImage(ItemClass.ItemType type)
+    {
+        if (type == ItemClass.ItemType.shopItem)
+        {
+            Image[] images = new Image[toggles.Length];
+
+            for (int i = 0; i < toggles.Length; i++)
+            {
+                images[i] = toggles[i].image;
+            }
+
+            return images;
+        }
+        else
+        {
+            Image[] children = inventoryActive.GetComponentsInChildren<Image>();
+
+            return type == ItemClass.ItemType.mineral ? children.Where((mineral) => mineral.name.Contains("Mineral")).ToArray() : children;
+        }
+
+
+    }
+
     private void SelectedItem(bool value)
     {
         if (value)
@@ -177,6 +246,7 @@ public class HudUI : MonoBehaviour
             selectedItem.GetComponentInChildren<TextMeshProUGUI>().text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
 
             selectedImage.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f);
+            UpdateInfo();
         }
     }
 

@@ -41,10 +41,15 @@ public class ChargingUI : MonoBehaviour
 
     private void UpdateEnergy()
     {
+        long money = long.Parse(moneyText.text.Substring(1));
+        int cost = Mathf.CeilToInt((1 - energyScript.energy) * 10f * pricePerLiter);
+
         energyProgress.fillAmount = energyScript.energy;
 
         progressText.text = Mathf.FloorToInt(energyScript.energy * 10f) + " /  10 L";
-        costText.text = "$" + Mathf.CeilToInt((1 - energyScript.energy) * 10f * pricePerLiter);
+        costText.text = "$" + cost;
+
+        refillButton.interactable = money > 0 && energyScript.energy != 1;
     }
 
     private void RefillEnergy()

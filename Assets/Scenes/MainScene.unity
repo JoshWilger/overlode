@@ -6898,6 +6898,7 @@ MonoBehaviour:
   inventoryActive: {fileID: 806378737}
   selectedItem: {fileID: 1582934386}
   itemCooldown: 0.5
+  disabledTransparency: 0.4
   activeToggle: {fileID: 0}
 --- !u!1 &497426748
 GameObject:
@@ -24800,7 +24801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1661151287
 RectTransform:
   m_ObjectHideFlags: 0
