@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Block
   m_EditorClassIdentifier: 
   itemName: Compact Matter
-  itemDescription: Places unretrievable ground beneath you.
+  itemDescription: Places unretrievable ground where you are standing.
   placeableTile: {fileID: 11400000, guid: d4d6356d601028a4799d2dff39ebb2f2, type: 2}
   itemType: 5
   itemWorth: 3000
-  amountCollected: 1
+  amountCollected: 5
