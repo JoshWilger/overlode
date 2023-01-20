@@ -10,6 +10,7 @@ public class ItemClass : ScriptableObject
     public string itemDescription;
     public TileBase placeableTile;
     public ItemType itemType;
+    public ItemClass upgradeType;
     public long itemWorth;
     public int amountCollected = 0;
 
@@ -20,6 +21,8 @@ public class ItemClass : ScriptableObject
         artifact,
         background,
         miscGround,
-        shopItem
+        shopItem,
+        upgrade,
+        upgradeType
     };
 }

@@ -63,8 +63,6 @@ public class ShopUI : MonoBehaviour
 
     private void OnEnable()
     {
-        toggleGroup.SetAllTogglesOff();
-
         foreach (var item in toggles)
         {
             item.onValueChanged.AddListener(UpdateItemInfo);
@@ -77,6 +75,10 @@ public class ShopUI : MonoBehaviour
     private void OnDisable()
     {
         purchaseButton.onClick.RemoveAllListeners();
+        foreach (var item in toggles)
+        {
+            item.onValueChanged.RemoveAllListeners();
+        }
     }
 
     private void UpdateText()
