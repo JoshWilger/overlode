@@ -13,10 +13,9 @@ public class Movement : MonoBehaviour
     public float dirX;
     public float dirY;
 
+    [SerializeField] private ItemAtlas atlas;
     [SerializeField] private LayerMask ground;
     [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private float flySpeed = 10f;
-    [SerializeField] private float jumpForce = 3f;
     [SerializeField] private float playerToCeilGap = 0.1f;
 
     private enum MovementState { idle, walking, flying, falling, drillup, drilldown, drillside }
@@ -39,16 +38,14 @@ public class Movement : MonoBehaviour
         dirY = Input.GetAxis("Vertical");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
-        if (dirY > 0f)
+        var amount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.jetpack] / 5f;
+        if (dirY > 0f && (!IsGrounded() || !IsACeiling()))
         {
-            if (!IsGrounded())
-            {
-                rb.velocity = new Vector2(dirX * flySpeed, dirY * jumpForce);
-            }
-            else if (!IsACeiling())
-            {
-                rb.velocity = new Vector2(dirX * flySpeed, dirY * jumpForce);
-            }
+            rb.velocity = new Vector2(dirX * amount, dirY * amount);
+        }
+        else if (dirX != 0f && (!IsGrounded()))
+        {
+            rb.velocity = new Vector2(dirX * amount, MathF.Abs(dirX / (amount *  20)));
         }
 
         UpdateAnimationState();

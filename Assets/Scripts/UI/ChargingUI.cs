@@ -43,7 +43,7 @@ public class ChargingUI : MonoBehaviour
     private void UpdateEnergy()
     {
         long money = long.Parse(moneyText.text.Substring(1));
-        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.battery];
+        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery];
 
         int cost = Mathf.CeilToInt((1 - energyScript.energy) * upgradeAmount * pricePerLiter);
 
@@ -58,7 +58,7 @@ public class ChargingUI : MonoBehaviour
     private void RefillEnergy()
     {
         long money = long.Parse(moneyText.text.Substring(1));
-        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.battery];
+        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery];
 
         int cost = Mathf.CeilToInt((1 - energyScript.energy) * upgradeAmount * pricePerLiter);
 

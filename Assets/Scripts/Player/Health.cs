@@ -38,7 +38,7 @@ public class Health : MonoBehaviour
         {
             hasHitCeil = false;
         }
-        if (!IsWall(Vector2.left) || !IsWall(Vector2.right))
+        if (!(IsWall(Vector2.left) || IsWall(Vector2.right)))
         {
             hasHitWall = false;
         }
@@ -62,7 +62,7 @@ public class Health : MonoBehaviour
             Invoke(nameof(DamageCooldown), damageCooldownTime);
         }
 
-        else if ((IsWall(Vector2.left) || IsWall(Vector2.right)) && Mathf.Abs(rb.velocity.x) > xVelocityDamageThreshold && canBeDamaged && !hasHitCeil)
+        else if ((IsWall(Vector2.left) || IsWall(Vector2.right)) && Mathf.Abs(rb.velocity.x) > xVelocityDamageThreshold && canBeDamaged && !hasHitWall)
         {
             canBeDamaged = false;
             hasHitWall = true;

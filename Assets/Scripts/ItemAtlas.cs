@@ -15,7 +15,7 @@ public class ItemAtlas : ScriptableObject
 
     public float[] currentUpgradeAmounts = { 10f, 20f, 7f, 10f, 150f, 0f };
 
-    public enum upgradeTypes
+    public enum UpgradeTypes
     {
         battery,
         drill,
@@ -88,24 +88,14 @@ public class ItemAtlas : ScriptableObject
 
     public long GroundWorth(TileBase tile)
     {
-        var getGround = CreateInstance(ItemClass.ItemType.ground);
-        var getMisc = CreateInstance(ItemClass.ItemType.miscGround);
-
-        foreach (var item in getGround)
+        foreach (var item in items)
         {
             if (item.placeableTile == tile)
             {
-                return item.itemWorth;
+                return item.itemType == ItemClass.ItemType.shopItem ? item.itemWorth / 100 : item.itemWorth;
             }
         }
 
-        foreach (var item in getMisc)
-        {
-            if (item.placeableTile == tile)
-            {
-                return item.itemWorth;
-            }
-        }
         Debug.Log("Tile not found!");
 
         return -1;

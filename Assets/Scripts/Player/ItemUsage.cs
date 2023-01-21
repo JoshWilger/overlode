@@ -57,7 +57,7 @@ public class ItemUsage : MonoBehaviour
     {
         Animate("energy");
 
-        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.battery];
+        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery];
         var newEnergyLevel = energyScript.energy * upgradeAmount + 30f;
         energyScript.energy = newEnergyLevel > upgradeAmount ? 1 : newEnergyLevel / upgradeAmount;
         energyScript.UpdateEnergyBar();
@@ -87,7 +87,7 @@ public class ItemUsage : MonoBehaviour
 
     private void RestOfTeleport()
     {
-        rb.position = new Vector3(8.5f, 1.5f);
+        rb.position = new Vector3(12.5f, 1.5f);
         rb.bodyType = RigidbodyType2D.Dynamic;
         movementScript.enabled = true;
         miningScript.enabled = true;

@@ -15176,7 +15176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $100000
+  m_text: $10000000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17120,12 +17120,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dirX: 0
   dirY: 0
+  atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   ground:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 6
-  flySpeed: 10
-  jumpForce: 10
   playerToCeilGap: 0.3
 --- !u!61 &1577181476
 BoxCollider2D:
@@ -17172,7 +17171,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &1577181478
 SpriteRenderer:

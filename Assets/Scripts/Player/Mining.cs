@@ -101,7 +101,7 @@ public class Mining : MonoBehaviour
         }
         if (tile || mineral)
         {
-            var time = 1f / (atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.drill] / atlas.GroundWorth(tile));
+            var time = 1f / (atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.drill] / atlas.GroundWorth(tile));
 
             move.position = new Vector3(currentTile.x + 0.5f, currentTile.y + 0.5f, 2);
             breaking.speed = 0.33f / time;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Jetpack 4
   m_EditorClassIdentifier: 
   itemName: 4
-  itemDescription: 190 Isp
+  itemDescription: 70 knots
   placeableTile: {fileID: 0}
   itemType: 6
   upgradeType: {fileID: 11400000, guid: 873e609c4102f714b9d7bab6b539741f, type: 2}
