@@ -7,17 +7,18 @@ using UnityEngine.UI;
 
 public class Energy : MonoBehaviour
 {
+    [SerializeField] private ItemAtlas atlas;
     [SerializeField] private Image energyBar;
     [SerializeField] private TextMeshProUGUI low;
     [SerializeField] private Animator warning;
 
     public float energy;
-    public float energyLossAmount;
     public bool decreaseEnergy;
 
     // Start is called before the first frame update
     void Start()
     {
+        atlas.currentUpgradeAmounts = new float[] { 10f, 20f, 7f, 10f, 150f, 0f };
         energy = 1;
         decreaseEnergy = true;
     }
@@ -49,7 +50,7 @@ public class Energy : MonoBehaviour
     {
         if (energy > 0 && decreaseEnergy)
         {
-            energy -= energyLossAmount;
+            energy -= 1f / (1000f * atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.battery]);
             energyBar.fillAmount = energy;
         }
     }

@@ -11,7 +11,18 @@ public class ItemAtlas : ScriptableObject
     [SerializeField] private ItemClass[] unminables;
     [SerializeField] private ItemClass[] indestructables;
     [SerializeField] private ItemClass[] upgrades;
-    [SerializeField] private ItemClass[] upgradeTypes;
+
+    public float[] currentUpgradeAmounts = { 10f, 20f, 7f, 10f, 150f, 0f };
+
+    public enum upgradeTypes
+    {
+        battery,
+        drill,
+        storage,
+        health,
+        jetpack,
+        cooling
+    }
 
     public ItemClass[] CreateInstance(ItemClass.ItemType type, bool sort = true)
     {
@@ -35,7 +46,8 @@ public class ItemAtlas : ScriptableObject
 
     public ItemClass[][] CreateMultiInstance(ItemClass.ItemType type, bool sort = true)
     {
-        List<ItemClass>[] itemsByType = new List<ItemClass>[type == ItemClass.ItemType.upgrade ? upgradeTypes.Length : 1];
+        ItemClass[] upgradeItemTypes = CreateInstance(ItemClass.ItemType.upgradeType);
+        List<ItemClass>[] itemsByType = new List<ItemClass>[type == ItemClass.ItemType.upgrade ? upgradeItemTypes.Length : 1];
         for (int i = 0; i < itemsByType.Length; i++)
         {
             itemsByType[i] = new();
@@ -45,7 +57,7 @@ public class ItemAtlas : ScriptableObject
         {
             if ((type == ItemClass.ItemType.upgrade || type == ItemClass.ItemType.upgradeType) && item.itemType == ItemClass.ItemType.upgrade)
             {
-                itemsByType[Array.IndexOf(upgradeTypes, item.upgradeType)].Add(item);
+                itemsByType[Array.IndexOf(upgradeItemTypes, item.upgradeType)].Add(item);
             }
             else if (type != ItemClass.ItemType.upgrade && type != ItemClass.ItemType.upgradeType && item.itemType == type)
             {

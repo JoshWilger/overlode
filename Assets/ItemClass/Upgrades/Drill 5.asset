@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Drill 5
   m_EditorClassIdentifier: 
   itemName: 5
-  itemDescription: 70 m/s
+  itemDescription: 95 m/s
   placeableTile: {fileID: 0}
   itemType: 6
   upgradeType: {fileID: 11400000, guid: 59e9ca6a2f1b97b409c3e9d61171fa4d, type: 2}

@@ -117,6 +117,8 @@ public class GarageUI : MonoBehaviour
             moneyText.text = "$" + (money - upgrades[currentToggleIndex][currentUpgradeIndex].itemWorth);
             upgrades[currentToggleIndex][currentUpgradeIndex].amountCollected++;
             equippedUpgrades[currentToggleIndex] = currentUpgradeIndex + 1;
+            atlas.currentUpgradeAmounts[currentToggleIndex] = 
+                float.Parse(upgrades[currentToggleIndex][currentUpgradeIndex].itemDescription.Where(c => char.IsDigit(c)).ToArray());
         }
 
         UpdateUpgradeText();
