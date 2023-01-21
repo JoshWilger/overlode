@@ -50,6 +50,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c04c23f16ab3184ab84c4ea7dda2576, type: 2}
   - {fileID: 11400000, guid: bd137fe55ee60cb46abf606735cfcabb, type: 2}
   - {fileID: 11400000, guid: 75c3de19da0dc454ab61f6bbfe96fa60, type: 2}
+  - {fileID: 11400000, guid: 55b4b6998f8577d45b7f1306be6f4d3e, type: 2}
+  - {fileID: 11400000, guid: 39f7104b71dcaf74681e15841accf3b2, type: 2}
   unminables:
   - {fileID: 11400000, guid: ae4778a1c6c81b547bae93ce16a6d2a2, type: 2}
   - {fileID: 11400000, guid: d8776c4c3f7d0564f82f35150c07cbd4, type: 2}
@@ -99,10 +101,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62bcc04027fcc68438f0d6ddf72fdf78, type: 2}
   - {fileID: 11400000, guid: a0654249d25a8d844b6e2b731ef7539d, type: 2}
   - {fileID: 11400000, guid: 1ad84ebaa463fc9418b471899dfb25bb, type: 2}
-  upgradeTypes:
-  - {fileID: 11400000, guid: 917eca9e244882f469bb37bd8e46babd, type: 2}
-  - {fileID: 11400000, guid: 59e9ca6a2f1b97b409c3e9d61171fa4d, type: 2}
-  - {fileID: 11400000, guid: 1ad84ebaa463fc9418b471899dfb25bb, type: 2}
-  - {fileID: 11400000, guid: 714c5183f0c7f7c41a0e47375664c8b7, type: 2}
-  - {fileID: 11400000, guid: 873e609c4102f714b9d7bab6b539741f, type: 2}
-  - {fileID: 11400000, guid: d13a1597099e8cc46afe7d6d332e15ec, type: 2}
+  currentUpgradeAmounts:
+  - 10
+  - 20
+  - 7
+  - 10
+  - 150
+  - 0

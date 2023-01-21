@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -28,7 +29,7 @@ public class TerrainGeneration : MonoBehaviour
         background = atlas.CreateInstance(ItemClass.ItemType.background);
         ground = atlas.CreateInstance(ItemClass.ItemType.ground);
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
-        miscGround = atlas.CreateInstance(ItemClass.ItemType.miscGround);
+        miscGround = atlas.CreateInstance(ItemClass.ItemType.miscGround, false);
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
         tilemaps = GetComponentsInChildren<Tilemap>();
         int[] artifactCounter = new int[artifacts.Length + 1];
@@ -47,8 +48,8 @@ public class TerrainGeneration : MonoBehaviour
                 tilemaps[0].SetTile(tilePos, dungeonRoll < artifactChance && !isAir && (y > depth / 16) ? background[1].placeableTile : background[0].placeableTile);
 
                 tilemaps[1].SetTile(tilePos,  isAir ? null : 
-                    layerNum == 2 && holyRolly < 0.2f ? miscGround[2].placeableTile : 
-                    layerNum == 3 && holyRolly < 0.5f ? miscGround[3].placeableTile : 
+                    layerNum == 2 && holyRolly < 0.2f ? miscGround[0].placeableTile : 
+                    layerNum == 3 && holyRolly < 0.5f ? miscGround[1].placeableTile : 
                     ground[layerNum].placeableTile);
 
                 if (!isAir)
@@ -60,11 +61,11 @@ public class TerrainGeneration : MonoBehaviour
 
                     if ((y > depth / 2) && !tilemaps[1].GetTile(oneAbove) && (stoneLavaRoll < (2 * stoneLavaChance) * y / depth))
                     {
-                        tilemaps[2].SetTile(oneAbove, miscGround[0].placeableTile);
+                        tilemaps[2].SetTile(oneAbove, miscGround[3].placeableTile);
                     }
 
                     tilemaps[2].SetTile(tilePos, mineralNum == -1 ?
-                        y > depth / 4 && stoneLavaRoll < stoneLavaChance * y / depth ? miscGround[1].placeableTile 
+                        y > depth / 4 && stoneLavaRoll < stoneLavaChance * y / depth ? miscGround[2].placeableTile 
                         : holyRolly < artifactChance && (y > depth / 16) ? artifacts[artifactNum].placeableTile : null
                         : minerals[mineralNum].placeableTile);
 
@@ -72,11 +73,6 @@ public class TerrainGeneration : MonoBehaviour
                     if (dungeonRoll < artifactChance && !isAir && (y > depth / 16)) artifactCounter[artifacts.Length]++;
                 }
             }
-        }
-
-        foreach (var item in minerals)
-        {
-            Debug.Log(item.itemName + " " + item.itemWorth);
         }
         Debug.Log("Artifacts: " + string.Join(" ", artifactCounter));
 
@@ -100,6 +96,12 @@ public class TerrainGeneration : MonoBehaviour
 
     private void GenerateBottom()
     {
+        Vector3Int[] cementCoords = new Vector3Int[width];
+
+        for (int i = 0; i < cementCoords.Length; ++i)
+            cementCoords[i] = new(i, -depth - 2);
+        tilemaps[1].SetTiles(cementCoords, Enumerable.Repeat(miscGround.Last().placeableTile, cementCoords.Length).ToArray());
+
         Vector3Int[] coords = { new Vector3Int(7, -depth - 3), new Vector3Int(21, -depth - 3), new Vector3Int(35, -depth - 3) };
         tilemaps[1].SetTiles(coords, new TileBase[] { miscGround[4].placeableTile, miscGround[4].placeableTile, miscGround[4].placeableTile });
     }

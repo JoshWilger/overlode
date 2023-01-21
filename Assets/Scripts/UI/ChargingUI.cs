@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ChargingUI : MonoBehaviour
 {
+    [SerializeField] private ItemAtlas atlas;
     [SerializeField] private Energy energyScript;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private float pricePerLiter;
@@ -42,11 +43,13 @@ public class ChargingUI : MonoBehaviour
     private void UpdateEnergy()
     {
         long money = long.Parse(moneyText.text.Substring(1));
-        int cost = Mathf.CeilToInt((1 - energyScript.energy) * 10f * pricePerLiter);
+        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.battery];
+
+        int cost = Mathf.CeilToInt((1 - energyScript.energy) * upgradeAmount * pricePerLiter);
 
         energyProgress.fillAmount = energyScript.energy;
 
-        progressText.text = Mathf.FloorToInt(energyScript.energy * 10f) + " /  10 L";
+        progressText.text = Mathf.FloorToInt(energyScript.energy * upgradeAmount) + " / " + upgradeAmount + " L";
         costText.text = "$" + cost;
 
         refillButton.interactable = money > 0 && energyScript.energy != 1;
@@ -55,7 +58,9 @@ public class ChargingUI : MonoBehaviour
     private void RefillEnergy()
     {
         long money = long.Parse(moneyText.text.Substring(1));
-        int cost = Mathf.CeilToInt((1 - energyScript.energy) * 10f * pricePerLiter);
+        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.battery];
+
+        int cost = Mathf.CeilToInt((1 - energyScript.energy) * upgradeAmount * pricePerLiter);
 
         if (money - cost >= 0)
         {
@@ -66,7 +71,7 @@ public class ChargingUI : MonoBehaviour
         }
         else
         {
-            energyScript.energy += money / pricePerLiter / 10f;
+            energyScript.energy += money / pricePerLiter / upgradeAmount;
             moneyText.text = "$0";
             UpdateEnergy();
             energyScript.UpdateEnergyBar();

@@ -3438,7 +3438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &377524612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17097,7 +17097,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   controller: {fileID: 468181597}
-  time: 0.5
   tileMiningDistance: 0.217
   breaking: {fileID: 829915474}
   move: {fileID: 829915476}
@@ -17292,11 +17291,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff3ec927c3432848b6471a428a30d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   energyBar: {fileID: 1235079245}
   low: {fileID: 1023326524}
   warning: {fileID: 392202563}
   energy: 0
-  energyLossAmount: 0.0002
   decreaseEnergy: 0
 --- !u!114 &1577181483
 MonoBehaviour:
@@ -17934,6 +17933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 354bf56d6fc0c4d43b5ebbf15f5472ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   energyScript: {fileID: 1577181482}
   moneyText: {fileID: 1391833717}
   pricePerLiter: 3

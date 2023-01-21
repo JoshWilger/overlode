@@ -12,7 +12,6 @@ public class Mining : MonoBehaviour
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private HudUI controller;
 
-    [SerializeField] private float time;
     [SerializeField, Range(0, 1)] private float tileMiningDistance;
     [SerializeField] private Animator breaking;
     [SerializeField] private Transform move;
@@ -102,6 +101,8 @@ public class Mining : MonoBehaviour
         }
         if (tile || mineral)
         {
+            var time = 1f / (atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.drill] / atlas.GroundWorth(tile));
+
             move.position = new Vector3(currentTile.x + 0.5f, currentTile.y + 0.5f, 2);
             breaking.speed = 0.33f / time;
             breaking.SetTrigger("break");

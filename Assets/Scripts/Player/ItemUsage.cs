@@ -56,7 +56,10 @@ public class ItemUsage : MonoBehaviour
     public void ActivateEnergy()
     {
         Animate("energy");
-        energyScript.energy = 1;
+
+        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.upgradeTypes.battery];
+        var newEnergyLevel = energyScript.energy * upgradeAmount + 30f;
+        energyScript.energy = newEnergyLevel > upgradeAmount ? 1 : newEnergyLevel / upgradeAmount;
         energyScript.UpdateEnergyBar();
         Finish();
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(fileName = "New Atlas", menuName = "Item Atlas")]
 public class ItemAtlas : ScriptableObject
@@ -83,5 +84,30 @@ public class ItemAtlas : ScriptableObject
     public bool IsIndestructable(string tileName)
     {
         return indestructables.Where((unminableTile) => unminableTile.placeableTile.name == tileName).Any();
+    }
+
+    public long GroundWorth(TileBase tile)
+    {
+        var getGround = CreateInstance(ItemClass.ItemType.ground);
+        var getMisc = CreateInstance(ItemClass.ItemType.miscGround);
+
+        foreach (var item in getGround)
+        {
+            if (item.placeableTile == tile)
+            {
+                return item.itemWorth;
+            }
+        }
+
+        foreach (var item in getMisc)
+        {
+            if (item.placeableTile == tile)
+            {
+                return item.itemWorth;
+            }
+        }
+        Debug.Log("Tile not found!");
+
+        return -1;
     }
 }
