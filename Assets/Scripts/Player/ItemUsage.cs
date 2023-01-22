@@ -87,7 +87,13 @@ public class ItemUsage : MonoBehaviour
 
     private void RestOfTeleport()
     {
-        rb.position = new Vector3(12.5f, 1.5f);
+        var pos = new Vector3Int(12, 1);
+        for (int i = 2; baseTilemap.GetTile(pos); i++)
+        {
+            pos = new Vector3Int(pos.x, i);
+        }
+
+        rb.position = new Vector2(pos.x + 0.5f, pos.y + 0.5f);
         rb.bodyType = RigidbodyType2D.Dynamic;
         movementScript.enabled = true;
         miningScript.enabled = true;
