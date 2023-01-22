@@ -44,11 +44,11 @@ public class Life : MonoBehaviour
                 Die();
             }
         }
-        else if (energyScript.energy <= 0)
+        else if (energyScript.energy <= 0 && !dead)
         {
             Die();
         }
-        else if (healthScript.health <= 0)
+        else if (healthScript.health <= 0 && !dead)
         {
             Die();
         }
