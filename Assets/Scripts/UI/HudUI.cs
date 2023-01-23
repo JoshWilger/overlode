@@ -14,12 +14,17 @@ public class HudUI : MonoBehaviour
     [SerializeField] private Toggle inventoryToggle;
     [SerializeField] private GameObject inventoryActive;
     [SerializeField] private GameObject selectedItem;
+    [SerializeField] private TextMeshProUGUI storageText;
+    [SerializeField] private Image storageProgress;
     [SerializeField] private float itemCooldown;
     [SerializeField] public float disabledTransparency;
 
+    public Toggle activeToggle;
+
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
-    public Toggle activeToggle;
+    private Button[] mineralButtons;
+    private ItemClass[] minerals;
     private ItemClass[] shopItems;
     private bool canActivateItem = true;
     private TextMeshProUGUI[] invTexts;
@@ -32,11 +37,18 @@ public class HudUI : MonoBehaviour
     {
         toggleGroup = inventoryActive.GetComponent<ToggleGroup>();
         toggles = inventoryActive.GetComponentsInChildren<Toggle>();
+        mineralButtons = inventoryActive.GetComponentsInChildren<Button>();
+        minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
         activeToggle = toggles[0];
 
         foreach (var item in toggles)
         {
             item.onValueChanged.AddListener(SelectedItem);
+        }
+        for (int i = 0; i < mineralButtons.Length; i++)
+        {
+            int b = i;
+            mineralButtons[i].onClick.AddListener(() => RemoveMineral(b));
         }
         inventoryToggle.onValueChanged.AddListener((value) =>
         {
@@ -60,11 +72,11 @@ public class HudUI : MonoBehaviour
         {
             item.color = new(item.color.r, item.color.g, item.color.b, disabledTransparency);
         }
-        var mineralImages = RetrieveInventoryImage(ItemClass.ItemType.mineral);
-        foreach (var item in mineralImages)
+        foreach (var item in minerals)
         {
-            item.color = new(item.color.r, item.color.g, item.color.b, disabledTransparency);
+            item.amountCollected = 0;
         }
+        UpdateMineralInfo();
     }
 
     // Update is called once per frame
@@ -225,8 +237,6 @@ public class HudUI : MonoBehaviour
 
             return type == ItemClass.ItemType.mineral ? children.Where((mineral) => mineral.name.Contains("Mineral")).ToArray() : children;
         }
-
-
     }
 
     private void SelectedItem(bool value)
@@ -270,5 +280,43 @@ public class HudUI : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private void RemoveMineral(int mineralNumber)
+    {
+        if (minerals[mineralNumber].amountCollected > 0)
+        {
+            minerals[mineralNumber].amountCollected--;
+            UpdateMineralInfo();
+        }
+    }
+
+    public void UpdateMineralInfo()
+    {
+        var mineralTexts = RetrieveInventoryText(ItemClass.ItemType.mineral);
+        var mineralImages = RetrieveInventoryImage(ItemClass.ItemType.mineral);
+
+        for (int i = 0; i < minerals.Length; i++)
+        {
+            var currentAmount = minerals[i].amountCollected;
+            var alpha = currentAmount > 0 ? 1 : disabledTransparency;
+
+            mineralTexts[i].text = "x" + currentAmount;
+            mineralTexts[i].alpha = alpha;
+
+            var color = mineralImages[i].color;
+            mineralImages[i].color = new(color.r, color.g, color.b, alpha);
+        }
+
+        UpdateStorageProgress();
+    }
+
+    public void UpdateStorageProgress()
+    {
+        var collection = miningScript.CountCollectedMinerals();
+        var space = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.storage];
+
+        storageProgress.fillAmount = collection / space;
+        storageText.text = Mathf.RoundToInt(100f * (collection / space)) + "%";
     }
 }

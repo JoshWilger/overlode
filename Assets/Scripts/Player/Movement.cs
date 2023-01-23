@@ -49,7 +49,6 @@ public class Movement : MonoBehaviour
         {
             countedRecently = true;
             weight = CountMineralWeight();
-            Debug.Log(weight);
             Invoke(nameof(UpdateRecently), 1);
         }
         if (dirY > 0f && (!IsGrounded() || !IsACeiling()))
@@ -147,7 +146,6 @@ public class Movement : MonoBehaviour
             if (amount > 0)
             {
                 var log = Mathf.Pow(item.itemWorth, 0.01f) - 1;
-                Debug.Log("log: " + log);
                 counter += amount * log;
             }
         }

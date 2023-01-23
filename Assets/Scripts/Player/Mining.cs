@@ -29,11 +29,9 @@ public class Mining : MonoBehaviour
     private Vector3Int previousTile;
     private ItemClass[] artifacts;
     private ItemClass[] minerals;
-    private TextMeshProUGUI[] inventoryMineralTexts;
-    private Image[] inventoryMineralImages;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
@@ -42,13 +40,6 @@ public class Mining : MonoBehaviour
         currentTile = new Vector3Int(10000, 10000);
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
-        inventoryMineralTexts = controller.RetrieveInventoryText(ItemClass.ItemType.mineral);
-        inventoryMineralImages = controller.RetrieveInventoryImage(ItemClass.ItemType.mineral);
-
-        foreach (var item in minerals)
-        {
-            item.amountCollected = 0;
-        }
     }
 
     // Update is called once per frame
@@ -146,14 +137,7 @@ public class Mining : MonoBehaviour
                     if (collection < space)
                     {
                         minerals[i].amountCollected++;
-                        storageText.text = Mathf.RoundToInt(100f * ((collection + 1) / space)) + "%";
-                        storageProgress.fillAmount = (collection + 1) / space;
-
-                        inventoryMineralTexts[i].text = "x" + minerals[i].amountCollected;
-                        inventoryMineralTexts[i].alpha = 1;
-
-                        var color = inventoryMineralImages[i].color;
-                        inventoryMineralImages[i].color = new(color.r, color.g, color.b, 1);
+                        controller.UpdateMineralInfo();
                         return;
                     }
                     else

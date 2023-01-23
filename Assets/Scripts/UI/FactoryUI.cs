@@ -94,17 +94,14 @@ public class FactoryUI : MonoBehaviour
             mineralImages[i].color = new(color.r, color.g, color.b, controller.disabledTransparency);
             quantity[i].alpha = controller.disabledTransparency;
             mineralInfo[i].alpha = controller.disabledTransparency;
-            inventoryMineralImages[i].color = new(invColor.r, invColor.g, invColor.b, controller.disabledTransparency);
-            inventoryMineralTexts[i].alpha = controller.disabledTransparency;
         }
         else
         {
             mineralImages[i].color = new(color.r, color.g, color.b, 1);
             quantity[i].alpha = 1;
             mineralInfo[i].alpha = 1;
-            inventoryMineralImages[i].color = new(invColor.r, invColor.g, invColor.b, 1);
-            inventoryMineralTexts[i].alpha = 1;
         }
+        controller.UpdateMineralInfo();
     }
 
     private void SellAll()
