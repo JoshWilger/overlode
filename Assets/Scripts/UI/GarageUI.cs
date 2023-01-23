@@ -9,6 +9,9 @@ using UnityEngine.UI;
 public class GarageUI : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private Mining miningScript;
+    [SerializeField] private TextMeshProUGUI storageText;
+    [SerializeField] private Image storageProgress;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI upgradeInfoText;
     [SerializeField] private TextMeshProUGUI typeInfoText;
@@ -119,6 +122,15 @@ public class GarageUI : MonoBehaviour
             equippedUpgrades[currentToggleIndex] = currentUpgradeIndex + 1;
             atlas.currentUpgradeAmounts[currentToggleIndex] = 
                 float.Parse(upgrades[currentToggleIndex][currentUpgradeIndex].itemDescription.Where(c => char.IsDigit(c)).ToArray());
+
+            if (currentToggleIndex == (int)ItemAtlas.UpgradeTypes.storage)
+            {
+                var collection = miningScript.CountCollectedMinerals();
+                var space = atlas.currentUpgradeAmounts[currentToggleIndex];
+
+                storageProgress.fillAmount = collection / space;
+                storageText.text = Mathf.RoundToInt(100f * (collection / space)) + "%";
+            }
         }
 
         UpdateUpgradeText();

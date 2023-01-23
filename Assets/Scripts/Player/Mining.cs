@@ -7,19 +7,20 @@ using UnityEngine.UI;
 
 public class Mining : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private BoxCollider2D coll;
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private HudUI controller;
-
     [SerializeField, Range(0, 1)] private float tileMiningDistance;
     [SerializeField] private Animator breaking;
     [SerializeField] private Transform move;
     [SerializeField] private Tilemap baseTilemap;
     [SerializeField] private Tilemap mineralTilemap;
     [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI storageText;
+    [SerializeField] private Image storageProgress;
     [SerializeField] private LayerMask ground;
 
+    private Rigidbody2D rb;
+    private BoxCollider2D coll;
     private float[,] directionAdders;
     private bool mining;
     private int currentDirectionNum;
@@ -140,13 +141,25 @@ public class Mining : MonoBehaviour
             {
                 if (mineral.name == minerals[i].placeableTile.name)
                 {
-                    minerals[i].amountCollected++;
-                    inventoryMineralTexts[i].text = "x" + minerals[i].amountCollected;
-                    inventoryMineralTexts[i].alpha = 1;
+                    var collection = CountCollectedMinerals();
+                    var space = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.storage];
+                    if (collection < space)
+                    {
+                        minerals[i].amountCollected++;
+                        storageText.text = Mathf.RoundToInt(100f * ((collection + 1) / space)) + "%";
+                        storageProgress.fillAmount = (collection + 1) / space;
 
-                    var color = inventoryMineralImages[i].color;
-                    inventoryMineralImages[i].color = new(color.r, color.g, color.b, 1);
-                    return;
+                        inventoryMineralTexts[i].text = "x" + minerals[i].amountCollected;
+                        inventoryMineralTexts[i].alpha = 1;
+
+                        var color = inventoryMineralImages[i].color;
+                        inventoryMineralImages[i].color = new(color.r, color.g, color.b, 1);
+                        return;
+                    }
+                    else
+                    {
+                        Debug.Log("Bag full!!!");
+                    }
                 }
             }
             foreach (var artifact in artifacts)
@@ -178,5 +191,16 @@ public class Mining : MonoBehaviour
 
         return new Vector3Int(Mathf.FloorToInt(playerX + directionAdders[currentDirectionNum, 0]), 
             Mathf.FloorToInt(playerY + directionAdders[currentDirectionNum, 1]));
+    }
+
+    public int CountCollectedMinerals()
+    {
+        var counter = 0;
+        foreach (var item in minerals)
+        {
+            counter += item.amountCollected;
+        }
+
+        return counter;
     }
 }

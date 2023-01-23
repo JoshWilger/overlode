@@ -12,6 +12,8 @@ public class FactoryUI : MonoBehaviour
     [SerializeField] private HudUI controller;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private Button sellButton;
+    [SerializeField] private TextMeshProUGUI storageText;
+    [SerializeField] private Image storageProgress;
 
     private TextMeshProUGUI total;
     private TextMeshProUGUI[] quantity;
@@ -115,5 +117,7 @@ public class FactoryUI : MonoBehaviour
         }
         UpdateInfo();
         moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + tempTotal);
+        storageProgress.fillAmount = 0;
+        storageText.text = "0%";
     }
 }
