@@ -17609,7 +17609,7 @@ MonoBehaviour:
     m_Bits: 64
   healthBar: {fileID: 386488571}
   xVelocityDamageThreshold: 9
-  yVelocityDamageThreshold: 9
+  yVelocityDamageThreshold: 8
   damageCooldownTime: 0.3
   hurt: {fileID: 1496929456}
   health: 0

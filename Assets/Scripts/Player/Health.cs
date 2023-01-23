@@ -46,7 +46,7 @@ public class Health : MonoBehaviour
         {
             canBeDamaged = false;
             hasHitCeil = true;
-            var damage = (Mathf.Abs(rb.velocity.y) - xVelocityDamageThreshold) / xVelocityDamageThreshold;
+            var damage = Mathf.Abs(rb.velocity.y - xVelocityDamageThreshold) / xVelocityDamageThreshold;
 
             Debug.Log("Ow! " + damage);
             UpdateHealth(damage);
