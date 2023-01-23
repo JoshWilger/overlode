@@ -19,8 +19,6 @@ public class FactoryUI : MonoBehaviour
     private TextMeshProUGUI[] quantity;
     private TextMeshProUGUI[] mineralInfo;
     private ItemClass[] minerals;
-    private TextMeshProUGUI[] inventoryMineralTexts;
-    private Image[] inventoryMineralImages;
     private Image[] mineralImages;
 
     // Start is called before the first frame update
@@ -29,8 +27,6 @@ public class FactoryUI : MonoBehaviour
         TextMeshProUGUI[] children = GetComponentsInChildren<TextMeshProUGUI>();
         quantity = new TextMeshProUGUI[children.Length / 2 - 1];
         mineralInfo = new TextMeshProUGUI[children.Length / 2 - 1];
-        inventoryMineralTexts = controller.RetrieveInventoryText(ItemClass.ItemType.mineral);
-        inventoryMineralImages = controller.RetrieveInventoryImage(ItemClass.ItemType.mineral);
         mineralImages = GetComponentsInChildren<Image>().Where((mineral) => mineral.name.Contains("Mineral")).ToArray();
 
         for (int i = 0; i < children.Length; i++)
@@ -75,7 +71,6 @@ public class FactoryUI : MonoBehaviour
             UpdateAlpha(i);
 
             quantity[i].text = "x" + minerals[i].amountCollected;
-            inventoryMineralTexts[i].text = "x" + minerals[i].amountCollected;
             mineralInfo[i].text = minerals[i].itemName + " \t($" + minerals[i].itemWorth + ")\n$" + addMe;
             totalCounter += addMe;
         }
@@ -87,7 +82,6 @@ public class FactoryUI : MonoBehaviour
     private void UpdateAlpha(int i)
     {
         var color = mineralImages[i].color;
-        var invColor = inventoryMineralImages[i].color;
 
         if (minerals[i].amountCollected == 0)
         {

@@ -3608,9 +3608,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
+  controller: {fileID: 468181597}
   miningScript: {fileID: 1577181474}
-  storageText: {fileID: 1043519507}
-  storageProgress: {fileID: 887526668}
   moneyText: {fileID: 1391833717}
   upgradeInfoText: {fileID: 1592158985}
   typeInfoText: {fileID: 1004139641}
@@ -5357,6 +5356,8 @@ MonoBehaviour:
   inventoryToggle: {fileID: 1598029544}
   inventoryActive: {fileID: 806378737}
   selectedItem: {fileID: 1582934386}
+  storageText: {fileID: 1043519507}
+  storageProgress: {fileID: 887526668}
   itemCooldown: 0.5
   disabledTransparency: 0.4
   activeToggle: {fileID: 0}
