@@ -2963,8 +2963,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -17414,14 +17414,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77b7df083c4a28469099141a899097e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dirX: 0
-  dirY: 0
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   ground:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 6
   playerToCeilGap: 0.3
+  dirX: 0
+  dirY: 0
 --- !u!61 &1577181476
 BoxCollider2D:
   m_ObjectHideFlags: 0
