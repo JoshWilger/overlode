@@ -173,9 +173,10 @@ public class ItemUsage : MonoBehaviour
         if (distance <= size / 2f)
         {
             float healthUpgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
-            var damage = (size - distance) / ((healthUpgrade / 12f));
+            float coolingUpgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.cooling];
+            var damage = (size - distance) / ((healthUpgrade / 12f) + (coolingUpgrade / 10f));
             Debug.Log("Youch! " + damage);
-            //healthScript.UpdateHealth(damage);
+            healthScript.UpdateHealth(damage);
         }
     }
 

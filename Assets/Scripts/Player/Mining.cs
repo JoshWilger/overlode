@@ -9,6 +9,7 @@ public class Mining : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private HudUI controller;
+    [SerializeField] private Health healthScript;
     [SerializeField, Range(0, 1)] private float tileMiningDistance;
     [SerializeField] private Animator breaking;
     [SerializeField] private Transform move;
@@ -23,6 +24,7 @@ public class Mining : MonoBehaviour
     private BoxCollider2D coll;
     private float[,] directionAdders;
     private bool mining;
+    private bool hurtRecently;
     private int currentDirectionNum;
     private int previousDirectionNum;
     private Vector3Int currentTile;
@@ -40,6 +42,7 @@ public class Mining : MonoBehaviour
         currentTile = new Vector3Int(10000, 10000);
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
+        hurtRecently = false;
     }
 
     // Update is called once per frame
@@ -49,7 +52,20 @@ public class Mining : MonoBehaviour
 
         float dirX = Input.GetAxis("Horizontal");
         float dirY = Input.GetAxis("Vertical");
+        int playerX = Mathf.FloorToInt(coll.bounds.center.x);
+        int playerY = Mathf.FloorToInt(coll.bounds.center.y);
 
+        TileBase lava = mineralTilemap.GetTile(new Vector3Int(playerX, playerY));
+        if (lava && !hurtRecently)
+        {
+            hurtRecently = true;
+            Invoke(nameof(UpdateHurtRecently), healthScript.damageCooldownTime);
+            float healthUpgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
+            float coolingUpgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.cooling]; 
+            var damage = 1f / ((healthUpgrade / 12f) + (coolingUpgrade / 10f));
+            Debug.Log("Oww! " + damage);
+            healthScript.UpdateHealth(damage);    
+        }
         if (dirY > 0f && Input.GetButton("Vertical") && rb.velocity.y == 0f && IsGrounded() && dirX == 0f && !mining)
         {
             currentDirectionNum = 0;
@@ -71,6 +87,12 @@ public class Mining : MonoBehaviour
             mining = BreakTile();
         }
     }
+
+    private void UpdateHurtRecently()
+    {
+        hurtRecently = false;
+    }
+
     private bool BreakTile()
     {
         currentTile = GetCurrentTile();

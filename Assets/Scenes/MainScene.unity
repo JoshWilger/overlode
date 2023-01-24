@@ -13714,14 +13714,14 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 1262024719}
     m_ColliderPaths:
-    - - X: -76923
-        Y: -10076923
-      - X: 360076896
-        Y: -10076923
-      - X: 360076896
+    - - X: 360076896
         Y: 76923
       - X: -76923
         Y: 76923
+      - X: -76923
+        Y: -10076923
+      - X: 360076896
+        Y: -10076923
   m_CompositePaths:
     m_Paths:
     - - {x: 36.00766, y: -1.0076923}
@@ -17395,6 +17395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   controller: {fileID: 468181597}
+  healthScript: {fileID: 1577181483}
   tileMiningDistance: 0.217
   breaking: {fileID: 829915474}
   move: {fileID: 829915476}
@@ -17615,8 +17616,8 @@ MonoBehaviour:
   healthBar: {fileID: 386488571}
   xVelocityDamageThreshold: 9
   yVelocityDamageThreshold: 8
-  damageCooldownTime: 0.3
   hurt: {fileID: 1496929456}
+  damageCooldownTime: 0.4
   health: 0
 --- !u!1 &1582934386
 GameObject:
@@ -18889,25 +18890,25 @@ Tilemap:
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: -7.8452994e+34
+      e00: -8.2311586e+24
       e01: 0
-      e02: -2.6739535e+29
-      e03: -2.6739535e+29
-      e10: 9.47e-43
+      e02: -6.225783e+19
+      e03: -6.225783e+19
+      e10: 6.92e-43
       e11: 0
-      e12: 9.44e-43
-      e13: 9.44e-43
-      e20: -7.394695e+26
+      e12: 6.9e-43
+      e13: 6.9e-43
+      e20: 1.2498162e+29
       e21: 1e-45
-      e22: 0.000000006393524
-      e23: 1.7356306e+29
-      e30: 4.5904e-41
+      e22: 5.4854524e-19
+      e23: 3.8414297e+19
+      e30: 4.5905e-41
       e31: 0
-      e32: 9.46e-43
-      e33: 9.49e-43
+      e32: 6.91e-43
+      e33: 6.94e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
+    m_Data: {r: 3.7381e-41, g: 3.7381e-41, b: 3.7381e-41, a: 3.7381e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}

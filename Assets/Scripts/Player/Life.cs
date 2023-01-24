@@ -32,19 +32,7 @@ public class Life : MonoBehaviour
 
     private void Update()
     {
-        int playerX = Mathf.FloorToInt(coll.bounds.center.x);
-        int playerY = Mathf.FloorToInt(coll.bounds.center.y);
-
-        TileBase mineral = mineralTilemap.GetTile(new Vector3Int(playerX, playerY));
-
-        if (mineral && !dead)
-        {
-            if (mineral.name == "pxy-lava_2a")
-            {
-                Die();
-            }
-        }
-        else if (energyScript.energy <= 0 && !dead)
+        if (energyScript.energy <= 0 && !dead)
         {
             Die();
         }

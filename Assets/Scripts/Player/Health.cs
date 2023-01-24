@@ -10,9 +10,9 @@ public class Health : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private float xVelocityDamageThreshold;
     [SerializeField] private float yVelocityDamageThreshold;
-    [SerializeField] private float damageCooldownTime;
     [SerializeField] private Animator hurt;
 
+    public float damageCooldownTime;
     public float health;
     private Rigidbody2D rb;
     private BoxCollider2D coll;
