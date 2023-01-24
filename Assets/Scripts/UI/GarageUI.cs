@@ -11,6 +11,8 @@ public class GarageUI : MonoBehaviour
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private HudUI controller;
     [SerializeField] private Mining miningScript;
+    [SerializeField] private Energy energyScript;
+    [SerializeField] private Health healthScript;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI upgradeInfoText;
     [SerializeField] private TextMeshProUGUI typeInfoText;
@@ -125,6 +127,16 @@ public class GarageUI : MonoBehaviour
             if (currentToggleIndex == (int)ItemAtlas.UpgradeTypes.storage)
             {
                 controller.UpdateStorageProgress();
+            }
+            else if (currentToggleIndex == (int)ItemAtlas.UpgradeTypes.battery)
+            {
+                energyScript.energy = 1;
+                energyScript.UpdateEnergyBar();
+            }
+            else if (currentToggleIndex == (int)ItemAtlas.UpgradeTypes.health)
+            {
+                healthScript.health = 1;
+                healthScript.UpdateHealthBar();
             }
         }
 

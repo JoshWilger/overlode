@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] private ItemAtlas atlas;
     [SerializeField] private LayerMask ground;
     [SerializeField] private Image healthBar;
     [SerializeField] private float xVelocityDamageThreshold;
@@ -34,6 +35,7 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float upgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
         if (!IsWall(Vector2.up))
         {
             hasHitCeil = false;
@@ -46,7 +48,7 @@ public class Health : MonoBehaviour
         {
             canBeDamaged = false;
             hasHitCeil = true;
-            var damage = Mathf.Abs(rb.velocity.y - xVelocityDamageThreshold) / xVelocityDamageThreshold;
+            var damage = Mathf.Abs(rb.velocity.y - xVelocityDamageThreshold) / (xVelocityDamageThreshold * (upgrade / 20f));
 
             Debug.Log("Ow! " + damage);
             UpdateHealth(damage);
@@ -55,7 +57,7 @@ public class Health : MonoBehaviour
         else if (IsWall(Vector2.down) && rb.velocity.y < -yVelocityDamageThreshold && canBeDamaged)
         {
             canBeDamaged = false;
-            var damage = Mathf.Abs(rb.velocity.y + yVelocityDamageThreshold) / yVelocityDamageThreshold;
+            var damage = Mathf.Abs(rb.velocity.y + yVelocityDamageThreshold) / (yVelocityDamageThreshold * (upgrade / 20f));
 
             Debug.Log("Ahh! " + damage);
             UpdateHealth(damage);
@@ -66,7 +68,7 @@ public class Health : MonoBehaviour
         {
             canBeDamaged = false;
             hasHitWall = true;
-            var damage = (Mathf.Abs(rb.velocity.x) - xVelocityDamageThreshold) / xVelocityDamageThreshold;
+            var damage = (Mathf.Abs(rb.velocity.x) - xVelocityDamageThreshold) / (xVelocityDamageThreshold * (upgrade / 20f));
 
             Debug.Log("Oof! " + damage);
             UpdateHealth(damage);

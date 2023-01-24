@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
+    [SerializeField] private ItemAtlas atlas;
     [SerializeField] private Health healthScript;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private float pricePerLiter;
@@ -37,12 +38,13 @@ public class HealthUI : MonoBehaviour
 
     private void UpdateHealth()
     {
+        float upgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
         long money = long.Parse(moneyText.text.Substring(1));
-        int cost = Mathf.CeilToInt((1 - healthScript.health) * 10f * pricePerLiter);
+        int cost = Mathf.CeilToInt((1 - healthScript.health) * upgrade * pricePerLiter);
         
         healthProgress.fillAmount = healthScript.health;
 
-        progressText.text = Mathf.FloorToInt(healthScript.health * 10f) + " /  10 HP";
+        progressText.text = Mathf.FloorToInt(healthScript.health * upgrade) + " /  " + upgrade + " HP";
         costText.text = "$" + cost;
 
         refillButton.interactable = money > 0 && healthScript.health != 1;
@@ -50,8 +52,9 @@ public class HealthUI : MonoBehaviour
 
     private void RefillHealth()
     {
+        float upgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
         long money = long.Parse(moneyText.text.Substring(1));
-        int cost = Mathf.CeilToInt((1 - healthScript.health) * 10f * pricePerLiter);
+        int cost = Mathf.CeilToInt((1 - healthScript.health) * upgrade * pricePerLiter);
 
         if (money - cost >= 0)
         {
@@ -62,7 +65,7 @@ public class HealthUI : MonoBehaviour
         }
         else
         {
-            healthScript.health += money / pricePerLiter / 10f;
+            healthScript.health += money / pricePerLiter / upgrade;
             moneyText.text = "$0";
             UpdateHealth();
             healthScript.UpdateHealthBar();

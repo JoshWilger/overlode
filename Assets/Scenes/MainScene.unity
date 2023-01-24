@@ -3610,6 +3610,8 @@ MonoBehaviour:
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   controller: {fileID: 468181597}
   miningScript: {fileID: 1577181474}
+  energyScript: {fileID: 1577181482}
+  healthScript: {fileID: 1577181483}
   moneyText: {fileID: 1391833717}
   upgradeInfoText: {fileID: 1592158985}
   typeInfoText: {fileID: 1004139641}
@@ -4486,6 +4488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a0787d266c09b47a29672d1fc3f82d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   healthScript: {fileID: 1577181483}
   moneyText: {fileID: 1391833717}
   pricePerLiter: 15
@@ -14501,7 +14504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1299802032
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17605,6 +17608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f32b9a258496564d8f997cfff6a5cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   ground:
     serializedVersion: 2
     m_Bits: 64

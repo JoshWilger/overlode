@@ -58,7 +58,7 @@ public class ItemUsage : MonoBehaviour
         Animate("energy");
 
         var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery];
-        var newEnergyLevel = energyScript.energy * upgradeAmount + 30f;
+        var newEnergyLevel = energyScript.energy * upgradeAmount + 25f;
         energyScript.energy = newEnergyLevel > upgradeAmount ? 1 : newEnergyLevel / upgradeAmount;
         energyScript.UpdateEnergyBar();
         Finish();
@@ -67,7 +67,10 @@ public class ItemUsage : MonoBehaviour
     public void ActivateHealth()
     {
         Animate("health");
-        healthScript.health = 1;
+        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
+        var newHealthLevel = healthScript.health * upgradeAmount + 30f;
+        Debug.Log(newHealthLevel);
+        healthScript.health = newHealthLevel > upgradeAmount ? 1 : newHealthLevel / upgradeAmount; 
         healthScript.UpdateHealthBar();
         Finish();
     }
@@ -169,8 +172,10 @@ public class ItemUsage : MonoBehaviour
 
         if (distance <= size / 2f)
         {
-            var damage = 1 - (distance / (size / 2f));
-            healthScript.UpdateHealth(damage);
+            float healthUpgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
+            var damage = (size - distance) / ((healthUpgrade / 12f));
+            Debug.Log("Youch! " + damage);
+            //healthScript.UpdateHealth(damage);
         }
     }
 
