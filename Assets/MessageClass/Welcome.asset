@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
   m_Name: Welcome
   m_EditorClassIdentifier: 
-  face: 0300000002000000
+  face: 03000000020000000300000003000000
   paragraphs:
-  - something cool
-  - yeah
+  - Looks like your battery drained over the long flight coming here. You should
+    recharge it soon or you'll ...
+  - ...unfortunately meet the demise of the other former employees. I guess that's
+    why we're paying at a premium for your services! ...
+  - ...All you need to do is collect and sell minerals, but you'll probably need
+    to upgrade your equipment as you go deeper. Remember, ...
+  - ...the deeper you go, the better minerals there are. Don't forget to recharge
+    and good luck!

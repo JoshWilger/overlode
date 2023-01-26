@@ -4880,7 +4880,7 @@ MonoBehaviour:
   stoneLavaChance: 0.05
   artifactChance: 0.0015
   width: 36
-  depth: 98
+  depth: 364
 --- !u!1 &435629148
 GameObject:
   m_ObjectHideFlags: 0
@@ -18094,7 +18094,7 @@ MonoBehaviour:
   shop: {fileID: 420992233}
   depth: {fileID: 1661151288}
   pauseToggle: {fileID: 2033704553}
-  messageDepths: 000000004b00000096000000e10000002c01000077010000c20100000d020000580200009a020000
+  messageDepths: 00000000020000000400000006000000080000000a000000c20100000d020000580200009a02000040420f00
 --- !u!114 &1577181481
 MonoBehaviour:
   m_ObjectHideFlags: 0
