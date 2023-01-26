@@ -9,18 +9,25 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private HudUI hudController;
+    [SerializeField] private MessageUI messageUiScript;
     [SerializeField] private GameObject focus;
+    [SerializeField] private GameObject message;
     [SerializeField] private GameObject charging;
     [SerializeField] private GameObject factory;
     [SerializeField] private GameObject garage;
     [SerializeField] private GameObject shop;
+    [SerializeField] private TextMeshProUGUI depth;
     [SerializeField] public Toggle pauseToggle;
 
+    public int[] messageDepths;
+
+    private BoxCollider2D coll;
     private Energy energyScript;
 
     // Start is called before the first frame update
     private void Start()
     {
+        coll = GetComponent<BoxCollider2D>();
         energyScript = GetComponent<Energy>();
         pauseToggle.onValueChanged.AddListener((value) =>
         {
@@ -31,6 +38,12 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        depth.text = Mathf.Round(coll.bounds.min.y * 2) + "m";
+        if (-Mathf.Round(coll.bounds.min.y * 2) == messageDepths[messageUiScript.currentMessageIndex])
+        {
+            message.SetActive(true);
+            Paused(true);
+        }
         EscapePressed(Input.GetButtonDown("Cancel"));
     }
 
@@ -49,7 +62,12 @@ public class UIController : MonoBehaviour
     {
         if (isPressed)
         {
-            if (charging.activeSelf)
+            if (message.activeSelf)
+            {
+                message.SetActive(false);
+                focus.SetActive(false);
+            }
+            else if (charging.activeSelf)
             {
                 charging.SetActive(false);
                 focus.SetActive(false);

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: DeepRock2
   m_EditorClassIdentifier: 
   itemName: DeepRock2
+  itemDescription: 
   placeableTile: {fileID: 11400000, guid: f827bfb5b8a1fc1488f72e144e60d2b0, type: 2}
   itemType: 1
-  itemWorth: 200
+  upgradeType: {fileID: 0}
+  itemWorth: 100
+  amountCollected: 0

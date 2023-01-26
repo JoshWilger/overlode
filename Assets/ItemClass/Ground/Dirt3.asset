@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Dirt3
   m_EditorClassIdentifier: 
   itemName: Dirt3
+  itemDescription: 
   placeableTile: {fileID: 11400000, guid: b834eb8a608daae48a6cca2aa0fe0ebf, type: 2}
   itemType: 1
-  itemWorth: 20
+  upgradeType: {fileID: 0}
+  itemWorth: 15
+  amountCollected: 0

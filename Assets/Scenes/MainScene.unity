@@ -3537,7 +3537,7 @@ RectTransform:
   - {fileID: 1592158984}
   - {fileID: 885124370}
   m_Father: {fileID: 1685215607}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3608,7 +3608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
-  controller: {fileID: 468181597}
+  controller: {fileID: 0}
   miningScript: {fileID: 1577181474}
   energyScript: {fileID: 1577181482}
   healthScript: {fileID: 1577181483}
@@ -4413,7 +4413,7 @@ RectTransform:
   - {fileID: 937113515}
   - {fileID: 36684727}
   m_Father: {fileID: 1685215607}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7916,13 +7916,14 @@ GameObject:
   - component: {fileID: 657215329}
   - component: {fileID: 657215331}
   - component: {fileID: 657215330}
+  - component: {fileID: 657215332}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &657215329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7940,7 +7941,7 @@ RectTransform:
   - {fileID: 1979428808}
   - {fileID: 1240006726}
   m_Father: {fileID: 1685215607}
-  m_RootOrder: 5
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7985,6 +7986,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657215328}
   m_CullTransparentMesh: 1
+--- !u!114 &657215332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657215328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b89e886442422941b876d5ff2535257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiController: {fileID: 1577181480}
+  messages:
+  - {fileID: 11400000, guid: b55616bdfeca54a4fadef03a2e898a1e, type: 2}
+  - {fileID: 11400000, guid: d173cc5d8e828a64e8d076c0138bf6eb, type: 2}
+  faces:
+  - {fileID: 21300000, guid: f405a19f57ad8cc43ad41f451ab84f4f, type: 3}
+  - {fileID: 21300000, guid: 2bc3539ec0992904b8e1c60e12880245, type: 3}
+  - {fileID: 21300000, guid: 646ca655e95d6bb49bbe531ed48647ca, type: 3}
+  - {fileID: 21300000, guid: 15c5a5dcc9569364599708e6cfe52ced, type: 3}
+  - {fileID: 21300000, guid: 9d9b44c7cc2e0ed40a505332a4ad5882, type: 3}
+  - {fileID: 21300000, guid: d18e5e07aa523b2409322683f0e39e28, type: 3}
+  - {fileID: 21300000, guid: ae58040a1fe0f2649a7be6b3a07db1ab, type: 3}
+  - {fileID: 21300000, guid: 118fa6fe4289483489fe5a3e9ed011ee, type: 3}
+  nextButton: {fileID: 733985863}
+  characterImage: {fileID: 1477753697}
+  messageText: {fileID: 1717669674}
+  focus: {fileID: 222692589}
+  currentMessageIndex: 0
 --- !u!1 &658585094
 GameObject:
   m_ObjectHideFlags: 0
@@ -14946,7 +14977,7 @@ RectTransform:
   - {fileID: 719815772}
   - {fileID: 1803039628}
   m_Father: {fileID: 1685215607}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -15004,7 +15035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
-  controller: {fileID: 468181597}
+  controller: {fileID: 0}
   moneyText: {fileID: 1391833717}
   sellButton: {fileID: 1065952855}
   storageText: {fileID: 1043519507}
@@ -18033,7 +18064,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577181471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.5, y: 1, z: 0}
+  m_LocalPosition: {x: 8.5, y: 3, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18054,12 +18085,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hudController: {fileID: 468181597}
+  messageUiScript: {fileID: 657215332}
   focus: {fileID: 222692589}
+  message: {fileID: 657215328}
   charging: {fileID: 1625807157}
   factory: {fileID: 1299802031}
   garage: {fileID: 377524611}
   shop: {fileID: 420992233}
+  depth: {fileID: 1661151288}
   pauseToggle: {fileID: 2033704553}
+  messageDepths: 000000004b00000096000000e10000002c01000077010000c20100000d020000580200009a020000
 --- !u!114 &1577181481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18677,7 +18712,7 @@ RectTransform:
   - {fileID: 1095230086}
   - {fileID: 1048662010}
   m_Father: {fileID: 1685215607}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -19166,7 +19201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1661151287
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19621,11 +19656,11 @@ RectTransform:
   - {fileID: 468181596}
   - {fileID: 222692590}
   - {fileID: 1391833719}
-  - {fileID: 657215329}
   - {fileID: 1625807158}
   - {fileID: 1299802032}
   - {fileID: 377524612}
   - {fileID: 420992234}
+  - {fileID: 657215329}
   - {fileID: 2033704550}
   - {fileID: 1913577329}
   m_Father: {fileID: 0}
@@ -19833,7 +19868,7 @@ GameObject:
   - component: {fileID: 1717669675}
   - component: {fileID: 1717669674}
   m_Layer: 5
-  m_Name: Payment Text
+  m_Name: Message Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

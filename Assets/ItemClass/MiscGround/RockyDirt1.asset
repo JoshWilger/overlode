@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: RockyDirt1
   m_EditorClassIdentifier: 
   itemName: RockyDirt1
+  itemDescription: 
   placeableTile: {fileID: 11400000, guid: dbd877abf9dd00c48874ec03b71f8be1, type: 2}
   itemType: 4
-  itemWorth: 35
+  upgradeType: {fileID: 0}
+  itemWorth: 25
+  amountCollected: 0

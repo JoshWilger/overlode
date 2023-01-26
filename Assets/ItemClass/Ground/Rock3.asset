@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Rock3
   m_EditorClassIdentifier: 
   itemName: Rock3
+  itemDescription: 
   placeableTile: {fileID: 11400000, guid: e505898ae51251b4184c8a11ca627af8, type: 2}
   itemType: 1
-  itemWorth: 90
+  upgradeType: {fileID: 0}
+  itemWorth: 45
+  amountCollected: 0
