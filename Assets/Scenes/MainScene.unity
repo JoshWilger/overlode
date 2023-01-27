@@ -3608,7 +3608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
-  controller: {fileID: 0}
+  controller: {fileID: 468181597}
   miningScript: {fileID: 1577181474}
   energyScript: {fileID: 1577181482}
   healthScript: {fileID: 1577181483}
@@ -15035,7 +15035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
-  controller: {fileID: 0}
+  controller: {fileID: 468181597}
   moneyText: {fileID: 1391833717}
   sellButton: {fileID: 1065952855}
   storageText: {fileID: 1043519507}
