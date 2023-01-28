@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
-  m_Name: Doing Great
+  m_Name: Keep it up
   m_EditorClassIdentifier: 
-  face: 03000000
+  face: 030000000200000003000000
   characterName: Mr. Gnome
   paragraphs:
-  - Nice! I'm glad to see good progress already. Here's your first bonus for your
-    excellent work.
-  reward: 1000
+  - Congrats on making it so far! Here's another bonus for your service. We're picking
+    up some heavy vibrations from ...
+  - ...the planet's core. They seem to be causing some earthquakes along with some
+    garbled misdirected transmissions ...
+  - ...You can just ignore them. Keep up the great work!
+  reward: 3000

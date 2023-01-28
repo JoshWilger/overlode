@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Welcome
   m_EditorClassIdentifier: 
   face: 03000000020000000300000003000000
+  characterName: Mr. Gnome
   paragraphs:
   - Looks like your battery drained over the long flight coming here. You should
     recharge it soon or you'll ...
@@ -22,3 +23,4 @@ MonoBehaviour:
     to upgrade your equipment as you go deeper. Remember, ...
   - ...the deeper you go, the better minerals there are. Don't forget to recharge
     and good luck!
+  reward: 50

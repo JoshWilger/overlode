@@ -6,7 +6,9 @@ using UnityEngine;
 public class MessageClass : ScriptableObject
 {
     public Face[] face;
+    public string characterName;
     public string[] paragraphs;
+    public long reward;
 
     public enum Face
     {
@@ -17,6 +19,7 @@ public class MessageClass : ScriptableObject
         miner,
         minerTalk,
         lady,
-        ladyTalk
+        ladyTalk,
+        unknown
     }
 }

@@ -14,6 +14,8 @@ public class MessageUI : MonoBehaviour
     [SerializeField] private Image characterImage;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private GameObject focus;
+    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI characterName;
 
     public int currentMessageIndex;
 
@@ -28,11 +30,14 @@ public class MessageUI : MonoBehaviour
         focus.SetActive(true);
         NextText();
         nextButton.onClick.AddListener(NextText);
+        characterName.text = messages[currentMessageIndex].characterName;
+        nextButton.interactable = messages[currentMessageIndex].paragraphs.Length > 1;
     }
 
     private void OnDisable()
     {
         nextButton.onClick.RemoveAllListeners();
+        moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + messages[currentMessageIndex].reward);
         currentMessageIndex++;
         uiController.Paused(false);
     }

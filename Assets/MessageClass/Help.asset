@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
-  m_Name: Doing Great
+  m_Name: Help
   m_EditorClassIdentifier: 
-  face: 03000000
-  characterName: Mr. Gnome
+  face: 08000000
+  characterName: Unknown
   paragraphs:
-  - Nice! I'm glad to see good progress already. Here's your first bonus for your
-    excellent work.
-  reward: 1000
+  - Is anyone there?! I need help badly!! I can't feel my legs - Oh god, it's coming
+    back... OH NO!! PLEASE HELP ME!!!
+  reward: 0

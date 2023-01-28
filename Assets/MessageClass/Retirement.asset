@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
-  m_Name: Doing Great
+  m_Name: Retirement
   m_EditorClassIdentifier: 
-  face: 03000000
-  characterName: Mr. Gnome
+  face: 0400000005000000
+  characterName: Miner #342
   paragraphs:
-  - Nice! I'm glad to see good progress already. Here's your first bonus for your
-    excellent work.
-  reward: 1000
+  - I'm surprised to see another signal around here... I'm the only miner that hasn't
+    disappeared in the last 3 years. Next week ...
+  - ...I finally get to retire, wealthy, to the moons of Jupiter with my wife and
+    three daughters.
+  reward: 0
