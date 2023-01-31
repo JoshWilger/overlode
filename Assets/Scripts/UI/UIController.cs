@@ -43,6 +43,10 @@ public class UIController : MonoBehaviour
         {
             message.SetActive(true);
             Paused(true);
+            charging.SetActive(false);
+            factory.SetActive(false);
+            garage.SetActive(false);
+            shop.SetActive(false);
         }
         EscapePressed(Input.GetButtonDown("Cancel"));
     }
