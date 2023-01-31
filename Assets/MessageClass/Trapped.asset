@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
-  m_Name: Keep it up
+  m_Name: Trapped
   m_EditorClassIdentifier: 
-  face: 0100000000000000
-  characterName: Mr. Melogg
+  face: 0400000004000000
+  characterName: Miner #342
   paragraphs:
-  - Congrats on making it so far! Here's another bonus for your service. We're picking
-    up some heavy vibrations from the planet's core...
-  - They seem to be causing some earthquakes along with some garbled misdirected
-    transmissions - you can just ignore them. Keep up the great work!
-  reward: 3000
+  - Trapped... without any power. A gas pocket disabled my battery and brought my
+    health to a minimum. I think this is going to be my last transmission...
+  - Tell... tell my wife and kids I love them and - what?? What are you doing here!?
+    No.. WHAT ARE YOU..?! AHH!!
+  reward: 0

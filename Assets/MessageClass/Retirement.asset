@@ -15,8 +15,8 @@ MonoBehaviour:
   face: 0400000005000000
   characterName: Miner #342
   paragraphs:
-  - I'm surprised to see another signal around here... I'm the only miner that hasn't
-    disappeared in the last 3 years. Next week ...
-  - ...I finally get to retire, wealthy, to the moons of Jupiter with my wife and
-    three daughters.
+  - Hey there. I'm surprised to find another signal around here. I think I'm the
+    only miner who hasn't disappeared in the last three years...
+  - Soon I'll be able to retire, wealthy, with my wife and three daughters and get
+    away from this dirty rotten place.
   reward: 0

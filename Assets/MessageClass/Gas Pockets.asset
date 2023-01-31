@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
-  m_Name: Doing Great
+  m_Name: Gas Pockets
   m_EditorClassIdentifier: 
   face: 010000000000000001000000
   characterName: Mr. Melogg
   paragraphs:
-  - Great progress so far! I see you've met my secretary, Mr. Gnome. Did he ever
-    mention the incredible pay rate?...
-  - You'll be getting paid for the resources you collect, along with several bonuses
-    for your progress. This is a dangerous job, so we pay handsomely for your work...
-  - Here's your first bonus. Keep it up!
-  reward: 1000
+  - I am very impressed! You've made it much farther than I anticipated! I've wired
+    you another bonus for your excellent work...
+  - You'll definitely want to watch out for natural gas pockets - they're undetectable
+    and very deadly...
+  - 'Oh, another thing: your altimeter can only go up to 500m - after that, you need
+    to turn back. Trust me, it''s far too dangerous for any equipment to handle.'
+  reward: 20000

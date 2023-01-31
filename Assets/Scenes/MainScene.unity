@@ -8084,6 +8084,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f570cfd041cbfd1438818ce4f7bff862, type: 2}
   - {fileID: 11400000, guid: 4ad073c0493d1a145814cad2a7ccd677, type: 2}
   - {fileID: 11400000, guid: a282206aa37e8924a984a956be4a6d81, type: 2}
+  - {fileID: 11400000, guid: b6e24bf9f2170264a97910c20574976c, type: 2}
+  - {fileID: 11400000, guid: 05a27b5aa232f0749b1f2b058fe02e3d, type: 2}
+  - {fileID: 11400000, guid: 549bfaf1a71ade54fb25a32a4440498a, type: 2}
+  - {fileID: 11400000, guid: 0b49a4706c8b4fb4d98b1120caf5d287, type: 2}
+  - {fileID: 11400000, guid: 84d21a3376d969a448139a0c7a2da35c, type: 2}
+  - {fileID: 11400000, guid: bf9dad22b4c987f4b82912d118a176dd, type: 2}
+  - {fileID: 11400000, guid: 60c8ed12c8034ce439e8f82205f3220f, type: 2}
+  - {fileID: 11400000, guid: d0752ad8368257d43ac6ee09e287889d, type: 2}
+  - {fileID: 11400000, guid: 1560d504b8ee2c740a085c1f3ad04cb0, type: 2}
   faces:
   - {fileID: 21300000, guid: f405a19f57ad8cc43ad41f451ab84f4f, type: 3}
   - {fileID: 21300000, guid: 2bc3539ec0992904b8e1c60e12880245, type: 3}
@@ -18315,7 +18324,7 @@ MonoBehaviour:
   shop: {fileID: 420992233}
   depth: {fileID: 1661151288}
   pauseToggle: {fileID: 2033704553}
-  messageDepths: 00000000020000000400000006000000080000000a0000000c0000000e000000100000001200000040420f00
+  messageDepths: 0000000032000000640000007d00000096000000c8000000e1000000fa0000002c01000090010000f6010000580200009a0200009b02000040420f00
 --- !u!114 &1577181481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20135,7 +20144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hey there!
+  m_text: 'Hey there! '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -20162,14 +20171,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
+  m_fontSize: 18
   m_fontSizeBase: 20
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 16
+  m_fontSizeMax: 18
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

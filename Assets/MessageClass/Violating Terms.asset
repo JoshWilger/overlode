@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
-  m_Name: Keep it up
+  m_Name: Violating Terms
   m_EditorClassIdentifier: 
-  face: 0100000000000000
+  face: 00000000
   characterName: Mr. Melogg
   paragraphs:
-  - Congrats on making it so far! Here's another bonus for your service. We're picking
-    up some heavy vibrations from the planet's core...
-  - They seem to be causing some earthquakes along with some garbled misdirected
-    transmissions - you can just ignore them. Keep up the great work!
-  reward: 3000
+  - You are breaking the terms of your employment. There are consequences for this!
+    Turn back immediately!
+  reward: 0

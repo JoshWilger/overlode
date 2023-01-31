@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
   m_Name: Welcome
   m_EditorClassIdentifier: 
-  face: 03000000020000000300000003000000
+  face: 02000000030000000300000002000000
   characterName: Mr. Gnome
   paragraphs:
-  - Looks like your battery drained over the long flight coming here. You should
-    recharge it soon or you'll ...
-  - ...unfortunately meet the demise of the other former employees. I guess that's
-    why we're paying at a premium for your services! ...
-  - ...All you need to do is collect and sell minerals, but you'll probably need
-    to upgrade your equipment as you go deeper. Remember, ...
-  - ...the deeper you go, the better minerals there are. Don't forget to recharge
-    and good luck!
+  - Oh boy, another recruit. I hope you last a little longer than the others. There's
+    been a lot of turnover ever since the new CEO's been heading up this whole mining
+    operation... (click the gray arrow)
+  - What we've brought you here for is to collect minerals and bring them to the
+    surface for processing. We got a few automated shops to help you out; some that
+    keep you alive, others that upgrade your equipment...
+  - Regardless, you're suit is probably not fully charged, so head over to the charging
+    station to the left. You'll definitely want to keep an eye on that charging level,
+    as it's the main way you'll stay alive...
+  - Also, keep in mind that the deeper you go, the better resources there are. Good
+    luck out there.
   reward: 50

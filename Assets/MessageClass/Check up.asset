@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5de996f98d3444c972fe8e1c814e0d, type: 3}
   m_Name: Check up
   m_EditorClassIdentifier: 
-  face: 050000000400000004000000
+  face: 0400000005000000
   characterName: Miner #342
   paragraphs:
-  - How are things going, kid? I know you're new here, so I thought I'd give you
-    a tip; don't neglect your cooling system. A moment ago ...
-  - ...I ran into some lava but my turbines managed to dissapate the heat amazingly
-    and ...
-  - ...I hardly took any damage. Probably saved my life.
+  - How are things going for you, kid? I know you're new here, so I wanted to give
+    you a tip; don't neglect your cooling system...
+  - A moment ago I ran into some lava but my turbines managed to dissipate the heat
+    amazingly and I hardly took any damage. Probably saved my life.
   reward: 0
