@@ -189,9 +189,10 @@ public class Mining : MonoBehaviour
         float playerX = coll.bounds.center.x;
         float playerY = coll.bounds.center.y;
 
-        if (baseTilemap.GetTile(new Vector3Int(Mathf.FloorToInt(playerX), Mathf.FloorToInt(playerY))))
+        var checkTile = baseTilemap.GetTile(new Vector3Int(Mathf.FloorToInt(playerX), Mathf.FloorToInt(playerY)));
+        if (checkTile)
         {
-            Debug.Log("Player is in a tile!");
+            Debug.Log("Player is in tile " + checkTile.name + "!");
             return new Vector3Int(10000, 10000);
         }
 

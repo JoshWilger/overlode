@@ -5,11 +5,13 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class UIController : MonoBehaviour
 {
     [SerializeField] private HudUI hudController;
     [SerializeField] private MessageUI messageUiScript;
+    [SerializeField] private TerrainGeneration terrainGenerationScript;
     [SerializeField] private GameObject focus;
     [SerializeField] private GameObject message;
     [SerializeField] private GameObject charging;
@@ -17,6 +19,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject garage;
     [SerializeField] private GameObject shop;
     [SerializeField] private TextMeshProUGUI depth;
+    [SerializeField] private Animator earthquakeWarn;
+    [SerializeField, Range(0, 1)] private float earthquakeChance;
     [SerializeField] public Toggle pauseToggle;
 
     public int[] messageDepths;
@@ -157,6 +161,19 @@ public class UIController : MonoBehaviour
         {
             focus.SetActive(false);
             energyScript.decreaseEnergy = true;
+            if (messageUiScript.currentMessageIndex > 2 && Random.value < earthquakeChance)
+            {
+                earthquakeWarn.SetBool("show", true);
+                earthquakeWarn.speed = 4f;
+                Invoke(nameof(DoEarthquake), 1f);
+            }
         }
+
+
+    }
+    private void DoEarthquake()
+    {
+        terrainGenerationScript.Earthquake();
+        earthquakeWarn.SetBool("show", false);
     }
 }

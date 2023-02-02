@@ -69,7 +69,6 @@ public class ItemUsage : MonoBehaviour
         Animate("health");
         var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
         var newHealthLevel = healthScript.health * upgradeAmount + 30f;
-        Debug.Log(newHealthLevel);
         healthScript.health = newHealthLevel > upgradeAmount ? 1 : newHealthLevel / upgradeAmount; 
         healthScript.UpdateHealthBar();
         Finish();

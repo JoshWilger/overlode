@@ -13,14 +13,18 @@ public class TerrainGeneration : MonoBehaviour
     [SerializeField, Range(0, 1)] private float stoneLavaChance;
     [SerializeField, Range(0, 1)] private float artifactChance;
 
-    [SerializeField] private int width = 33;
-    [SerializeField] private int depth = 98; // 599 is good actual value
+    [SerializeField] private int width;
+    [SerializeField] private int depth;
+    [SerializeField] private int earthquakeLayerAttempts;
+    [SerializeField] private int artifactDepthDividend;
+    [SerializeField] private int stoneDepthDividend;
+    [SerializeField] private int lavaDepthDividend;
 
     private Tilemap[] tilemaps;
     private ItemClass[] background;
     private ItemClass[] ground;
     private ItemClass[] minerals;
-    private ItemClass[] miscGround; // lava, stone, stoney dirts (2)
+    private ItemClass[] miscGround; 
     private ItemClass[] artifacts;
 
     // Start is called before the first frame update
@@ -45,7 +49,7 @@ public class TerrainGeneration : MonoBehaviour
                 int layerLength = Mathf.Min(ground.Length, minerals.Length);
                 int layerNum = Mathf.Min(Mathf.FloorToInt(y / ((float)(depth / layerLength) + 1 + holyRolly)), layerLength);
 
-                tilemaps[0].SetTile(tilePos, dungeonRoll < artifactChance && !isAir && (y > depth / 16) ? background[1].placeableTile : background[0].placeableTile);
+                tilemaps[0].SetTile(tilePos, dungeonRoll < artifactChance && !isAir && (y > depth / artifactDepthDividend) ? background[1].placeableTile : background[0].placeableTile);
 
                 tilemaps[1].SetTile(tilePos,  isAir ? null : 
                     layerNum == 2 && holyRolly < 0.2f ? miscGround[0].placeableTile : 
@@ -59,18 +63,18 @@ public class TerrainGeneration : MonoBehaviour
                     int mineralNum = GetMineralNum(y);
                     int artifactNum = Mathf.FloorToInt((float)(holyRolly / artifactChance) * (artifacts.Length));
 
-                    if ((y > depth / 2) && !tilemaps[1].GetTile(oneAbove) && (stoneLavaRoll < (2 * stoneLavaChance) * y / depth))
+                    if ((y > depth / lavaDepthDividend) && !tilemaps[1].GetTile(oneAbove) && (stoneLavaRoll < (2 * stoneLavaChance) * y / depth))
                     {
                         tilemaps[2].SetTile(oneAbove, miscGround[3].placeableTile);
                     }
 
                     tilemaps[2].SetTile(tilePos, mineralNum == -1 ?
-                        y > depth / 4 && stoneLavaRoll < stoneLavaChance * y / depth ? miscGround[2].placeableTile 
-                        : holyRolly < artifactChance && (y > depth / 16) ? artifacts[artifactNum].placeableTile : null
+                        y > depth / stoneDepthDividend && stoneLavaRoll < stoneLavaChance * y / depth ? miscGround[2].placeableTile 
+                        : holyRolly < artifactChance && (y > depth / artifactDepthDividend) ? artifacts[artifactNum].placeableTile : null
                         : minerals[mineralNum].placeableTile);
 
-                    if (holyRolly < artifactChance && (y > depth / 16)) artifactCounter[artifactNum]++; // for logging the artifacts
-                    if (dungeonRoll < artifactChance && !isAir && (y > depth / 16)) artifactCounter[artifacts.Length]++;
+                    if (holyRolly < artifactChance && (y > depth / artifactDepthDividend)) artifactCounter[artifactNum]++; // for logging the artifacts
+                    if (dungeonRoll < artifactChance && !isAir && (y > depth / artifactDepthDividend)) artifactCounter[artifacts.Length]++;
                 }
             }
         }
@@ -103,6 +107,33 @@ public class TerrainGeneration : MonoBehaviour
         tilemaps[1].SetTiles(cementCoords, Enumerable.Repeat(miscGround.Last().placeableTile, cementCoords.Length).ToArray());
 
         Vector3Int[] coords = { new Vector3Int(7, -depth - 3), new Vector3Int(21, -depth - 3), new Vector3Int(35, -depth - 3) };
-        tilemaps[1].SetTiles(coords, new TileBase[] { miscGround[4].placeableTile, miscGround[4].placeableTile, miscGround[4].placeableTile });
+        tilemaps[2].SetTiles(coords, new TileBase[] { miscGround[4].placeableTile, miscGround[4].placeableTile, miscGround[4].placeableTile });
+    }
+
+    public void Earthquake()
+    {
+        Debug.Log("Earthquake!!");
+        Vector3Int previousCoord = new(Random.Range(0, width), -7);
+        var tile = tilemaps[1].GetTile(previousCoord);
+
+        for (int x = 0; x < width; x++)
+        {
+            if (!tilemaps[1].HasTile(new Vector3Int(x, -1)))
+            {
+                for (int y = 7; y < depth && !tilemaps[1].HasTile(new Vector3Int(x, -y)); y++)
+                {
+                    for (int i = 0; i < earthquakeLayerAttempts; i++)
+                    {
+                        var random = x + Random.Range(-earthquakeLayerAttempts, earthquakeLayerAttempts);
+                        var currentCoord = new Vector3Int(random > width ? random - width : random < 0 ? random + width : random, -y);
+                        var pos = new Vector3Int(x, -y);
+                        foreach (var tilemap in tilemaps)
+                        {
+                            tilemap.SetTile(pos, tilemap.GetTile(currentCoord));
+                        }
+                    }
+                }
+            }
+        }
     }
 }
