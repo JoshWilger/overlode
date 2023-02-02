@@ -8,6 +8,7 @@ public class TerrainGeneration : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
 
+    [SerializeField, Range(0, 1)] private float earthquakeAirChance;
     [SerializeField, Range(0, 1)] private float airChance;
     [SerializeField, Range(0, 1)] private float mineralChance;
     [SerializeField, Range(0, 1)] private float stoneLavaChance;
@@ -113,12 +114,10 @@ public class TerrainGeneration : MonoBehaviour
     public void Earthquake()
     {
         Debug.Log("Earthquake!!");
-        Vector3Int previousCoord = new(Random.Range(0, width), -7);
-        var tile = tilemaps[1].GetTile(previousCoord);
 
         for (int x = 0; x < width; x++)
         {
-            if (!tilemaps[1].HasTile(new Vector3Int(x, -1)))
+            if (!tilemaps[1].HasTile(new Vector3Int(x, -100)))
             {
                 for (int y = 7; y < depth && !tilemaps[1].HasTile(new Vector3Int(x, -y)); y++)
                 {
@@ -127,9 +126,10 @@ public class TerrainGeneration : MonoBehaviour
                         var random = x + Random.Range(-earthquakeLayerAttempts, earthquakeLayerAttempts);
                         var currentCoord = new Vector3Int(random > width ? random - width : random < 0 ? random + width : random, -y);
                         var pos = new Vector3Int(x, -y);
-                        foreach (var tilemap in tilemaps)
+                        bool isAir = Random.Range(0f, 1f) < earthquakeAirChance;
+                        for (int t = 0; t < tilemaps.Length; t++)
                         {
-                            tilemap.SetTile(pos, tilemap.GetTile(currentCoord));
+                            tilemaps[t].SetTile(pos, isAir ? t == 0 ? background[0].placeableTile : null : tilemaps[t].GetTile(currentCoord));
                         }
                     }
                 }

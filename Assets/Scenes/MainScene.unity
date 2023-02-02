@@ -4952,6 +4952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
+  earthquakeAirChance: 0.3
   airChance: 0.2
   mineralChance: 0.15
   stoneLavaChance: 0.05
