@@ -18,7 +18,6 @@ public class Energy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        atlas.currentUpgradeAmounts = new float[] { 10f, 20f, 7f, 10f, 50f, 0f }; // Max: 150, 120, 120, 180, 80, 80
         energy = 1;
         decreaseEnergy = true;
     }
