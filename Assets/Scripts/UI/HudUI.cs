@@ -35,8 +35,7 @@ public class HudUI : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        atlas.currentUpgradeAmounts = new float[] { 150f, 95f, 7f, 180f, 50f, 80f }; // Max: 150, 120, 120, 180, 80, 80
-
+        atlas.currentUpgradeAmounts = new float[] { 10f, 20f, 7f, 10f, 50f, 0f }; // Max: 150, 120, 120, 180, 80, 80
         toggleGroup = inventoryActive.GetComponent<ToggleGroup>();
         toggles = inventoryActive.GetComponentsInChildren<Toggle>();
         mineralButtons = inventoryActive.GetComponentsInChildren<Button>();
@@ -61,7 +60,7 @@ public class HudUI : MonoBehaviour
         shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
         foreach (var item in shopItems)
         {
-            item.amountCollected = 10;
+            item.amountCollected = 0;
         }
 
         invTexts = RetrieveInventoryText(ItemClass.ItemType.miscGround);
