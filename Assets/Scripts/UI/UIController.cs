@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI depth;
     [SerializeField] private Animator earthquakeWarn;
     [SerializeField, Range(0, 1)] private float earthquakeChance;
+    [SerializeField] private int badAltimeterDepth;
     [SerializeField] public Toggle pauseToggle;
 
     public int[] messageDepths;
@@ -42,7 +43,8 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        depth.text = Mathf.Round(coll.bounds.min.y * 2) + "m";
+        var playerPos = Mathf.Round(coll.bounds.min.y * 2);
+        depth.text = playerPos < -badAltimeterDepth * 2 ? "???" : playerPos + "m";
         if (-Mathf.Round(coll.bounds.min.y * 2) == messageDepths[messageUiScript.currentMessageIndex])
         {
             message.SetActive(true);

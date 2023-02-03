@@ -59,7 +59,7 @@ public class HudUI : MonoBehaviour
         shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
         foreach (var item in shopItems)
         {
-            item.amountCollected = 10; // TESTING
+            item.amountCollected = 0;
         }
 
         invTexts = RetrieveInventoryText(ItemClass.ItemType.miscGround);
