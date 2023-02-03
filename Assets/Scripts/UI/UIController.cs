@@ -22,18 +22,23 @@ public class UIController : MonoBehaviour
     [SerializeField] private Animator earthquakeWarn;
     [SerializeField, Range(0, 1)] private float earthquakeChance;
     [SerializeField] private int badAltimeterDepth;
+    [SerializeField] private Sprite bossBackground;
     [SerializeField] public Toggle pauseToggle;
 
     public int[] messageDepths;
 
     private BoxCollider2D coll;
     private Energy energyScript;
+    private SpriteRenderer background;
+    private Sprite regularBackground;
 
     // Start is called before the first frame update
     private void Start()
     {
         coll = GetComponent<BoxCollider2D>();
         energyScript = GetComponent<Energy>();
+        background = GetComponentsInChildren<SpriteRenderer>().Last();
+        regularBackground = background.sprite;
         pauseToggle.onValueChanged.AddListener((value) =>
         {
             Paused(value);
@@ -44,7 +49,16 @@ public class UIController : MonoBehaviour
     private void Update()
     {
         var playerPos = Mathf.Round(coll.bounds.min.y * 2);
-        depth.text = playerPos < -badAltimeterDepth * 2 ? "???" : playerPos + "m";
+        if (playerPos < -badAltimeterDepth * 2)
+        {
+            depth.text = "???m";
+            background.sprite = bossBackground;
+        }
+        else
+        {
+            depth.text = playerPos + "m";
+            background.sprite = regularBackground;
+        }
         if (-Mathf.Round(coll.bounds.min.y * 2) == messageDepths[messageUiScript.currentMessageIndex])
         {
             message.SetActive(true);

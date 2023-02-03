@@ -4957,8 +4957,6 @@ MonoBehaviour:
   mineralChance: 0.15
   stoneLavaChance: 0.05
   artifactChance: 0.0015
-  width: 36
-  depth: 550
   earthquakeLayerAttempts: 3
   artifactDepthDividend: 6
   stoneDepthDividend: 4
@@ -6093,10 +6091,10 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 2.181081, y: 2, z: 0}
+  m_ChunkCullingBounds: {x: 7, y: 2, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
-  m_SortOrder: 0
+  m_SortOrder: 1
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
@@ -6469,7 +6467,37 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 5, y: 0, z: 0}
+  - first: {x: 7, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 21, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 36, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 5, y: 1, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 7
@@ -6479,11 +6507,11 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 6, y: 0, z: 0}
+  - first: {x: 6, y: 1, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 6
-      m_TileSpriteIndex: 6
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6513,7 +6541,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -6523,10 +6551,10 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 36
     m_Data: {fileID: 11400000, guid: eca9250b66cbf2d479e4a2320f598083, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 1a18b62efda18534c9b05048e00b9ba9, type: 2}
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: f95910c9fa5a98f4daf68af93b4c661b, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 7cd4345c07ac23c46bacab64dd5c3ba0, type: 2}
   - m_RefCount: 1
@@ -6540,22 +6568,22 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 36
     m_Data: {fileID: 21300000, guid: 9dd7ca966297dab4a92c2d438645d347, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 282b0fb84b5467b45a7ead9d91d5c53d, type: 3}
+    m_Data: {fileID: 21300000, guid: 88327cf28f7cb184e9ea44c2f038863c, type: 3}
+  - m_RefCount: 2
+    m_Data: {fileID: 21300000, guid: 6c912f5ebe12df84e95c531d7691b1c7, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 5f22efe883f411e4d9cf24c0ff45552b, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 6b971be6fcba7af49b9e909bae0ea250, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: e6295b81bd882664ba7f60ebae6f7c36, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 5f22efe883f411e4d9cf24c0ff45552b, type: 3}
+    m_Data: {fileID: 21300000, guid: 282b0fb84b5467b45a7ead9d91d5c53d, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: bf7b25547a819ad408739e356f77b1db, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 41
+  - m_RefCount: 44
     m_Data:
       e00: 1
       e01: 0
@@ -6574,13 +6602,13 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 41
+  - m_RefCount: 44
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: -6, z: 0}
-  m_Size: {x: 36, y: 9, z: 1}
+  m_Size: {x: 37, y: 9, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -14402,20 +14430,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 1262024719}
     m_ColliderPaths:
-    - - X: 360076896
-        Y: 76923
-      - X: -76923
-        Y: 76923
-      - X: -76923
-        Y: -10076923
-      - X: 360076896
-        Y: -10076923
+    - - X: 0
+        Y: -10000000
+      - X: 360000000
+        Y: -10000000
+      - X: 360000000
+        Y: 0
+      - X: 0
+        Y: 0
   m_CompositePaths:
     m_Paths:
-    - - {x: 36.00766, y: -1.0076923}
-      - {x: 36.00766, y: 0.0076923002}
-      - {x: -0.0076923002, y: 0.007663}
-      - {x: -0.007663, y: -1.0076923}
+    - - {x: 35.999973, y: -1}
+      - {x: 35.999973, y: 0}
+      - {x: 0, y: -0.000029300001}
+      - {x: 0.000029300001, y: -1}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!19719996 &1262024719
@@ -18175,6 +18203,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  shopBlock: {fileID: 11400000, guid: 75c3de19da0dc454ab61f6bbfe96fa60, type: 2}
 --- !u!114 &1577181475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18302,7 +18331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577181471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.5, y: 3, z: 0}
+  m_LocalPosition: {x: 8.5, y: 2, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18335,6 +18364,7 @@ MonoBehaviour:
   earthquakeWarn: {fileID: 2000127346}
   earthquakeChance: 0.075
   badAltimeterDepth: 450
+  bossBackground: {fileID: 21300000, guid: 65b965e95afe9ed4f95cfd25648abcb8, type: 3}
   pauseToggle: {fileID: 2033704553}
   messageDepths: 0000000064000000c80000002c01000090010000f401000058020000bc02000020030000840300009d030000e80300004c0400004d04000040420f00
 --- !u!114 &1577181481

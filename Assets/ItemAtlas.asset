@@ -52,14 +52,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75c3de19da0dc454ab61f6bbfe96fa60, type: 2}
   - {fileID: 11400000, guid: 55b4b6998f8577d45b7f1306be6f4d3e, type: 2}
   - {fileID: 11400000, guid: 39f7104b71dcaf74681e15841accf3b2, type: 2}
+  - {fileID: 11400000, guid: 2d4af34b244610c4e8fc938f0ac4d6fb, type: 2}
+  - {fileID: 11400000, guid: 3501036e748a6634c9066000081abc46, type: 2}
   unminables:
   - {fileID: 11400000, guid: ae4778a1c6c81b547bae93ce16a6d2a2, type: 2}
   - {fileID: 11400000, guid: d8776c4c3f7d0564f82f35150c07cbd4, type: 2}
   - {fileID: 11400000, guid: 0979ea66734b38a4b8f99702b3d1d5fa, type: 2}
   - {fileID: 11400000, guid: 39f7104b71dcaf74681e15841accf3b2, type: 2}
+  - {fileID: 11400000, guid: 2d4af34b244610c4e8fc938f0ac4d6fb, type: 2}
   indestructables:
   - {fileID: 11400000, guid: 0979ea66734b38a4b8f99702b3d1d5fa, type: 2}
   - {fileID: 11400000, guid: 39f7104b71dcaf74681e15841accf3b2, type: 2}
+  - {fileID: 11400000, guid: 2d4af34b244610c4e8fc938f0ac4d6fb, type: 2}
+  - {fileID: 11400000, guid: 3501036e748a6634c9066000081abc46, type: 2}
   upgrades:
   - {fileID: 11400000, guid: 2e93b6b8215bf824fa188bfd6b7a0dbf, type: 2}
   - {fileID: 11400000, guid: 6cc7734aa52d1fb4a807b7e36147c2ab, type: 2}
@@ -106,5 +111,5 @@ MonoBehaviour:
   - 20
   - 7
   - 10
-  - 150
+  - 50
   - 0

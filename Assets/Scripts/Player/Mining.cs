@@ -22,6 +22,7 @@ public class Mining : MonoBehaviour
     [SerializeField] private TextMeshProUGUI storageText;
     [SerializeField] private Image storageProgress;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private ItemClass shopBlock;
 
     private Rigidbody2D rb;
     private BoxCollider2D coll;
@@ -110,7 +111,13 @@ public class Mining : MonoBehaviour
             {
                 return false;
             }
-            if (!mineral && transform.position.y < -gasDepth && !gasExploding && Mathf.Abs(currentTile.y + gasDepth) / (gasDepth / 2f) > Random.value)
+            Debug.Log(currentTile.y);
+            if (!mineral 
+                && transform.position.y < -gasDepth 
+                && currentTile.y > -TerrainGeneration.DEPTH - 2 
+                && !gasExploding 
+                && tile != shopBlock.placeableTile
+                && Mathf.Abs(currentTile.y + gasDepth) / (gasDepth / 2f) > Random.value)
             {
                 gasExploding = true;
                 move.position = new Vector3(currentTile.x + 0.5f, currentTile.y + 0.5f, 2);
