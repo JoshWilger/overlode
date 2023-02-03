@@ -9,8 +9,11 @@ public class Mining : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private HudUI controller;
+    [SerializeField] private ItemUsage itemUsageScript;
     [SerializeField] private Health healthScript;
     [SerializeField, Range(0, 1)] private float tileMiningDistance;
+    [SerializeField] private int gasDepth;
+    [SerializeField] private float gasExplosionDelay;
     [SerializeField] private Animator breaking;
     [SerializeField] private Transform move;
     [SerializeField] private Tilemap baseTilemap;
@@ -25,6 +28,7 @@ public class Mining : MonoBehaviour
     private float[,] directionAdders;
     private bool mining;
     private bool hurtRecently;
+    private bool gasExploding;
     private int currentDirectionNum;
     private int previousDirectionNum;
     private Vector3Int currentTile;
@@ -43,6 +47,7 @@ public class Mining : MonoBehaviour
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
         hurtRecently = false;
+        gasExploding = false;
     }
 
     // Update is called once per frame
@@ -105,6 +110,16 @@ public class Mining : MonoBehaviour
             {
                 return false;
             }
+            if (!mineral && transform.position.y < -gasDepth && !gasExploding && Mathf.Abs(currentTile.y + gasDepth) / (gasDepth / 2f) > Random.value)
+            {
+                gasExploding = true;
+                move.position = new Vector3(currentTile.x + 0.5f, currentTile.y + 0.5f, 2);
+                breaking.speed = 1f; 
+                breaking.SetTrigger("gas");
+                Invoke(nameof(GasExplosion), gasExplosionDelay);
+
+                return false;
+            }
         }
         if (mineral)
         {
@@ -129,6 +144,12 @@ public class Mining : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void GasExplosion()
+    {
+        itemUsageScript.RemoveTiles(5, currentTile, Mathf.CeilToInt(Mathf.Abs(currentTile.y + gasDepth) / (gasDepth / 5f)));
+        gasExploding = false;
     }
 
     private void RemoveTile()

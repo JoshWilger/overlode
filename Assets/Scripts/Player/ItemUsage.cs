@@ -128,14 +128,13 @@ public class ItemUsage : MonoBehaviour
         Finish();
     }
 
-    private void RemoveTiles(int size)
+    public void RemoveTiles(int size, Vector3Int basePosition, int damageMultiplier = 1)
     {
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
             {
-                Vector3Int currentPosition = new(Mathf.FloorToInt(items.First().transform.position.x) + i - size / 2, 
-                    Mathf.FloorToInt(items.First().transform.position.y) + j - size / 2);
+                Vector3Int currentPosition = new(basePosition.x + i - size / 2, basePosition.y + j - size / 2);
                 TileBase tile = baseTilemap.GetTile(currentPosition);
                 TileBase mineral = mineralTilemap.GetTile(currentPosition);
 
@@ -160,14 +159,20 @@ public class ItemUsage : MonoBehaviour
                 }
             }
         }
-        DoDamageIfClose(size);
+        DoDamageIfClose(size * damageMultiplier, basePosition);
     }
 
-    private void DoDamageIfClose(int size)
+    private void RemoveTiles(int size)
+    {
+        RemoveTiles(size, new(Mathf.FloorToInt(items.First().transform.position.x),
+                    Mathf.FloorToInt(items.First().transform.position.y)));
+    }
+
+    private void DoDamageIfClose(int size, Vector3Int basePosition)
     {
         float playerX = coll.bounds.center.x;
         float playerY = coll.bounds.center.y;
-        float distance = Mathf.Max(Mathf.Abs(playerX - items.First().transform.position.x), Math.Abs(playerY - items.First().transform.position.y));
+        float distance = Mathf.Max(Mathf.Abs(playerX - basePosition.x), Math.Abs(playerY - basePosition.y));
 
         if (distance <= size / 2f)
         {
