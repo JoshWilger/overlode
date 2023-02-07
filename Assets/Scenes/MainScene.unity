@@ -3618,7 +3618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -15}
+  m_AnchoredPosition: {x: 0, y: -14.999985}
   m_SizeDelta: {x: -300, y: -130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377524613
@@ -4494,7 +4494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -15}
+  m_AnchoredPosition: {x: 0, y: -14.999985}
   m_SizeDelta: {x: -300, y: -130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &420992235
@@ -15243,7 +15243,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -15}
+  m_AnchoredPosition: {x: 0, y: -14.999985}
   m_SizeDelta: {x: -300, y: -130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299802033
@@ -18188,6 +18188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   controller: {fileID: 468181597}
+  energyScript: {fileID: 1577181482}
   itemUsageScript: {fileID: 1577181481}
   healthScript: {fileID: 1577181483}
   tileMiningDistance: 0.217
@@ -18217,6 +18218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
+  energyScript: {fileID: 1577181482}
   ground:
     serializedVersion: 2
     m_Bits: 64

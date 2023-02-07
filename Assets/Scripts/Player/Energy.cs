@@ -18,14 +18,13 @@ public class Energy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        energy = 1;
+        energy = 0.55f;
         decreaseEnergy = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        UpdateEnergy();
+        UpdateEnergy(1000f);
         if (energy < 0.05)
         {
             low.text = "Critical!";
@@ -45,11 +44,11 @@ public class Energy : MonoBehaviour
         }
     }
 
-    private void UpdateEnergy()
+    public void UpdateEnergy(float divisor)
     {
         if (energy > 0 && decreaseEnergy)
         {
-            energy -= 1f / (1000f * atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery]);
+            energy -= 1f / (divisor * atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery]);
             energyBar.fillAmount = energy;
         }
     }

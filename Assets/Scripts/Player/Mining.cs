@@ -9,6 +9,7 @@ public class Mining : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private HudUI controller;
+    [SerializeField] private Energy energyScript;
     [SerializeField] private ItemUsage itemUsageScript;
     [SerializeField] private Health healthScript;
     [SerializeField, Range(0, 1)] private float tileMiningDistance;
@@ -51,8 +52,7 @@ public class Mining : MonoBehaviour
         gasExploding = false;
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         if (!enabled) return;
 
@@ -92,6 +92,11 @@ public class Mining : MonoBehaviour
             currentDirectionNum = 3;
             mining = BreakTile();
         }
+
+        if (mining)
+        {
+            energyScript.UpdateEnergy(50f);
+        }
     }
 
     private void UpdateHurtRecently()
@@ -111,7 +116,6 @@ public class Mining : MonoBehaviour
             {
                 return false;
             }
-            Debug.Log(currentTile.y);
             if (!mineral 
                 && transform.position.y < -gasDepth 
                 && currentTile.y > -TerrainGeneration.DEPTH - 2 

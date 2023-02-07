@@ -6,6 +6,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private Energy energyScript;
     [SerializeField] private LayerMask ground;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float playerToCeilGap = 0.1f;
@@ -35,8 +36,7 @@ public class Movement : MonoBehaviour
         weight = 0;
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         if (!enabled) return;
 
@@ -53,11 +53,13 @@ public class Movement : MonoBehaviour
         }
         if (dirY > 0f && (!IsGrounded() || !IsACeiling()))
         {
-            rb.velocity = new Vector2(dirX * (amount / (weight + 1f)), dirY * (amount / (weight + 1f)));
+            rb.velocity = new Vector2(dirX * (amount / (weight + 1f)), dirY * 1.2f * (amount / (weight + 1f)));
+            energyScript.UpdateEnergy(300f);
         }
         else if (dirX != 0f && (!IsGrounded()))
         {
             rb.velocity = new Vector2(dirX * (amount / (weight + 1f)), MathF.Abs(dirX / (amount *  20f)));
+            energyScript.UpdateEnergy(600f);
         }
 
         UpdateAnimationState();
