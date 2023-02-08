@@ -79,7 +79,7 @@ public class GarageUI : MonoBehaviour
 
         currentToggleIndex = Array.IndexOf(toggles, toggleGroup.ActiveToggles().FirstOrDefault());
 
-        currentUpgradeIndex = 0;
+        currentUpgradeIndex = GetMaxUpgradeIndex();
         var upgradeType = upgrades[currentToggleIndex][currentUpgradeIndex].upgradeType;
         typeTitleText.text = upgradeType.itemName;
         typeInfoText.text = upgradeType.itemDescription;
@@ -94,10 +94,25 @@ public class GarageUI : MonoBehaviour
         levelText.text = "Level " + upgrade.itemName;
         currentLevelText.text = "Current Level: " + equippedUpgrades[currentToggleIndex];
 
-        purchaseButton.interactable = long.Parse(moneyText.text.Substring(1)) - upgrade.itemWorth >= 0 && upgrade.amountCollected == 0;
-        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = upgrade.amountCollected == 0 ? "Purchase" : "Bought";
+        var maxUpgrade = GetMaxUpgradeIndex();
+        purchaseButton.interactable = long.Parse(moneyText.text.Substring(1)) - upgrade.itemWorth >= 0 
+            && upgrade.amountCollected == 0 && maxUpgrade < currentUpgradeIndex;
+        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = upgrade.amountCollected >= 1 ? "Bought" 
+            : maxUpgrade > currentUpgradeIndex ? "Superseded" : "Purchase";
         incrementButton.interactable = upgrades[currentToggleIndex].Length - 1 > currentUpgradeIndex;
         decrementButton.interactable = currentUpgradeIndex > 0;
+    }
+
+    private int GetMaxUpgradeIndex()
+    {
+        for (int i = upgrades[currentToggleIndex].Length - 1; i >= 0; i--)
+        {
+            if (upgrades[currentToggleIndex][i].amountCollected > 0)
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     private void IncrementUpgrade()
