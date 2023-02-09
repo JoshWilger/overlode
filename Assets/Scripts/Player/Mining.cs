@@ -121,7 +121,7 @@ public class Mining : MonoBehaviour
                 && currentTile.y > -TerrainGeneration.DEPTH - 2 
                 && !gasExploding 
                 && tile != shopBlock.placeableTile
-                && Mathf.Abs(currentTile.y + gasDepth) / (gasDepth / 2f) > Random.value)
+                &&  7f / (Mathf.Abs(currentTile.y + TerrainGeneration.DEPTH) + 1) > Random.value)
             {
                 gasExploding = true;
                 move.position = new Vector3(currentTile.x + 0.5f, currentTile.y + 0.5f, 2);
