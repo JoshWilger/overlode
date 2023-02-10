@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChickenMovement : MonoBehaviour
 {
     [SerializeField] private Collider2D playerColl;
+    [SerializeField] private GameObject laser;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float attackInterval;
     [SerializeField] private float peckDelay;
@@ -13,6 +14,8 @@ public class ChickenMovement : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     private Animator anim;
+    private HingeJoint2D laserHinge;
+    private SpriteRenderer laserSprite;
     private bool doingAttack;
     private bool invoked;
 
@@ -22,6 +25,8 @@ public class ChickenMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        laserHinge = laser.GetComponent<HingeJoint2D>();
+        laserSprite = laser.GetComponent<SpriteRenderer>();
         doingAttack = false;
         invoked = false;
     }
@@ -29,7 +34,6 @@ public class ChickenMovement : MonoBehaviour
     private void FixedUpdate()
     {
         var playerX = playerColl.bounds.center.x;
-        var playerY = playerColl.bounds.center.y;
 
         if (!invoked)
         {
@@ -57,17 +61,24 @@ public class ChickenMovement : MonoBehaviour
     private void Attack()
     {
         doingAttack = true;
+        rb.velocity = Vector2.zero;
+        var playerX = playerColl.bounds.center.x;
+        var playerY = playerColl.bounds.center.y;
 
-        switch (Random.Range(1, 3))
+        switch (Random.Range(2, 3))
         {
             case 1:
                 anim.SetTrigger("peck");
-                Invoke(nameof(Peck), peckDelay);
+                Invoke(nameof(EndAttack), peckDelay);
                 break;
 
             case 2:
                 anim.SetTrigger("laser");
-                Invoke(nameof(Laser), laserDelay);
+                laserHinge.anchor = sprite.flipX ? new Vector2(-0.9f, 0) : new Vector2(-0.9f, 0);
+                laserHinge.connectedAnchor = sprite.flipX ? new Vector2(1.9f, 0) : new Vector2(-1.9f, 0);
+
+                laserSprite.enabled = true;
+                Invoke(nameof(EndAttack), laserDelay);
                 break;
 
             default:
@@ -75,18 +86,9 @@ public class ChickenMovement : MonoBehaviour
         }
     }
 
-    private void Peck()
+    private void EndAttack()
     {
-
-
-        invoked = false;
-        doingAttack = false;
-    }
-
-    private void Laser()
-    {
-
-
+        laserSprite.enabled = false;
         invoked = false;
         doingAttack = false;
     }
