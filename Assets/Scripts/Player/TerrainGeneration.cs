@@ -109,6 +109,7 @@ public class TerrainGeneration : MonoBehaviour
         tilemaps[2].SetTiles(topCoords, new TileBase[] { miscGround[4].placeableTile, miscGround[4].placeableTile });
 
         tilemaps[1].SetTiles(GenerateLayerCoords(DEPTH + 9, 2), Enumerable.Repeat(miscGround[8].placeableTile, WIDTH * 2).ToArray());
+        tilemaps[0].SetTiles(GenerateLayerCoords(DEPTH + 9, 2), Enumerable.Repeat(background[0].placeableTile, WIDTH * 2).ToArray());
         tilemaps[1].SetTiles(GenerateLayerCoords(DEPTH + 11, 1), Enumerable.Repeat(miscGround[6].placeableTile, WIDTH).ToArray());
         tilemaps[2].SetTiles(bottomCoords, new TileBase[] { miscGround[7].placeableTile, miscGround[7].placeableTile, miscGround[7].placeableTile });
     }

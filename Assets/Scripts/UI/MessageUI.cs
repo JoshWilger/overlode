@@ -16,6 +16,7 @@ public class MessageUI : MonoBehaviour
     [SerializeField] private GameObject focus;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI characterName;
+    [SerializeField] private GameObject boss;
 
     public int currentMessageIndex;
 
@@ -38,7 +39,11 @@ public class MessageUI : MonoBehaviour
     {
         nextButton.onClick.RemoveAllListeners();
         moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + messages[currentMessageIndex].reward);
-        currentMessageIndex++;
+        if (currentMessageIndex + 1 != messages.Length)
+        {
+            currentMessageIndex++;
+        }
+        boss.SetActive(currentMessageIndex + 1 >= messages.Length);
         uiController.Paused(false);
     }
 
