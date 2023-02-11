@@ -9,10 +9,12 @@ public class ItemUsage : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private HudUI hudUiScript;
+    [SerializeField] private BossController bossScript;
     [SerializeField] private float explosionDelay;
     [SerializeField] private GameObject item;
     [SerializeField] private Tilemap baseTilemap;
     [SerializeField] private Tilemap mineralTilemap;
+    [SerializeField] private GameObject boss;
 
     private Movement movementScript;
     private Mining miningScript;
@@ -53,38 +55,56 @@ public class ItemUsage : MonoBehaviour
         itemAnim.SetTrigger(animationName);
     }
 
-    public void ActivateEnergy()
+    public bool ActivateEnergy()
     {
-        Animate("energy");
+        if (energyScript.energy < 0.99f)
+        {
+            Animate("energy");
 
-        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery];
-        var newEnergyLevel = energyScript.energy * upgradeAmount + 25f;
-        energyScript.energy = newEnergyLevel > upgradeAmount ? 1 : newEnergyLevel / upgradeAmount;
-        energyScript.UpdateEnergyBar();
-        Finish();
+            var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery];
+            var newEnergyLevel = energyScript.energy * upgradeAmount + 25f;
+            energyScript.energy = newEnergyLevel > upgradeAmount ? 1 : newEnergyLevel / upgradeAmount;
+            energyScript.UpdateEnergyBar();
+            Finish();
+            return true;
+        }
+
+        return false;
     }
 
-    public void ActivateHealth()
+    public bool ActivateHealth()
     {
-        Animate("health");
-        var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
-        var newHealthLevel = healthScript.health * upgradeAmount + 30f;
-        healthScript.health = newHealthLevel > upgradeAmount ? 1 : newHealthLevel / upgradeAmount; 
-        healthScript.UpdateHealthBar();
-        Finish();
+        if (healthScript.health < 1)
+        {
+            Animate("health");
+            var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
+            var newHealthLevel = healthScript.health * upgradeAmount + 30f;
+            healthScript.health = newHealthLevel > upgradeAmount ? 1 : newHealthLevel / upgradeAmount; 
+            healthScript.UpdateHealthBar();
+            Finish();
+            return true;
+        }
+
+        return false;
     }
 
-    public void ActivateTeleport()
+    public bool ActivateTeleport()
     {
-        Animate("teleport");
-        rb.bodyType = RigidbodyType2D.Static;
-        movementScript.enabled = false;
-        miningScript.enabled = false;
-        hudUiScript.enabled = false;
-        energyScript.decreaseEnergy = false;
+        if (miningScript.IsGrounded())
+        {
+            Animate("teleport");
+            rb.bodyType = RigidbodyType2D.Static;
+            movementScript.enabled = false;
+            miningScript.enabled = false;
+            hudUiScript.enabled = false;
+            energyScript.decreaseEnergy = false;
 
-        AnimationClip animation = itemAnim.runtimeAnimatorController.animationClips.Where((anim) => anim.name == "teleport").FirstOrDefault();
-        Invoke(nameof(RestOfTeleport), animation.length);
+            AnimationClip animation = itemAnim.runtimeAnimatorController.animationClips.Where((anim) => anim.name == "teleport").FirstOrDefault();
+            Invoke(nameof(RestOfTeleport), animation.length);
+            return true;
+        }
+
+        return false;
     }
 
     private void RestOfTeleport()
@@ -104,10 +124,16 @@ public class ItemUsage : MonoBehaviour
         Finish();
     }
 
-    public void ActivateDynamite()
+    public bool ActivateDynamite()
     {
-        Animate("dynamite");
-        Invoke(nameof(RestOfDynamite), explosionDelay);
+        if (miningScript.IsGrounded())
+        {
+            Animate("dynamite");
+            Invoke(nameof(RestOfDynamite), explosionDelay);
+            return true;
+        }
+
+        return false;
     }
 
     private void RestOfDynamite()
@@ -116,10 +142,16 @@ public class ItemUsage : MonoBehaviour
         Finish();
     }
 
-    public void ActivateC4()
+    public bool ActivateC4()
     {
-        Animate("c4");
-        Invoke(nameof(RestOfC4), explosionDelay);
+        if (miningScript.IsGrounded())
+        {
+            Animate("c4");
+            Invoke(nameof(RestOfC4), explosionDelay);
+            return true;
+        }
+
+        return false;
     }
     
     private void RestOfC4()
@@ -182,26 +214,42 @@ public class ItemUsage : MonoBehaviour
             Debug.Log("Youch! " + damage);
             healthScript.UpdateHealth(damage);
         }
+        if (boss.activeSelf)
+        {
+            float distance2 = Mathf.Max(Mathf.Abs(boss.transform.position.x - basePosition.x));
+
+            if (distance2 <= size / 2f)
+            {
+                var damage = Mathf.Abs(size - distance) / (bossScript.nextBoss ? bossScript.bossDamageDivisor * 2f : bossScript.bossDamageDivisor);
+                Debug.Log("Agh! " + damage);
+                bossScript.UpdateHealth(damage);
+            }
+        }
     }
 
-    public void ActivateBlock(ItemClass blockItem)
+    public bool ActivateBlock(ItemClass blockItem)
     {
-        int playerX = Mathf.FloorToInt(coll.bounds.center.x);
-        int playerY = Mathf.FloorToInt(coll.bounds.center.y);
-        int[,] directionAdders = new[,] { { 0, 1 }, { -1, 0 }, { 1, 0 } };
-        TileBase currentTile;
-
-        for (int i = 0; i < directionAdders.Length; i++)
+        if (miningScript.IsGrounded())
         {
-            currentTile = baseTilemap.GetTile(new Vector3Int(playerX + directionAdders[i, 0], playerY + directionAdders[i, 1]));
-            if (!currentTile)
+            int playerX = Mathf.FloorToInt(coll.bounds.center.x);
+            int playerY = Mathf.FloorToInt(coll.bounds.center.y);
+            int[,] directionAdders = new[,] { { 0, 1 }, { -1, 0 }, { 1, 0 } };
+            TileBase currentTile;
+
+            for (int i = 0; i <= directionAdders.Length / 2 - 1; i++)
             {
-                transform.position = new Vector3(playerX + 0.5f + directionAdders[i, 0], playerY + directionAdders[i, 1]);
-                baseTilemap.SetTile(new Vector3Int(playerX, playerY), blockItem.placeableTile);
-                return;
+                var newX = playerX + directionAdders[i, 0];
+                currentTile = baseTilemap.GetTile(new Vector3Int(newX, playerY + directionAdders[i, 1]));
+                if (!currentTile && newX < TerrainGeneration.WIDTH && newX > 0)
+                {
+                    transform.position = new Vector3(playerX + 0.5f + directionAdders[i, 0], playerY + directionAdders[i, 1]);
+                    baseTilemap.SetTile(new Vector3Int(playerX, playerY), blockItem.placeableTile);
+                    return true;
+                }
             }
         }
 
+        return false;
     }
 
     private void Finish()

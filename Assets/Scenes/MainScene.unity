@@ -18458,10 +18458,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlas: {fileID: 11400000, guid: 14b8e487fdf91f942900e50622055258, type: 2}
   hudUiScript: {fileID: 468181597}
+  bossScript: {fileID: 1666820188}
   explosionDelay: 2.4
   item: {fileID: 347971519}
   baseTilemap: {fileID: 1262024722}
   mineralTilemap: {fileID: 1663141666}
+  boss: {fileID: 1666820180}
 --- !u!114 &1577181482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19830,6 +19832,8 @@ GameObject:
   - component: {fileID: 1666820183}
   - component: {fileID: 1666820185}
   - component: {fileID: 1666820186}
+  - component: {fileID: 1666820188}
+  - component: {fileID: 1666820187}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -20005,6 +20009,36 @@ MonoBehaviour:
   attackInterval: 5
   peckDelay: 2
   laserDelay: 3
+--- !u!114 &1666820187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666820180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50437c18576806d4ab2814d486b16158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1666820188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666820180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3993973ad1087584ba6f35dd46db95b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossBar: {fileID: 2011864586}
+  bossImage: {fileID: 2122603858}
+  bossHealth: {fileID: 142241622}
+  golemSprite: {fileID: 21300000, guid: eca2ed299071ef241aa09646d7988667, type: 3}
+  bossDamageDivisor: 10
+  nextBoss: 0
 --- !u!1 &1679302726
 GameObject:
   m_ObjectHideFlags: 0

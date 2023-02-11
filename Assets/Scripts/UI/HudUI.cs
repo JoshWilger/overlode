@@ -35,7 +35,7 @@ public class HudUI : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        atlas.currentUpgradeAmounts = new float[] { 10f, 20f, 7f, 10f, 50f, 0f }; // Max: 150, 120, 120, 180, 80, 80
+        atlas.currentUpgradeAmounts = new float[] { 150f, 120f, 7f, 180f, 50f, 80f }; // Max: 150, 120, 120, 180, 80, 80
         toggleGroup = inventoryActive.GetComponent<ToggleGroup>();
         toggles = inventoryActive.GetComponentsInChildren<Toggle>();
         mineralButtons = inventoryActive.GetComponentsInChildren<Button>();
@@ -60,7 +60,7 @@ public class HudUI : MonoBehaviour
         shopItems = atlas.CreateInstance(ItemClass.ItemType.shopItem, false);
         foreach (var item in shopItems)
         {
-            item.amountCollected = 0;
+            item.amountCollected = 100;
         }
 
         invTexts = RetrieveInventoryText(ItemClass.ItemType.miscGround);
@@ -106,46 +106,54 @@ public class HudUI : MonoBehaviour
         int currentIndex = Array.IndexOf(toggles, activeToggle);
         TextMeshProUGUI selectedItemQuantityText = selectedItem.GetComponentInChildren<TextMeshProUGUI>();
 
-        if (canActivateItem && 
-            miningScript.IsGrounded() && 
+        if (canActivateItem &&  
             shopItems[currentIndex].amountCollected - 1 >= 0 && 
             selectedItemQuantityText.text != "")
         {
             canActivateItem = false;
-            Invoke(nameof(ActivateItemTrue), itemCooldown);
 
+            bool success = false;
             switch (currentIndex)
             {
                 case (int)ShopItemTypes.energy:
-                    itemUsageScript.ActivateEnergy();
+                    success = itemUsageScript.ActivateEnergy();
                     break;
 
                 case (int)ShopItemTypes.health:
-                    itemUsageScript.ActivateHealth();
+                    success = itemUsageScript.ActivateHealth();
                     break;
 
                 case (int)ShopItemTypes.teleport:
-                    itemUsageScript.ActivateTeleport();
+                    success = itemUsageScript.ActivateTeleport();
                     break;
 
                 case (int)ShopItemTypes.dynamite:
-                    itemUsageScript.ActivateDynamite();
+                    success = itemUsageScript.ActivateDynamite();
                     break;
 
                 case (int)ShopItemTypes.c4:
-                    itemUsageScript.ActivateC4();
+                    success = itemUsageScript.ActivateC4();
                     break;
 
                 case (int)ShopItemTypes.block:
-                    itemUsageScript.ActivateBlock(shopItems[currentIndex]);
+                    success = itemUsageScript.ActivateBlock(shopItems[currentIndex]);
                     break;
 
                 default:
                     break;
             }
-            shopItems[currentIndex].amountCollected--;
+            if (success)
+            {
+                Invoke(nameof(ActivateItemTrue), itemCooldown);
+                shopItems[currentIndex].amountCollected--;
 
-            UpdateInfo();
+                UpdateInfo();
+            }
+            else
+            {
+                canActivateItem = true;
+            }
+
         }
     }
 

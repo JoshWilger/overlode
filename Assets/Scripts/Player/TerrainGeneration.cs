@@ -25,7 +25,7 @@ public class TerrainGeneration : MonoBehaviour
     private ItemClass[] miscGround; 
     private ItemClass[] artifacts;
 
-    private const int WIDTH = 36;
+    public const int WIDTH = 36;
     public const int DEPTH = 550;
     
     // Start is called before the first frame update
