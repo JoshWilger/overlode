@@ -216,7 +216,7 @@ public class ItemUsage : MonoBehaviour
         }
         if (boss.activeSelf)
         {
-            float distance2 = Mathf.Max(Mathf.Abs(boss.transform.position.x - basePosition.x));
+            float distance2 = Mathf.Max(Mathf.Abs(boss.transform.position.x - basePosition.x), Math.Abs(boss.transform.position.y - basePosition.y - 2));
 
             if (distance2 <= size / 2f)
             {

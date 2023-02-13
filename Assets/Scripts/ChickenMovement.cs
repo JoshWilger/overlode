@@ -10,6 +10,7 @@ public class ChickenMovement : MonoBehaviour
     [SerializeField] private float attackInterval;
     [SerializeField] private float peckDelay;
     [SerializeField] private float laserDelay;
+    [SerializeField] private float summonDelay;
 
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
@@ -34,15 +35,20 @@ public class ChickenMovement : MonoBehaviour
         anim.speed = 0.5f;
     }
 
+    public void EndSummoningSequence()
+    {
+        doingAttack = false;
+        invoked = false;
+    }
+
     private void FixedUpdate()
     {
         if (transform.position.y > -555f)
         {
             rb.velocity = Vector2.zero;
             transform.position = new Vector3(transform.position.x, -555f, transform.position.z);
-            doingAttack = false;
-            invoked = false;
             anim.speed = 1;
+            Invoke(nameof(EndSummoningSequence), summonDelay);
         }
 
         var playerX = playerColl.bounds.center.x;

@@ -103,6 +103,7 @@ public class TerrainGeneration : MonoBehaviour
     {
         Vector3Int[] topCoords = { new Vector3Int(7, -DEPTH - 3), new Vector3Int(WIDTH - 8, -DEPTH - 3) };
         Vector3Int[] bottomCoords = { new Vector3Int(7, -DEPTH - 11), new Vector3Int(19, -DEPTH - 11), new Vector3Int(31, -DEPTH - 11) };
+        Vector3Int[] moreBottomCoords = { new Vector3Int(7, -DEPTH - 13), new Vector3Int(19, -DEPTH - 13), new Vector3Int(31, -DEPTH - 13) };
 
         tilemaps[1].SetTiles(GenerateLayerCoords(DEPTH + 2, 2), Enumerable.Repeat(miscGround[6].placeableTile, WIDTH * 2).ToArray());
         tilemaps[1].SetTiles(GenerateLayerCoords(DEPTH + 2, 2, 6, 15), Enumerable.Repeat(miscGround[8].placeableTile, 12).ToArray());
@@ -112,6 +113,7 @@ public class TerrainGeneration : MonoBehaviour
         tilemaps[0].SetTiles(GenerateLayerCoords(DEPTH + 9, 2), Enumerable.Repeat(background[0].placeableTile, WIDTH * 2).ToArray());
         tilemaps[1].SetTiles(GenerateLayerCoords(DEPTH + 11, 1), Enumerable.Repeat(miscGround[6].placeableTile, WIDTH).ToArray());
         tilemaps[2].SetTiles(bottomCoords, new TileBase[] { miscGround[7].placeableTile, miscGround[7].placeableTile, miscGround[7].placeableTile });
+        tilemaps[2].SetTiles(moreBottomCoords, new TileBase[] { miscGround[7].placeableTile, miscGround[7].placeableTile, miscGround[7].placeableTile });
     }
 
     private Vector3Int[] GenerateLayerCoords(int baseDepth, int layers, int layerWidth = WIDTH, int xPos = 0)

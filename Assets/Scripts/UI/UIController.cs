@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject factory;
     [SerializeField] private GameObject garage;
     [SerializeField] private GameObject shop;
+    [SerializeField] private GameObject boss;
     [SerializeField] private TextMeshProUGUI depth;
     [SerializeField] private Animator earthquakeWarn;
     [SerializeField, Range(0, 1)] private float earthquakeChance;
@@ -49,7 +50,13 @@ public class UIController : MonoBehaviour
     private void Update()
     {
         var playerPos = Mathf.Round(coll.bounds.min.y * 2);
-        if (playerPos < -badAltimeterDepth * 2)
+
+        if (playerPos < -messageDepths[messageDepths.Length - 2])
+        {
+            depth.text = "-6666m";
+            background.sprite = bossBackground;
+        }
+        else if (playerPos < -badAltimeterDepth * 2)
         {
             depth.text = "???m";
             background.sprite = bossBackground;
@@ -59,13 +66,18 @@ public class UIController : MonoBehaviour
             depth.text = playerPos + "m";
             background.sprite = regularBackground;
         }
-        if (-Mathf.Round(coll.bounds.min.y * 2) >= messageDepths[messageUiScript.currentMessageIndex])
+        if (playerPos <= -messageDepths[messageUiScript.currentMessageIndex])
         {
             message.SetActive(true);
             charging.SetActive(false);
             factory.SetActive(false);
             garage.SetActive(false);
             shop.SetActive(false);
+        }
+        if (messageUiScript.currentMessageIndex >= messageDepths.Length - 2 && playerPos >= -messageDepths[messageDepths.Length - 3])
+        {
+            boss.SetActive(false);
+            messageUiScript.currentMessageIndex = messageDepths.Length - 2;
         }
         EscapePressed(Input.GetButtonDown("Cancel"));
     }

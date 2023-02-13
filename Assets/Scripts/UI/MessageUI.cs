@@ -29,6 +29,7 @@ public class MessageUI : MonoBehaviour
 
     private void OnEnable()
     {
+        uiController.pauseToggle.enabled = false;
         uiController.Paused(true);
         focus.SetActive(true);
         NextText();
@@ -51,6 +52,7 @@ public class MessageUI : MonoBehaviour
             golemScript.EndSummoningSequence();
         }
         uiController.Paused(false);
+        uiController.pauseToggle.enabled = true;
     }
 
     private void NextText()

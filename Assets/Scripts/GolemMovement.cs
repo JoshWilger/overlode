@@ -12,6 +12,7 @@ public class GolemMovement : MonoBehaviour
     [SerializeField] private float stabDelay;
     [SerializeField] private float throwDelay;
     [SerializeField] private float rockSpeed;
+    [SerializeField] private float summonDelay;
 
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
@@ -19,6 +20,7 @@ public class GolemMovement : MonoBehaviour
     private Rigidbody2D rockRb;
     private bool doingAttack;
     private bool invoked;
+    private bool summoned;
 
     private void OnEnable()
     {
@@ -28,9 +30,10 @@ public class GolemMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         doingAttack = true;
         invoked = true;
+        summoned = false;
         rb.velocity = new Vector2(0, movementSpeed);
         anim.SetTrigger("throw");
-        anim.speed = 0.5f;
+        anim.speed = 0.3f;
     }
 
     private void OnDisable()
@@ -47,14 +50,22 @@ public class GolemMovement : MonoBehaviour
         invoked = false;
     }
 
+    private void MessageActive()
+    {
+        rb.velocity = Vector2.zero;
+        transform.position = new Vector3(transform.position.x, -555f, transform.position.z);
+
+        message.SetActive(true);
+    }
+
     private void FixedUpdate()
     {
-        if (transform.position.y > -555f)
+        if (transform.position.y > -554.5f && !summoned)
         {
-            rb.velocity = Vector2.zero;
-            transform.position = new Vector3(transform.position.x, -555f, transform.position.z);
-            message.SetActive(true);
+            summoned = true;
+            rb.velocity = new Vector2(0, -0.4f);
             anim.speed = 1;
+            Invoke(nameof(MessageActive), summonDelay);
         }
 
         var playerX = playerColl.bounds.center.x;
