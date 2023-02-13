@@ -220,7 +220,7 @@ public class ItemUsage : MonoBehaviour
 
             if (distance2 <= size / 2f)
             {
-                var damage = Mathf.Abs(size - distance) / (bossScript.nextBoss ? bossScript.bossDamageDivisor * 2f : bossScript.bossDamageDivisor);
+                var damage = Mathf.Abs(size - distance2) / (bossScript.nextBoss ? bossScript.bossDamageDivisor * 2f : bossScript.bossDamageDivisor);
                 Debug.Log("Agh! " + damage);
                 bossScript.UpdateHealth(damage);
             }

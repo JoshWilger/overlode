@@ -19,26 +19,38 @@ public class ChickenMovement : MonoBehaviour
     private bool doingAttack;
     private bool invoked;
 
-    // Start is called before the first frame update
-    private void Start()
+    private void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         laserHinge = laser.GetComponent<HingeJoint2D>();
         laserSprite = laser.GetComponent<SpriteRenderer>();
-        doingAttack = false;
-        invoked = false;
+        doingAttack = true;
+        invoked = true;
+        transform.position = new Vector3(TerrainGeneration.WIDTH / 2, -560f, transform.position.z);
+        rb.velocity = new Vector2(0, movementSpeed);
+        anim.SetTrigger("laser");
+        anim.speed = 0.5f;
     }
 
     private void FixedUpdate()
     {
+        if (transform.position.y > -555f)
+        {
+            rb.velocity = Vector2.zero;
+            transform.position = new Vector3(transform.position.x, -555f, transform.position.z);
+            doingAttack = false;
+            invoked = false;
+            anim.speed = 1;
+        }
+
         var playerX = playerColl.bounds.center.x;
 
         if (!invoked)
         {
             invoked = true;
-            anim.SetTrigger("run");
+            anim.SetTrigger("waddle");
             Invoke(nameof(Attack), attackInterval);
         }
 
@@ -91,5 +103,14 @@ public class ChickenMovement : MonoBehaviour
         laserSprite.enabled = false;
         invoked = false;
         doingAttack = false;
+    }
+
+    private void OnDisable()
+    {
+        anim.SetTrigger("laser");
+        anim.speed = 0;
+        rb.velocity = Vector2.down;
+        CancelInvoke();
+        laser.SetActive(false);
     }
 }

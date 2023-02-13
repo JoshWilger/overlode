@@ -59,10 +59,9 @@ public class UIController : MonoBehaviour
             depth.text = playerPos + "m";
             background.sprite = regularBackground;
         }
-        if (-Mathf.Round(coll.bounds.min.y * 2) == messageDepths[messageUiScript.currentMessageIndex])
+        if (-Mathf.Round(coll.bounds.min.y * 2) >= messageDepths[messageUiScript.currentMessageIndex])
         {
             message.SetActive(true);
-            Paused(true);
             charging.SetActive(false);
             factory.SetActive(false);
             garage.SetActive(false);

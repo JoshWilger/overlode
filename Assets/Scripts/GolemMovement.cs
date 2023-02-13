@@ -4,15 +4,114 @@ using UnityEngine;
 
 public class GolemMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private GameObject message;
+    [SerializeField] private Collider2D playerColl;
+    [SerializeField] private GameObject rock;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float attackInterval;
+    [SerializeField] private float stabDelay;
+    [SerializeField] private float throwDelay;
+    [SerializeField] private float rockSpeed;
+
+    private Rigidbody2D rb;
+    private SpriteRenderer sprite;
+    private Animator anim;
+    private Rigidbody2D rockRb;
+    private bool doingAttack;
+    private bool invoked;
+
     private void OnEnable()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+        rockRb = rock.GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        doingAttack = true;
+        invoked = true;
+        rb.velocity = new Vector2(0, movementSpeed);
+        anim.SetTrigger("throw");
+        anim.speed = 0.5f;
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void OnDisable()
     {
-        
+        CancelInvoke();
+        anim.SetTrigger("throw");
+        anim.speed = 0;
+        rb.velocity = Vector2.down;
+    }
+
+    public void EndSummoningSequence()
+    {
+        doingAttack = false;
+        invoked = false;
+    }
+
+    private void FixedUpdate()
+    {
+        if (transform.position.y > -555f)
+        {
+            rb.velocity = Vector2.zero;
+            transform.position = new Vector3(transform.position.x, -555f, transform.position.z);
+            message.SetActive(true);
+            anim.speed = 1;
+        }
+
+        var playerX = playerColl.bounds.center.x;
+
+        if (!invoked)
+        {
+            invoked = true;
+            anim.SetTrigger("run");
+            Invoke(nameof(Attack), attackInterval);
+        }
+
+        if (playerX > transform.position.x - 1 && playerX < transform.position.x + 1)
+        {
+
+        }
+        else if (playerX > transform.position.x && !doingAttack)
+        {
+            sprite.flipX = true;
+            rb.velocity = new Vector2(movementSpeed, rb.velocity.y);
+        }
+        else if (playerX < transform.position.x && !doingAttack)
+        {
+            sprite.flipX = false;
+            rb.velocity = new Vector2(-movementSpeed, rb.velocity.y);
+        }
+    }
+
+    private void Attack()
+    {
+        doingAttack = true;
+        rb.velocity = Vector2.zero;
+        var playerX = playerColl.bounds.center.x;
+        var playerY = playerColl.bounds.center.y;
+
+        switch (Random.Range(1, 3))
+        {
+            case 1:
+                anim.SetTrigger("stab");
+                Invoke(nameof(EndAttack), stabDelay);
+                break;
+
+            case 2:
+                anim.SetTrigger("throw");
+                rockRb.velocity = new Vector2(-(transform.position.x - playerX) * rockSpeed, -(transform.position.y + 2f - playerY) * rockSpeed);
+                rock.transform.position = new Vector3(transform.position.x, transform.position.y + 2.5f);
+
+                Invoke(nameof(EndAttack), throwDelay);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void EndAttack()
+    {
+        invoked = false;
+        doingAttack = false;
     }
 }

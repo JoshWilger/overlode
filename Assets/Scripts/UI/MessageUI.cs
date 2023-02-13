@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MessageUI : MonoBehaviour
 {
     [SerializeField] private UIController uiController;
+    [SerializeField] private GolemMovement golemScript;
     [SerializeField] private MessageClass[] messages;
     [SerializeField] private Sprite[] faces;
     [SerializeField] private Button nextButton;
@@ -28,6 +29,7 @@ public class MessageUI : MonoBehaviour
 
     private void OnEnable()
     {
+        uiController.Paused(true);
         focus.SetActive(true);
         NextText();
         nextButton.onClick.AddListener(NextText);
@@ -44,6 +46,10 @@ public class MessageUI : MonoBehaviour
             currentMessageIndex++;
         }
         boss.SetActive(currentMessageIndex + 1 >= messages.Length);
+        if (currentMessageIndex + 1 == messages.Length)
+        {
+            golemScript.EndSummoningSequence();
+        }
         uiController.Paused(false);
     }
 

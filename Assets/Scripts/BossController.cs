@@ -10,15 +10,27 @@ public class BossController : MonoBehaviour
     [SerializeField] private Image bossHealth;
     [SerializeField] private Sprite golemSprite;
     [SerializeField] public float bossDamageDivisor;
+    [SerializeField] public float golemSpawnDelay;
 
+    private ChickenMovement chick;
+    private GolemMovement golem;
     private float health;
     public bool nextBoss;
 
     private void OnEnable()
     {
+        golem = GetComponent<GolemMovement>();
+        chick = GetComponent<ChickenMovement>();
+        chick.enabled = true;
         health = 1;
         nextBoss = false;
         bossBar.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        golem.enabled = false;
+        chick.enabled = false;
     }
 
     // Update is called once per frame
@@ -27,12 +39,24 @@ public class BossController : MonoBehaviour
         if (health <= 0 && !nextBoss)
         {
             nextBoss = true;
-            GetComponent<ChickenMovement>().enabled = false;
-            GetComponent<GolemMovement>().enabled = true;
-            bossImage.sprite = golemSprite;
-            health = 1;
-            UpdateHealth();
+            chick.enabled = false;
+            bossBar.SetActive(false);
+            Invoke(nameof(SpawnGolem), golemSpawnDelay);
         }
+        else if (health <= 0 && nextBoss)
+        {
+            bossBar.SetActive(false);
+            golem.enabled = false;
+        }
+    }
+
+    private void SpawnGolem()
+    {
+        golem.enabled = true;
+        bossImage.sprite = golemSprite;
+        health = 1;
+        UpdateHealth();
+        bossBar.SetActive(true);
     }
 
     public void UpdateHealth(float damage = 0)
