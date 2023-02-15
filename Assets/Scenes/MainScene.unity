@@ -2355,6 +2355,7 @@ GameObject:
   - component: {fileID: 222692590}
   - component: {fileID: 222692592}
   - component: {fileID: 222692591}
+  - component: {fileID: 222692593}
   m_Layer: 5
   m_Name: Focus
   m_TagString: Untagged
@@ -2420,6 +2421,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222692589}
   m_CullTransparentMesh: 1
+--- !u!95 &222692593
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222692589}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb5988defe04aeb4798edec9eae25508, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &245070263
 GameObject:
   m_ObjectHideFlags: 0
@@ -6198,6 +6219,8 @@ MonoBehaviour:
   player: {fileID: 1577181479}
   minPosition: 6.3
   maxPosition: 29.7
+  creditsScrollSpeed: 0.1
+  credits: 0
 --- !u!1 &529447277
 GameObject:
   m_ObjectHideFlags: 0
@@ -20151,6 +20174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3993973ad1087584ba6f35dd46db95b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiController: {fileID: 1577181480}
+  itemUsageScript: {fileID: 1577181481}
+  cameraController: {fileID: 519420033}
+  hud: {fileID: 468181595}
+  focus: {fileID: 222692589}
   bossBar: {fileID: 2011864586}
   bossImage: {fileID: 2122603858}
   bossHealth: {fileID: 142241622}

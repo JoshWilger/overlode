@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
+    [SerializeField] private UIController uiController;
+    [SerializeField] private ItemUsage itemUsageScript;
+    [SerializeField] private CameraController cameraController;
+    [SerializeField] private GameObject hud;
+    [SerializeField] private GameObject focus;
     [SerializeField] private GameObject bossBar;
     [SerializeField] private Image bossImage;
     [SerializeField] private Image bossHealth;
@@ -15,6 +20,7 @@ public class BossController : MonoBehaviour
 
     private ChickenMovement chick;
     private GolemMovement golem;
+    private Animator focusAnim;
     private float health;
     public bool nextBoss;
 
@@ -22,6 +28,7 @@ public class BossController : MonoBehaviour
     {
         golem = GetComponent<GolemMovement>();
         chick = GetComponent<ChickenMovement>();
+        focusAnim = focus.GetComponent<Animator>();
         chick.enabled = true;
         nextBoss = false;
         health = 1;
@@ -42,25 +49,37 @@ public class BossController : MonoBehaviour
     {
         if (health <= 0 && !nextBoss)
         {
-            nextBoss = true;
+            nextBoss = true; 
+            health = 1;
+            UpdateHealth();
+            bossImage.sprite = golemSprite;
             chick.enabled = false;
             bossBar.SetActive(false);
             Invoke(nameof(SpawnGolem), golemSpawnDelay);
         }
         else if (health <= 0 && nextBoss)
         {
+            health = 0.1f;
             bossBar.SetActive(false);
             golem.enabled = false;
+            Invoke(nameof(EndingSequence), golemSpawnDelay);
         }
     }
 
     private void SpawnGolem()
     {
         golem.enabled = true;
-        bossImage.sprite = golemSprite;
-        health = 1;
-        UpdateHealth();
         bossBar.SetActive(true);
+    }
+
+    private void EndingSequence()
+    {
+        focus.SetActive(true);
+        focusAnim.SetTrigger("ending");
+        itemUsageScript.FreezePlayer();
+        hud.SetActive(false);
+        uiController.pauseToggle.enabled = false;
+        cameraController.credits = true;
     }
 
     public void UpdateHealth(float damage = 0)

@@ -192,12 +192,11 @@ public class UIController : MonoBehaviour
             {
                 earthquakeWarn.SetBool("show", true);
                 earthquakeWarn.speed = 4f;
-                Invoke(nameof(DoEarthquake), 1f);
+                Invoke(nameof(DoEarthquake), 1.5f);
             }
         }
-
-
     }
+
     private void DoEarthquake()
     {
         terrainGenerationScript.Earthquake();

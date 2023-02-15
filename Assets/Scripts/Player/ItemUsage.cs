@@ -93,11 +93,7 @@ public class ItemUsage : MonoBehaviour
         if (miningScript.IsGrounded())
         {
             Animate("teleport");
-            rb.bodyType = RigidbodyType2D.Static;
-            movementScript.enabled = false;
-            miningScript.enabled = false;
-            hudUiScript.enabled = false;
-            energyScript.decreaseEnergy = false;
+            FreezePlayer();
 
             AnimationClip animation = itemAnim.runtimeAnimatorController.animationClips.Where((anim) => anim.name == "teleport").FirstOrDefault();
             Invoke(nameof(RestOfTeleport), animation.length);
@@ -105,6 +101,15 @@ public class ItemUsage : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void FreezePlayer()
+    {
+        rb.bodyType = RigidbodyType2D.Static;
+        movementScript.enabled = false;
+        miningScript.enabled = false;
+        hudUiScript.enabled = false;
+        energyScript.decreaseEnergy = false;
     }
 
     private void RestOfTeleport()
