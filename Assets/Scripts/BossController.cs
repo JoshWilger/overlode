@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +9,10 @@ public class BossController : MonoBehaviour
     [SerializeField] private UIController uiController;
     [SerializeField] private ItemUsage itemUsageScript;
     [SerializeField] private CameraController cameraController;
-    [SerializeField] private GameObject hud;
-    [SerializeField] private GameObject focus;
+    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI finalCashText;
+    [SerializeField] private GameObject mainCanvas;
+    [SerializeField] private GameObject overlay;
     [SerializeField] private GameObject bossBar;
     [SerializeField] private Image bossImage;
     [SerializeField] private Image bossHealth;
@@ -20,7 +23,7 @@ public class BossController : MonoBehaviour
 
     private ChickenMovement chick;
     private GolemMovement golem;
-    private Animator focusAnim;
+    private Animator overlayAnim;
     private float health;
     public bool nextBoss;
 
@@ -28,7 +31,7 @@ public class BossController : MonoBehaviour
     {
         golem = GetComponent<GolemMovement>();
         chick = GetComponent<ChickenMovement>();
-        focusAnim = focus.GetComponent<Animator>();
+        overlayAnim = overlay.GetComponent<Animator>();
         chick.enabled = true;
         nextBoss = false;
         health = 1;
@@ -74,12 +77,19 @@ public class BossController : MonoBehaviour
 
     private void EndingSequence()
     {
-        focus.SetActive(true);
-        focusAnim.SetTrigger("ending");
+        overlay.SetActive(true);
+        overlayAnim.SetTrigger("ending");
         itemUsageScript.FreezePlayer();
-        hud.SetActive(false);
+        mainCanvas.SetActive(false);
         uiController.pauseToggle.enabled = false;
         cameraController.credits = true;
+        Invoke(nameof(ChangeBackground), 10f);
+        finalCashText.text = "Final Cash: $" + long.Parse(moneyText.text.Substring(1));
+    }
+
+    private void ChangeBackground()
+    {
+        uiController.BackgroundChange();
     }
 
     public void UpdateHealth(float damage = 0)

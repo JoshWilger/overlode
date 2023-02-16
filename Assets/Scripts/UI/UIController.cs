@@ -24,13 +24,13 @@ public class UIController : MonoBehaviour
     [SerializeField, Range(0, 1)] private float earthquakeChance;
     [SerializeField] private int badAltimeterDepth;
     [SerializeField] private Sprite bossBackground;
-    [SerializeField] public Toggle pauseToggle;
-
+    [SerializeField] private SpriteRenderer background;
+    
+    public Toggle pauseToggle;
     public int[] messageDepths;
 
     private BoxCollider2D coll;
     private Energy energyScript;
-    private SpriteRenderer background;
     private Sprite regularBackground;
 
     // Start is called before the first frame update
@@ -38,7 +38,6 @@ public class UIController : MonoBehaviour
     {
         coll = GetComponent<BoxCollider2D>();
         energyScript = GetComponent<Energy>();
-        background = GetComponentsInChildren<SpriteRenderer>().Last();
         regularBackground = background.sprite;
         pauseToggle.onValueChanged.AddListener((value) =>
         {
@@ -54,17 +53,17 @@ public class UIController : MonoBehaviour
         if (playerPos < -messageDepths[messageDepths.Length - 2])
         {
             depth.text = "-6666m";
-            background.sprite = bossBackground;
+            BackgroundChange(true);
         }
         else if (playerPos < -badAltimeterDepth * 2)
         {
             depth.text = "???m";
-            background.sprite = bossBackground;
+            BackgroundChange(true);
         }
         else
         {
             depth.text = playerPos + "m";
-            background.sprite = regularBackground;
+            BackgroundChange();
         }
         if (playerPos <= -messageDepths[messageUiScript.currentMessageIndex])
         {
@@ -80,6 +79,11 @@ public class UIController : MonoBehaviour
             messageUiScript.currentMessageIndex = messageDepths.Length - 2;
         }
         EscapePressed(Input.GetButtonDown("Cancel"));
+    }
+
+    public void BackgroundChange(bool isBoss = false)
+    {
+        background.sprite = isBoss ? bossBackground : regularBackground;
     }
 
     public void Paused(bool isPressed)

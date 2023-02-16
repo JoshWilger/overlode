@@ -63,7 +63,7 @@ public class GolemMovement : MonoBehaviour
         if (transform.position.y > -554.5f && !summoned)
         {
             summoned = true;
-            rb.velocity = new Vector2(0, -0.4f);
+            rb.velocity = Vector2.down;
             anim.speed = 1;
             Invoke(nameof(MessageActive), summonDelay);
         }
