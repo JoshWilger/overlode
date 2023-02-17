@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GolemMovement : MonoBehaviour
 {
+    [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private Health healthScript;
+    [SerializeField] private float damageAffector;
     [SerializeField] private GameObject message;
     [SerializeField] private Collider2D playerColl;
     [SerializeField] private GameObject rock;
@@ -104,6 +107,7 @@ public class GolemMovement : MonoBehaviour
         {
             case 1:
                 anim.SetTrigger("stab");
+                Invoke(nameof(DoDamage), stabDelay / 2f);
                 Invoke(nameof(EndAttack), stabDelay);
                 break;
 
@@ -124,5 +128,19 @@ public class GolemMovement : MonoBehaviour
     {
         invoked = false;
         doingAttack = false;
+    }
+
+    private void DoDamage()
+    {
+        var diffY = playerColl.bounds.center.y - transform.position.y + 2f;
+        var diffX = playerColl.bounds.center.x - transform.position.x;
+
+        if (diffY <= 0 && (sprite.flipX ? diffX <= 4f && diffX >= 0f : diffX >= -4f && diffX <= 0f))
+        {
+            float healthUpgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
+            var damage = 1f / ((healthUpgrade / 12f)) * damageAffector;
+            Debug.Log("Oh! " + damage);
+            healthScript.UpdateHealth(damage);
+        }
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ChickenMovement : MonoBehaviour
 {
+    [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private Health healthScript;
+    [SerializeField] private float damageAffector;
     [SerializeField] private Collider2D playerColl;
     [SerializeField] private GameObject laser;
     [SerializeField] private float movementSpeed;
@@ -17,6 +20,7 @@ public class ChickenMovement : MonoBehaviour
     private Animator anim;
     private HingeJoint2D laserHinge;
     private SpriteRenderer laserSprite;
+    private BoxCollider2D laserCollider;
     private bool doingAttack;
     private bool invoked;
 
@@ -27,12 +31,23 @@ public class ChickenMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         laserHinge = laser.GetComponent<HingeJoint2D>();
         laserSprite = laser.GetComponent<SpriteRenderer>();
+        laserCollider = laser.GetComponent<BoxCollider2D>();
         doingAttack = true;
         invoked = true;
         transform.position = new Vector3(TerrainGeneration.WIDTH / 2, -560f, transform.position.z);
         rb.velocity = new Vector2(0, movementSpeed);
         anim.SetTrigger("laser");
         anim.speed = 0.5f;
+    }
+
+    private void OnDisable()
+    {
+        anim.SetTrigger("laser");
+        laserSprite.enabled = false;
+        laserCollider.enabled = false;
+        anim.speed = 0;
+        rb.velocity = Vector2.down;
+        CancelInvoke();
     }
 
     public void EndSummoningSequence()
@@ -83,10 +98,11 @@ public class ChickenMovement : MonoBehaviour
         var playerX = playerColl.bounds.center.x;
         var playerY = playerColl.bounds.center.y;
 
-        switch (Random.Range(1, 3))
+        switch (Random.Range(1, 2))
         {
             case 1:
                 anim.SetTrigger("peck");
+                Invoke(nameof(DoDamage), peckDelay / 2f);
                 Invoke(nameof(EndAttack), peckDelay);
                 break;
 
@@ -96,6 +112,7 @@ public class ChickenMovement : MonoBehaviour
                 laserHinge.connectedAnchor = sprite.flipX ? new Vector2(1.9f, 0) : new Vector2(-1.9f, 0);
 
                 laserSprite.enabled = true;
+                laserCollider.enabled = true;
                 Invoke(nameof(EndAttack), laserDelay);
                 break;
 
@@ -107,16 +124,22 @@ public class ChickenMovement : MonoBehaviour
     private void EndAttack()
     {
         laserSprite.enabled = false;
+        laserCollider.enabled = false;
         invoked = false;
         doingAttack = false;
     }
 
-    private void OnDisable()
+    private void DoDamage()
     {
-        anim.SetTrigger("laser");
-        anim.speed = 0;
-        rb.velocity = Vector2.down;
-        CancelInvoke();
-        laser.SetActive(false);
+        var diffY = playerColl.bounds.center.y - transform.position.y + 2f;
+        var diffX = playerColl.bounds.center.x - transform.position.x;
+
+        if (diffY <= 0 && (sprite.flipX ? diffX <= 4f && diffX >= 0f : diffX >= -4f && diffX <= 0f ))
+        {
+            float healthUpgrade = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
+            var damage = 1f / ((healthUpgrade / 12f)) * damageAffector;
+            Debug.Log("Oh! " + damage);
+            healthScript.UpdateHealth(damage);
+        }
     }
 }
