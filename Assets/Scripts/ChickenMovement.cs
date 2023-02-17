@@ -98,7 +98,7 @@ public class ChickenMovement : MonoBehaviour
         var playerX = playerColl.bounds.center.x;
         var playerY = playerColl.bounds.center.y;
 
-        switch (Random.Range(1, 2))
+        switch (Random.Range(1, 3))
         {
             case 1:
                 anim.SetTrigger("peck");

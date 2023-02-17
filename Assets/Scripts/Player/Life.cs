@@ -57,7 +57,7 @@ public class Life : MonoBehaviour
     private void RestartLevel()
     {
         Debug.Log("Restarting...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("StartMenu");
         movementScript.enabled = true;
         miningScript.enabled = true;
         energyScript.enabled = true;
