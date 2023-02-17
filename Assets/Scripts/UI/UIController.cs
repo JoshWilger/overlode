@@ -81,7 +81,7 @@ public class UIController : MonoBehaviour
         EscapePressed(Input.GetButtonDown("Cancel"));
     }
 
-    public void BackgroundChange(bool isBoss = false)
+    private void BackgroundChange(bool isBoss = false)
     {
         background.sprite = isBoss ? bossBackground : regularBackground;
     }

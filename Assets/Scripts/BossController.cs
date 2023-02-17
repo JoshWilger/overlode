@@ -14,6 +14,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private GameObject mainCanvas;
     [SerializeField] private GameObject overlay;
     [SerializeField] private GameObject bossBar;
+    [SerializeField] private GameObject player;
     [SerializeField] private Image bossImage;
     [SerializeField] private Image bossHealth;
     [SerializeField] private Sprite chickSprite;
@@ -83,13 +84,13 @@ public class BossController : MonoBehaviour
         mainCanvas.SetActive(false);
         uiController.pauseToggle.enabled = false;
         cameraController.credits = true;
-        Invoke(nameof(ChangeBackground), 10f);
+        Invoke(nameof(ChangeBackground), 50f);
         finalCashText.text = "Final Cash: $" + long.Parse(moneyText.text.Substring(1));
     }
 
     private void ChangeBackground()
     {
-        uiController.BackgroundChange();
+        player.transform.position = new Vector3(player.transform.position.x, 300f);
     }
 
     public void UpdateHealth(float damage = 0)
