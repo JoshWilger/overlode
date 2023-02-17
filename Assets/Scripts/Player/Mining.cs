@@ -16,11 +16,13 @@ public class Mining : MonoBehaviour
     [SerializeField] private int gasDepth;
     [SerializeField] private float gasExplosionDelay;
     [SerializeField] private Animator breaking;
+    [SerializeField] private Animator collectionAnim;
     [SerializeField] private Transform move;
     [SerializeField] private Tilemap baseTilemap;
     [SerializeField] private Tilemap mineralTilemap;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI storageText;
+    [SerializeField] private TextMeshProUGUI collectionText;
     [SerializeField] private Image storageProgress;
     [SerializeField] private LayerMask ground;
     [SerializeField] private ItemClass shopBlock;
@@ -192,11 +194,13 @@ public class Mining : MonoBehaviour
                     {
                         minerals[i].amountCollected++;
                         controller.UpdateMineralInfo();
+                        collectionText.text = "+1 " + minerals[i].itemName;
+                        collectionAnim.SetTrigger("resource");
                         return;
                     }
                     else
                     {
-                        Debug.Log("Bag full!!!");
+                        collectionAnim.SetTrigger("full");
                     }
                 }
             }
@@ -205,6 +209,8 @@ public class Mining : MonoBehaviour
                 if (mineral.name == artifact.placeableTile.name)
                 {
                     moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + artifact.itemWorth);
+                    collectionText.text = "+1 " + artifact.itemName;
+                    collectionAnim.SetTrigger("resource");
                     return;
                 }
             }
