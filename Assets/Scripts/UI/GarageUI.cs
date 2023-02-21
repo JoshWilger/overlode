@@ -96,7 +96,7 @@ public class GarageUI : MonoBehaviour
 
         var maxUpgrade = GetMaxUpgradeIndex();
         purchaseButton.interactable = long.Parse(moneyText.text.Substring(1)) - upgrade.itemWorth >= 0 
-            && upgrade.amountCollected == 0 && maxUpgrade < currentUpgradeIndex;
+            && upgrade.amountCollected == 0 && maxUpgrade <= currentUpgradeIndex;
         purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = upgrade.amountCollected >= 1 ? "Bought" 
             : maxUpgrade > currentUpgradeIndex ? "Superseded" : "Purchase";
         incrementButton.interactable = upgrades[currentToggleIndex].Length - 1 > currentUpgradeIndex;

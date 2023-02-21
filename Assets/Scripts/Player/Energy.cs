@@ -28,7 +28,7 @@ public class Energy : MonoBehaviour
         if (energy < 0.05)
         {
             low.text = "Critical!";
-            warning.speed = 8f;
+            warning.speed = 4f;
             warning.SetBool("show", true);
         }
         else if (energy < 0.2)

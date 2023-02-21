@@ -46,11 +46,10 @@ public class TerrainGeneration : MonoBehaviour
                 Vector3Int tilePos = new(x, -y - 2);
                 bool isAir = Random.Range(0f, 1f) < airChance;
                 float holyRolly = Random.Range(0f, 1f);
-                float dungeonRoll = 1 - holyRolly;
                 int layerLength = Mathf.Min(ground.Length, minerals.Length);
                 int layerNum = Mathf.Min(Mathf.FloorToInt(y / ((float)(DEPTH / layerLength) + 1 + holyRolly)), layerLength);
 
-                tilemaps[0].SetTile(tilePos, dungeonRoll < artifactChance && !isAir && (y > DEPTH / artifactDepthDividend) ? background[1].placeableTile : background[0].placeableTile);
+                tilemaps[0].SetTile(tilePos, background[0].placeableTile);
 
                 tilemaps[1].SetTile(tilePos,  isAir ? null : 
                     layerNum == 2 && holyRolly < 0.2f ? miscGround[0].placeableTile : 
@@ -75,7 +74,6 @@ public class TerrainGeneration : MonoBehaviour
                         : minerals[mineralNum].placeableTile);
 
                     if (holyRolly < artifactChance && (y > DEPTH / artifactDepthDividend)) artifactCounter[artifactNum]++; // for logging the artifacts
-                    if (dungeonRoll < artifactChance && !isAir && (y > DEPTH / artifactDepthDividend)) artifactCounter[artifacts.Length]++;
                 }
             }
         }

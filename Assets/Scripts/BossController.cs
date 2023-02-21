@@ -19,12 +19,15 @@ public class BossController : MonoBehaviour
     [SerializeField] private Image bossHealth;
     [SerializeField] private Sprite chickSprite;
     [SerializeField] private Sprite golemSprite;
+    [SerializeField] private AudioClip defeatedSound;
+    [SerializeField] private AudioClip summoningSound;
     [SerializeField] public float bossDamageDivisor;
     [SerializeField] public float golemSpawnDelay;
 
     private ChickenMovement chick;
     private GolemMovement golem;
     private Animator overlayAnim;
+    private AudioSource aud;
     private float health;
     public bool nextBoss;
 
@@ -33,12 +36,15 @@ public class BossController : MonoBehaviour
         golem = GetComponent<GolemMovement>();
         chick = GetComponent<ChickenMovement>();
         overlayAnim = overlay.GetComponent<Animator>();
+        aud = GetComponent<AudioSource>();
         chick.enabled = true;
         nextBoss = false;
         health = 1;
         UpdateHealth();
         bossImage.sprite = chickSprite;
         bossBar.SetActive(true);
+        aud.clip = summoningSound;
+        aud.Play();
     }
 
     private void OnDisable()
@@ -60,6 +66,8 @@ public class BossController : MonoBehaviour
             chick.enabled = false;
             bossBar.SetActive(false);
             Invoke(nameof(SpawnGolem), golemSpawnDelay);
+            aud.clip = defeatedSound;
+            aud.Play();
         }
         else if (health <= 0 && nextBoss)
         {
@@ -67,6 +75,8 @@ public class BossController : MonoBehaviour
             bossBar.SetActive(false);
             golem.enabled = false;
             Invoke(nameof(EndingSequence), golemSpawnDelay);
+            aud.clip = defeatedSound;
+            aud.Play();
         }
     }
 
@@ -74,6 +84,8 @@ public class BossController : MonoBehaviour
     {
         golem.enabled = true;
         bossBar.SetActive(true);
+        aud.clip = summoningSound;
+        aud.Play();
     }
 
     private void EndingSequence()

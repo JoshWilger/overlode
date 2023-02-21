@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GolemMovement : MonoBehaviour
@@ -10,6 +11,10 @@ public class GolemMovement : MonoBehaviour
     [SerializeField] private GameObject message;
     [SerializeField] private Collider2D playerColl;
     [SerializeField] private GameObject rock;
+    [SerializeField] private AudioClip throwSound;
+    [SerializeField] private AudioClip stabSound;
+    [SerializeField] private AudioClip walkSound;
+    [SerializeField] private AudioClip prepareSound;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float attackInterval;
     [SerializeField] private float stabDelay;
@@ -21,6 +26,8 @@ public class GolemMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private Animator anim;
     private Rigidbody2D rockRb;
+    private AudioSource aud;
+    private AudioSource loop;
     private bool doingAttack;
     private bool invoked;
     private bool summoned;
@@ -31,12 +38,15 @@ public class GolemMovement : MonoBehaviour
         rockRb = rock.GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        aud = GetComponent<AudioSource>();
+        loop = GetComponentsInChildren<AudioSource>().Last();
         doingAttack = true;
         invoked = true;
         summoned = false;
         rb.velocity = new Vector2(0, movementSpeed);
         anim.SetTrigger("throw");
         anim.speed = 0.3f;
+        loop.clip = walkSound;
     }
 
     private void OnDisable()
@@ -45,6 +55,7 @@ public class GolemMovement : MonoBehaviour
         anim.SetTrigger("throw");
         anim.speed = 0;
         rb.velocity = Vector2.down;
+        loop.Stop();
     }
 
     public void EndSummoningSequence()
@@ -78,6 +89,7 @@ public class GolemMovement : MonoBehaviour
             invoked = true;
             anim.SetTrigger("run");
             Invoke(nameof(Attack), attackInterval);
+            loop.Play();
         }
 
         if (playerX > transform.position.x - 1 && playerX < transform.position.x + 1)
@@ -100,6 +112,7 @@ public class GolemMovement : MonoBehaviour
     {
         doingAttack = true;
         rb.velocity = Vector2.zero;
+        loop.Stop();
         var playerX = playerColl.bounds.center.x;
         var playerY = playerColl.bounds.center.y;
 
@@ -107,6 +120,10 @@ public class GolemMovement : MonoBehaviour
         {
             case 1:
                 anim.SetTrigger("stab");
+                loop.Stop();
+                aud.clip = prepareSound;
+                aud.Play();
+                
                 Invoke(nameof(DoDamage), stabDelay / 2f);
                 Invoke(nameof(EndAttack), stabDelay);
                 break;
@@ -115,6 +132,8 @@ public class GolemMovement : MonoBehaviour
                 anim.SetTrigger("throw");
                 rockRb.velocity = new Vector2(-(transform.position.x - playerX) * rockSpeed, -(transform.position.y + 2f - playerY) * rockSpeed);
                 rock.transform.position = new Vector3(transform.position.x, transform.position.y + 2.5f);
+                aud.clip = throwSound;
+                aud.Play();
 
                 Invoke(nameof(EndAttack), throwDelay);
                 break;
@@ -142,5 +161,8 @@ public class GolemMovement : MonoBehaviour
             Debug.Log("Oh! " + damage);
             healthScript.UpdateHealth(damage);
         }
+
+        aud.clip = stabSound;
+        aud.Play();
     }
 }

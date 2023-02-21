@@ -16,6 +16,7 @@ public class Health : MonoBehaviour
     public float health;
     private Rigidbody2D rb;
     private BoxCollider2D coll;
+    private AudioSource aud;
     private bool canBeDamaged;
     private bool hasHitCeil;
     private bool hasHitWall;
@@ -25,6 +26,7 @@ public class Health : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        aud = hurt.GetComponent<AudioSource>();
         health = 1;
         canBeDamaged = true;
         hasHitCeil = false;
@@ -86,6 +88,7 @@ public class Health : MonoBehaviour
         health -= removalAmount;
         UpdateHealthBar();
         hurt.SetTrigger("hurt");
+        aud.Play();
     }
 
     public void UpdateHealthBar()

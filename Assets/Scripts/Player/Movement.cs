@@ -8,6 +8,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private Energy energyScript;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private AudioClip walk;
+    [SerializeField] private AudioClip fly;
+    [SerializeField] private AudioClip drill;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float playerToCeilGap = 0.1f;
 
@@ -15,6 +18,7 @@ public class Movement : MonoBehaviour
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
     private Animator anim;
+    private AudioSource aud;
     private ItemClass[] minerals;
     private bool countedRecently;
     private float weight;
@@ -31,6 +35,7 @@ public class Movement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        aud = GetComponent<AudioSource>();
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
         countedRecently = false;
         weight = 0;
@@ -42,7 +47,6 @@ public class Movement : MonoBehaviour
 
         dirX = Input.GetAxis("Horizontal");
         dirY = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
         var amount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.jetpack] / 5f;
         if (!countedRecently)
@@ -61,6 +65,10 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(dirX * (amount / (weight + 1f)), MathF.Abs(dirX / (amount *  20f)));
             energyScript.UpdateEnergy(600f);
         }
+        else
+        {
+            rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        }
 
         UpdateAnimationState();
     }
@@ -73,16 +81,19 @@ public class Movement : MonoBehaviour
     private void UpdateAnimationState()
     {
         MovementState state;
+        AudioClip newClip;
 
         if (dirX > 0f)
         {
             if (IsAWall(Vector2.right))
             {
                 state = MovementState.drillside;
+                newClip = drill;
             }
             else
             {
                 state = MovementState.walking;
+                newClip = walk;
             }
             sprite.flipX = true;
         }
@@ -91,35 +102,47 @@ public class Movement : MonoBehaviour
             if (IsAWall(Vector2.left))
             {
                 state = MovementState.drillside;
+                newClip = drill;
             }
             else
             {
                 state = MovementState.walking;
+                newClip = walk;
             }
             sprite.flipX = false;
         }
         else if (dirY < -0.001f)
         {
             state = MovementState.drilldown;
+            newClip = drill;
         }
         else if (dirY > 0.001f && IsACeiling())
         {
             state = MovementState.drillup;
+            newClip = drill;
         }
         else
         {
             state = MovementState.idle;
+            newClip = null;
         }
 
         if (rb.velocity.y > 0.001f)
         {
             state = MovementState.flying;
+            newClip = fly;
         }
         else if (rb.velocity.y < -0.001f)
         {
             state = MovementState.falling;
+            newClip = null;
         }
 
+        if (aud.clip != newClip)
+        {
+            aud.clip = newClip;
+            aud.Play();
+        }
         anim.SetInteger("state", (int)state);
     }
 

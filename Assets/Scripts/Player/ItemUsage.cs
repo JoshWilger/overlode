@@ -15,6 +15,14 @@ public class ItemUsage : MonoBehaviour
     [SerializeField] private Tilemap baseTilemap;
     [SerializeField] private Tilemap mineralTilemap;
     [SerializeField] private GameObject boss;
+    [SerializeField] private AudioClip energySound;
+    [SerializeField] private AudioClip healthSound;
+    [SerializeField] private AudioClip teleportSound;
+    [SerializeField] private AudioClip blockSound;
+    [SerializeField] private AudioClip explosiveSound;
+    [SerializeField] private AudioClip explosionSound;
+    [SerializeField] private AudioClip chickenDamageSound;
+    [SerializeField] private AudioClip golemDamageSound;
 
     private Movement movementScript;
     private Mining miningScript;
@@ -38,12 +46,6 @@ public class ItemUsage : MonoBehaviour
         items = new();
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        
-    }
-
     private void Animate(string animationName)
     {
         float playerX = coll.bounds.center.x;
@@ -60,12 +62,16 @@ public class ItemUsage : MonoBehaviour
         if (energyScript.energy < 0.99f)
         {
             Animate("energy");
+            var aud = items.Last().GetComponent<AudioSource>();
+            aud.clip = energySound;
+            aud.Play();
 
             var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.battery];
             var newEnergyLevel = energyScript.energy * upgradeAmount + 25f;
             energyScript.energy = newEnergyLevel > upgradeAmount ? 1 : newEnergyLevel / upgradeAmount;
             energyScript.UpdateEnergyBar();
             Finish();
+
             return true;
         }
 
@@ -77,6 +83,10 @@ public class ItemUsage : MonoBehaviour
         if (healthScript.health < 1)
         {
             Animate("health");
+            var aud = items.Last().GetComponent<AudioSource>();
+            aud.clip = healthSound;
+            aud.Play(); 
+            
             var upgradeAmount = atlas.currentUpgradeAmounts[(int)ItemAtlas.UpgradeTypes.health];
             var newHealthLevel = healthScript.health * upgradeAmount + 30f;
             healthScript.health = newHealthLevel > upgradeAmount ? 1 : newHealthLevel / upgradeAmount; 
@@ -94,6 +104,9 @@ public class ItemUsage : MonoBehaviour
         {
             Animate("teleport");
             FreezePlayer();
+            var aud = items.Last().GetComponent<AudioSource>();
+            aud.clip = teleportSound;
+            aud.Play();
 
             AnimationClip animation = itemAnim.runtimeAnimatorController.animationClips.Where((anim) => anim.name == "teleport").FirstOrDefault();
             Invoke(nameof(RestOfTeleport), animation.length);
@@ -134,6 +147,10 @@ public class ItemUsage : MonoBehaviour
         if (miningScript.IsGrounded())
         {
             Animate("dynamite");
+            var aud = items.Last().GetComponent<AudioSource>();
+            aud.clip = explosiveSound;
+            aud.Play();
+            
             Invoke(nameof(RestOfDynamite), explosionDelay);
             return true;
         }
@@ -152,6 +169,10 @@ public class ItemUsage : MonoBehaviour
         if (miningScript.IsGrounded())
         {
             Animate("c4");
+            var aud = items.Last().GetComponent<AudioSource>();
+            aud.clip = explosiveSound;
+            aud.Play();
+            
             Invoke(nameof(RestOfC4), explosionDelay);
             return true;
         }
@@ -201,6 +222,10 @@ public class ItemUsage : MonoBehaviour
 
     private void RemoveTiles(int size)
     {
+        var aud = items.First().GetComponent<AudioSource>();
+        aud.clip = explosionSound;
+        aud.Play();
+
         RemoveTiles(size, new(Mathf.FloorToInt(items.First().transform.position.x),
                     Mathf.FloorToInt(items.First().transform.position.y)));
     }
@@ -228,6 +253,10 @@ public class ItemUsage : MonoBehaviour
                 var damage = Mathf.Abs(size - distance2) / (bossScript.nextBoss ? bossScript.bossDamageDivisor * 2f : bossScript.bossDamageDivisor);
                 Debug.Log("Agh! " + damage);
                 bossScript.UpdateHealth(damage);
+
+                var aud = boss.GetComponent<AudioSource>();
+                aud.clip = bossScript.nextBoss ? golemDamageSound : chickenDamageSound;
+                aud.Play();
             }
         }
     }
@@ -249,6 +278,8 @@ public class ItemUsage : MonoBehaviour
                 {
                     transform.position = new Vector3(playerX + 0.5f + directionAdders[i, 0], playerY + directionAdders[i, 1]);
                     baseTilemap.SetTile(new Vector3Int(playerX, playerY), blockItem.placeableTile);
+
+                    item.GetComponent<AudioSource>().Play();
                     return true;
                 }
             }

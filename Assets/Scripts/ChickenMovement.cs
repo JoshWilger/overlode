@@ -9,6 +9,10 @@ public class ChickenMovement : MonoBehaviour
     [SerializeField] private float damageAffector;
     [SerializeField] private Collider2D playerColl;
     [SerializeField] private GameObject laser;
+    [SerializeField] private AudioClip laserSound;
+    [SerializeField] private AudioClip peckSound;
+    [SerializeField] private AudioClip walkSound;
+    [SerializeField] private AudioClip prepareSound;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float attackInterval;
     [SerializeField] private float peckDelay;
@@ -21,6 +25,8 @@ public class ChickenMovement : MonoBehaviour
     private HingeJoint2D laserHinge;
     private SpriteRenderer laserSprite;
     private BoxCollider2D laserCollider;
+    private AudioSource aud;
+    private AudioSource loop;
     private bool doingAttack;
     private bool invoked;
 
@@ -32,6 +38,8 @@ public class ChickenMovement : MonoBehaviour
         laserHinge = laser.GetComponent<HingeJoint2D>();
         laserSprite = laser.GetComponent<SpriteRenderer>();
         laserCollider = laser.GetComponent<BoxCollider2D>();
+        aud = GetComponent<AudioSource>();
+        loop = laser.GetComponent<AudioSource>();
         doingAttack = true;
         invoked = true;
         transform.position = new Vector3(TerrainGeneration.WIDTH / 2, -560f, transform.position.z);
@@ -48,6 +56,8 @@ public class ChickenMovement : MonoBehaviour
         anim.speed = 0;
         rb.velocity = Vector2.down;
         CancelInvoke();
+        loop.clip = walkSound;
+        loop.Stop();
     }
 
     public void EndSummoningSequence()
@@ -73,6 +83,8 @@ public class ChickenMovement : MonoBehaviour
             invoked = true;
             anim.SetTrigger("waddle");
             Invoke(nameof(Attack), attackInterval);
+            loop.clip = walkSound;
+            loop.Play();
         }
 
         if (playerX > transform.position.x - 1 && playerX < transform.position.x + 1)
@@ -102,14 +114,21 @@ public class ChickenMovement : MonoBehaviour
         {
             case 1:
                 anim.SetTrigger("peck");
+                loop.Stop();
+                aud.clip = prepareSound;
+                aud.Play();
+
                 Invoke(nameof(DoDamage), peckDelay / 2f);
                 Invoke(nameof(EndAttack), peckDelay);
                 break;
 
             case 2:
                 anim.SetTrigger("laser");
+                loop.Stop();
                 laserHinge.anchor = sprite.flipX ? new Vector2(-0.9f, 0) : new Vector2(-0.9f, 0);
                 laserHinge.connectedAnchor = sprite.flipX ? new Vector2(1.9f, 0) : new Vector2(-1.9f, 0);
+                aud.clip = laserSound;
+                aud.Play();
 
                 laserSprite.enabled = true;
                 laserCollider.enabled = true;
@@ -141,5 +160,8 @@ public class ChickenMovement : MonoBehaviour
             Debug.Log("Oh! " + damage);
             healthScript.UpdateHealth(damage);
         }
+
+        aud.clip = peckSound;
+        aud.Play();
     }
 }

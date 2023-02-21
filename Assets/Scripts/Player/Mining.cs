@@ -26,9 +26,12 @@ public class Mining : MonoBehaviour
     [SerializeField] private Image storageProgress;
     [SerializeField] private LayerMask ground;
     [SerializeField] private ItemClass shopBlock;
+    [SerializeField] private AudioClip mineralSound;
+    [SerializeField] private AudioClip artifactSound;
 
     private Rigidbody2D rb;
     private BoxCollider2D coll;
+    private AudioSource aud;
     private float[,] directionAdders;
     private bool mining;
     private bool hurtRecently;
@@ -45,6 +48,7 @@ public class Mining : MonoBehaviour
     {
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        aud = collectionText.GetComponent<AudioSource>();
         directionAdders = new[,] { { 0, 1 }, { 0, -1 }, { -tileMiningDistance, 0 }, { tileMiningDistance, 0 } }; // up, down, left, right
         currentDirectionNum = 4;
         currentTile = new Vector3Int(10000, 10000);
@@ -196,6 +200,8 @@ public class Mining : MonoBehaviour
                         controller.UpdateMineralInfo();
                         collectionText.text = "+1 " + minerals[i].itemName;
                         collectionAnim.SetTrigger("resource");
+                        aud.clip = mineralSound;
+                        aud.Play();
                         return;
                     }
                     else
@@ -211,6 +217,8 @@ public class Mining : MonoBehaviour
                     moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + artifact.itemWorth);
                     collectionText.text = "+1 " + artifact.itemName;
                     collectionAnim.SetTrigger("resource");
+                    aud.clip = artifactSound;
+                    aud.Play();
                     return;
                 }
             }
