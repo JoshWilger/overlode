@@ -31,6 +31,7 @@ public class ItemUsage : MonoBehaviour
     private BoxCollider2D coll;
     private Rigidbody2D rb;
     private Animator itemAnim;
+    private AudioSource playerAud;
     private List<GameObject> items;
 
     // Start is called before the first frame update
@@ -43,6 +44,7 @@ public class ItemUsage : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         itemAnim = item.GetComponent<Animator>();
+        playerAud = item.GetComponent<AudioSource>();
         items = new();
     }
 
@@ -123,6 +125,7 @@ public class ItemUsage : MonoBehaviour
         miningScript.enabled = false;
         hudUiScript.enabled = false;
         energyScript.decreaseEnergy = false;
+        playerAud.Stop();
     }
 
     private void RestOfTeleport()

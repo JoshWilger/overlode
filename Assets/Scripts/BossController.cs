@@ -21,6 +21,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private Sprite golemSprite;
     [SerializeField] private AudioClip defeatedSound;
     [SerializeField] private AudioClip summoningSound;
+    [SerializeField] private AudioClip winSound;
     [SerializeField] public float bossDamageDivisor;
     [SerializeField] public float golemSpawnDelay;
 
@@ -93,6 +94,9 @@ public class BossController : MonoBehaviour
         overlay.SetActive(true);
         overlayAnim.SetTrigger("ending");
         itemUsageScript.FreezePlayer();
+        aud.clip = winSound;
+        aud.Play();
+
         mainCanvas.SetActive(false);
         uiController.pauseToggle.enabled = false;
         cameraController.credits = true;

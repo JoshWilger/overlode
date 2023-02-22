@@ -21,6 +21,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject boss;
     [SerializeField] private TextMeshProUGUI depth;
     [SerializeField] private Animator earthquakeWarn;
+    [SerializeField] private AudioSource exitAud;
+    [SerializeField] private AudioSource pauseAud;
+    [SerializeField] private AudioClip exitSound;
+    [SerializeField] private AudioClip pauseSound;
     [SerializeField, Range(0, 1)] private float earthquakeChance;
     [SerializeField] private int badAltimeterDepth;
     [SerializeField] private Sprite bossBackground;
@@ -42,6 +46,8 @@ public class UIController : MonoBehaviour
         pauseToggle.onValueChanged.AddListener((value) =>
         {
             Paused(value);
+            pauseAud.Play();
+            AudioListener.pause = value;
         });
     }
 
@@ -89,6 +95,7 @@ public class UIController : MonoBehaviour
     public void Paused(bool isPressed)
     {
         Time.timeScale = isPressed ? 0f : 1;
+        AudioListener.pause = !pauseToggle.interactable;
         hudController.enabled = !isPressed;
         energyScript.decreaseEnergy = !isPressed;
         if (!(charging.activeSelf || factory.activeSelf || garage.activeSelf || shop.activeSelf))
@@ -129,7 +136,9 @@ public class UIController : MonoBehaviour
             else
             {
                 pauseToggle.isOn = !pauseToggle.isOn;
+                return;
             }
+            exitAud.Play();
         }
     }
 
