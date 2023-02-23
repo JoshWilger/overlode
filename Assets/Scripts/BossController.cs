@@ -41,8 +41,8 @@ public class BossController : MonoBehaviour
         overlayAnim = overlay.GetComponent<Animator>();
         aud = GetComponent<AudioSource>();
         chick.enabled = true;
-        nextBoss = true;
-        health = 0;
+        nextBoss = false;
+        health = 1;
         UpdateHealth();
         bossImage.sprite = chickSprite;
         bossBar.SetActive(true);
