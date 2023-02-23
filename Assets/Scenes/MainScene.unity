@@ -7677,6 +7677,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7768,6 +7769,102 @@ MonoBehaviour:
   maxPosition: 29.7
   creditsScrollSpeed: 0.1
   credits: 0
+--- !u!82 &519420034
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.14
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &529447277
 GameObject:
   m_ObjectHideFlags: 0
@@ -10163,6 +10260,20 @@ MonoBehaviour:
   moneyText: {fileID: 1391833717}
   characterName: {fileID: 1000952812}
   boss: {fileID: 1666820180}
+  musicAud: {fileID: 519420034}
+  music:
+  - {fileID: 8300000, guid: 8ee25e21338cce547b604cb4332444dc, type: 3}
+  - {fileID: 8300000, guid: d49cff411864a9249821eae826c0871b, type: 3}
+  - {fileID: 8300000, guid: 5f40ba5bc24bc3a48838e9f1339828d7, type: 3}
+  - {fileID: 8300000, guid: 974ea19dd9f8383478c2a1f03b130c57, type: 3}
+  - {fileID: 8300000, guid: 030c16a62aa03104e9e075248de283da, type: 3}
+  - {fileID: 8300000, guid: 3279d1e8d5f9da744923ded1dd643e52, type: 3}
+  - {fileID: 8300000, guid: fe8f85357d21e19439f1909d3dc67d66, type: 3}
+  - {fileID: 8300000, guid: 85411c30282b5df4e943125cd24d5e96, type: 3}
+  - {fileID: 8300000, guid: 73f742138fe3f9540bc06ca754a73318, type: 3}
+  - {fileID: 8300000, guid: eaea776f4b463db4fabadcedb5f6a8c0, type: 3}
+  - {fileID: 8300000, guid: 91b4896442b7e4b458f9ea21e9a898a4, type: 3}
+  - {fileID: 8300000, guid: 56ae42143c28f2a4ebe51c2cfc22b855, type: 3}
   currentMessageIndex: 0
 --- !u!82 &657215333
 AudioSource:
@@ -23673,7 +23784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577181471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.5, y: 3, z: 0}
+  m_LocalPosition: {x: 8.5, y: -555, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23707,8 +23818,10 @@ MonoBehaviour:
   earthquakeWarn: {fileID: 2000127346}
   exitAud: {fileID: 645568942}
   pauseAud: {fileID: 2033704554}
+  musicAud: {fileID: 519420034}
   exitSound: {fileID: 8300000, guid: 731bfecd04a25c74d81e4bf93dd150ed, type: 3}
   pauseSound: {fileID: 8300000, guid: 7a888200e5afebb4c999e871020b4c9f, type: 3}
+  shopMusic: {fileID: 8300000, guid: e1c5603fea07ddb4ebcd13f8dda30fe1, type: 3}
   earthquakeChance: 0.04
   badAltimeterDepth: 450
   bossBackground: {fileID: 21300000, guid: 65b965e95afe9ed4f95cfd25648abcb8, type: 3}
@@ -25736,6 +25849,8 @@ MonoBehaviour:
   defeatedSound: {fileID: 8300000, guid: 544aa48c3966cf24e9a7a9f97d9fdd25, type: 3}
   summoningSound: {fileID: 8300000, guid: 50d681f182d82c94fb59a6d1042a6dac, type: 3}
   winSound: {fileID: 8300000, guid: db420851432941f4195508079d4066a7, type: 3}
+  creditsMusic: {fileID: 8300000, guid: 7d26309161363ec479c12104de923655, type: 3}
+  musicAud: {fileID: 519420034}
   bossDamageDivisor: 20
   golemSpawnDelay: 6
   nextBoss: 0

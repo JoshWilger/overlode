@@ -18,6 +18,8 @@ public class MessageUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI characterName;
     [SerializeField] private GameObject boss;
+    [SerializeField] private AudioSource musicAud;
+    [SerializeField] private AudioClip[] music;
 
     public int currentMessageIndex;
 
@@ -36,6 +38,20 @@ public class MessageUI : MonoBehaviour
         nextButton.onClick.AddListener(NextText);
         characterName.text = messages[currentMessageIndex].characterName;
         nextButton.interactable = messages[currentMessageIndex].paragraphs.Length > 1;
+        if (currentMessageIndex + 4 < messages.Length)
+        {
+            musicAud.clip = music[currentMessageIndex];
+        }
+        else if (currentMessageIndex + 4 == messages.Length)
+        {
+            return;
+        }
+        else
+        {
+            musicAud.clip = music[currentMessageIndex - 1];
+        }
+        musicAud.Play();
+        Debug.Log(musicAud.clip.name);
     }
 
     private void OnDisable()

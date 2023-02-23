@@ -23,19 +23,24 @@ public class UIController : MonoBehaviour
     [SerializeField] private Animator earthquakeWarn;
     [SerializeField] private AudioSource exitAud;
     [SerializeField] private AudioSource pauseAud;
+    [SerializeField] private AudioSource musicAud;
     [SerializeField] private AudioClip exitSound;
     [SerializeField] private AudioClip pauseSound;
+    [SerializeField] private AudioClip shopMusic;
     [SerializeField, Range(0, 1)] private float earthquakeChance;
     [SerializeField] private int badAltimeterDepth;
     [SerializeField] private Sprite bossBackground;
     [SerializeField] private SpriteRenderer background;
-    
+
     public Toggle pauseToggle;
     public int[] messageDepths;
 
     private BoxCollider2D coll;
     private Energy energyScript;
     private Sprite regularBackground;
+    private AudioClip previousAudio;
+    private float previousTimestamp;
+    private bool exited = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -85,6 +90,14 @@ public class UIController : MonoBehaviour
             messageUiScript.currentMessageIndex = messageDepths.Length - 2;
         }
         EscapePressed(Input.GetButtonDown("Cancel"));
+
+        if (!(charging.activeSelf || factory.activeSelf || garage.activeSelf || shop.activeSelf) && !exited)
+        {
+            exited = true;
+            musicAud.clip = previousAudio;
+            musicAud.time = previousTimestamp;
+            musicAud.Play();
+        }
     }
 
     private void BackgroundChange(bool isBoss = false)
@@ -95,7 +108,6 @@ public class UIController : MonoBehaviour
     public void Paused(bool isPressed)
     {
         Time.timeScale = isPressed ? 0f : 1;
-        AudioListener.pause = !pauseToggle.interactable;
         hudController.enabled = !isPressed;
         energyScript.decreaseEnergy = !isPressed;
         if (!(charging.activeSelf || factory.activeSelf || garage.activeSelf || shop.activeSelf))
@@ -168,8 +180,22 @@ public class UIController : MonoBehaviour
         }
         if (collided)
         {
+            exited = false;
             focus.SetActive(true);
             energyScript.decreaseEnergy = false;
+
+            if (musicAud.clip != null)
+            {
+                previousAudio = musicAud.clip;
+                previousTimestamp = musicAud.time;
+                musicAud.clip = shopMusic;
+                musicAud.time = 75;
+                musicAud.Play();
+            }
+            else
+            {
+                exited = true;
+            }
         }
     }
 
@@ -199,6 +225,13 @@ public class UIController : MonoBehaviour
         }
         if (collided)
         {
+            if (!exited)
+            {
+                musicAud.clip = previousAudio;
+                musicAud.time = previousTimestamp;
+                musicAud.Play();
+            }
+            exited = true;
             focus.SetActive(false);
             energyScript.decreaseEnergy = true;
             if (messageUiScript.currentMessageIndex > 2 && Random.value < earthquakeChance)

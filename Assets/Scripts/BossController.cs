@@ -22,6 +22,8 @@ public class BossController : MonoBehaviour
     [SerializeField] private AudioClip defeatedSound;
     [SerializeField] private AudioClip summoningSound;
     [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip creditsMusic;
+    [SerializeField] private AudioSource musicAud;
     [SerializeField] public float bossDamageDivisor;
     [SerializeField] public float golemSpawnDelay;
 
@@ -39,8 +41,8 @@ public class BossController : MonoBehaviour
         overlayAnim = overlay.GetComponent<Animator>();
         aud = GetComponent<AudioSource>();
         chick.enabled = true;
-        nextBoss = false;
-        health = 1;
+        nextBoss = true;
+        health = 0;
         UpdateHealth();
         bossImage.sprite = chickSprite;
         bossBar.SetActive(true);
@@ -96,12 +98,16 @@ public class BossController : MonoBehaviour
         itemUsageScript.FreezePlayer();
         aud.clip = winSound;
         aud.Play();
+        musicAud.clip = creditsMusic;
+        musicAud.time = 1;
+        musicAud.PlayDelayed(0.5f);
 
         mainCanvas.SetActive(false);
         uiController.pauseToggle.enabled = false;
         cameraController.credits = true;
         Invoke(nameof(ChangeBackground), 50f);
         finalCashText.text = "Final Cash: $" + long.Parse(moneyText.text.Substring(1));
+        gameObject.SetActive(false);
     }
 
     private void ChangeBackground()
