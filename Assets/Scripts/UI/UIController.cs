@@ -13,6 +13,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private MessageUI messageUiScript;
     [SerializeField] private TerrainGeneration terrainGenerationScript;
     [SerializeField] private GameObject focus;
+    [SerializeField] private GameObject help;
     [SerializeField] private GameObject message;
     [SerializeField] private GameObject charging;
     [SerializeField] private GameObject factory;
@@ -144,6 +145,12 @@ public class UIController : MonoBehaviour
             {
                 shop.SetActive(false);
                 focus.SetActive(false);
+            }
+            else if (help.activeSelf)
+            {
+                help.SetActive(false);
+                focus.SetActive(false);
+                Paused(false);
             }
             else
             {

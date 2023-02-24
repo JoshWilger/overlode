@@ -106,7 +106,7 @@ public class BossController : MonoBehaviour
         uiController.pauseToggle.enabled = false;
         cameraController.credits = true;
         Invoke(nameof(ChangeBackground), 50f);
-        finalCashText.text = "Final Cash: $" + long.Parse(moneyText.text.Substring(1));
+        finalCashText.text = "Final Cash: $" + (22165000L + long.Parse(moneyText.text.Substring(1))).ToString("N0");
         gameObject.SetActive(false);
     }
 

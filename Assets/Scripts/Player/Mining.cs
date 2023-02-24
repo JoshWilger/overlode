@@ -215,7 +215,7 @@ public class Mining : MonoBehaviour
                 if (mineral.name == artifact.placeableTile.name)
                 {
                     moneyText.text = "$" + (long.Parse(moneyText.text.Substring(1)) + artifact.itemWorth);
-                    collectionText.text = "+1 " + artifact.itemName;
+                    collectionText.text = "+1 " + artifact.itemName + "\n$" + artifact.itemWorth;
                     collectionAnim.SetTrigger("resource");
                     aud.clip = artifactSound;
                     aud.Play();

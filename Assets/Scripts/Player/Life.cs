@@ -51,7 +51,7 @@ public class Life : MonoBehaviour
         hudUiScript.enabled = false;
         anim.SetTrigger("death");
         Debug.Log("Dying...");
-        Invoke(nameof(RestartLevel), 1.1f);
+        Invoke(nameof(RestartLevel), 3f);
     }
 
     private void RestartLevel()
