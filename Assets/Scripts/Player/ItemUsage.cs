@@ -72,8 +72,8 @@ public class ItemUsage : MonoBehaviour
             var newEnergyLevel = energyScript.energy * upgradeAmount + 25f;
             energyScript.energy = newEnergyLevel > upgradeAmount ? 1 : newEnergyLevel / upgradeAmount;
             energyScript.UpdateEnergyBar();
-            Finish();
 
+            Invoke(nameof(Finish), explosionDelay);
             return true;
         }
 
@@ -93,7 +93,8 @@ public class ItemUsage : MonoBehaviour
             var newHealthLevel = healthScript.health * upgradeAmount + 30f;
             healthScript.health = newHealthLevel > upgradeAmount ? 1 : newHealthLevel / upgradeAmount; 
             healthScript.UpdateHealthBar();
-            Finish();
+            
+            Invoke(nameof(Finish), explosionDelay);
             return true;
         }
 
