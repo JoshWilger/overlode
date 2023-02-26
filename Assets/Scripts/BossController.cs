@@ -95,7 +95,7 @@ public class BossController : MonoBehaviour
     {
         overlay.SetActive(true);
         overlayAnim.SetTrigger("ending");
-        itemUsageScript.FreezePlayer();
+        itemUsageScript.FreezePlayer(true);
         aud.clip = winSound;
         aud.Play();
         musicAud.clip = creditsMusic;

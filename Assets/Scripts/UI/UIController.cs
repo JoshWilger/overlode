@@ -40,6 +40,7 @@ public class UIController : MonoBehaviour
     private Energy energyScript;
     private Sprite regularBackground;
     private AudioClip previousAudio;
+    private AudioSource aud;
     private float previousTimestamp;
     private bool exited = false;
 
@@ -48,6 +49,7 @@ public class UIController : MonoBehaviour
     {
         coll = GetComponent<BoxCollider2D>();
         energyScript = GetComponent<Energy>();
+        aud = GetComponent<AudioSource>();
         regularBackground = background.sprite;
         pauseToggle.onValueChanged.AddListener((value) =>
         {
@@ -115,6 +117,7 @@ public class UIController : MonoBehaviour
         {
             focus.SetActive(isPressed);
         }
+        aud.mute = isPressed;
     }
 
     private void EscapePressed(bool isPressed)

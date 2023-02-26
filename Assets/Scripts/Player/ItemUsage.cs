@@ -44,7 +44,7 @@ public class ItemUsage : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         itemAnim = item.GetComponent<Animator>();
-        playerAud = item.GetComponent<AudioSource>();
+        playerAud = GetComponent<AudioSource>();
         items = new();
     }
 
@@ -105,7 +105,7 @@ public class ItemUsage : MonoBehaviour
         if (miningScript.IsGrounded())
         {
             Animate("teleport");
-            FreezePlayer();
+            FreezePlayer(true);
             var aud = items.Last().GetComponent<AudioSource>();
             aud.clip = teleportSound;
             aud.Play();
@@ -118,14 +118,14 @@ public class ItemUsage : MonoBehaviour
         return false;
     }
 
-    public void FreezePlayer()
+    public void FreezePlayer(bool isFrozen)
     {
-        rb.bodyType = RigidbodyType2D.Static;
-        movementScript.enabled = false;
-        miningScript.enabled = false;
-        hudUiScript.enabled = false;
-        energyScript.decreaseEnergy = false;
-        playerAud.Stop();
+        rb.bodyType = isFrozen ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
+        movementScript.enabled = !isFrozen;
+        miningScript.enabled = !isFrozen;
+        hudUiScript.enabled = !isFrozen;
+        energyScript.decreaseEnergy = !isFrozen;
+        playerAud.mute = isFrozen;
     }
 
     private void RestOfTeleport()
@@ -137,11 +137,7 @@ public class ItemUsage : MonoBehaviour
         }
 
         rb.position = new Vector2(pos.x + 0.5f, pos.y + 0.5f);
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        movementScript.enabled = true;
-        miningScript.enabled = true;
-        hudUiScript.enabled = true;
-        energyScript.decreaseEnergy = true;
+        FreezePlayer(false);
         Finish();
     }
 
