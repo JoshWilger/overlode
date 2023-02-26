@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: To lighten the weight of materials, dump them by clicking their icon in
     the inventory. You can use "E" to open your inventory, scroll to switch between
-    items faster, and "escape" to pause or exit a UI.
+    items faster, and "escape" to pause or exit an interface.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

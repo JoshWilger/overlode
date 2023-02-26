@@ -56,7 +56,7 @@ public class Health : MonoBehaviour
             UpdateHealth(damage);
             Invoke(nameof(DamageCooldown), damageCooldownTime);
         }
-        else if (IsWall(Vector2.down) && rb.velocity.y < -yVelocityDamageThreshold && canBeDamaged)
+        else if (IsGround() && rb.velocity.y < -yVelocityDamageThreshold && canBeDamaged)
         {
             canBeDamaged = false;
             var damage = Mathf.Abs(rb.velocity.y + yVelocityDamageThreshold) / (yVelocityDamageThreshold * (upgrade / 20f));
@@ -99,5 +99,10 @@ public class Health : MonoBehaviour
     private bool IsWall(Vector2 direction)
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, direction, 0.1f, ground);
+    }
+
+    private bool IsGround()
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.5f, ground);
     }
 }
