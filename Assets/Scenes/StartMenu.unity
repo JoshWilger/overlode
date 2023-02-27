@@ -509,7 +509,7 @@ AudioSource:
   m_GameObject: {fileID: 398179948}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4326969238261862360, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
   m_audioClip: {fileID: 8300000, guid: 731bfecd04a25c74d81e4bf93dd150ed, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.32
@@ -603,6 +603,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 398179952}
     m_Modifications:
+    - target: {fileID: 5876208576287957048, guid: 2c7db5afd2c61bf45b8c8fe63f6c0fa9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4326969238261862360, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
+    - target: {fileID: 8816922288057767750, guid: 2c7db5afd2c61bf45b8c8fe63f6c0fa9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4326969238261862360, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
     - target: {fileID: 8816922288097888708, guid: 2c7db5afd2c61bf45b8c8fe63f6c0fa9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -671,6 +679,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8816922288345618574, guid: 2c7db5afd2c61bf45b8c8fe63f6c0fa9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4326969238261862360, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
     - target: {fileID: 8816922288553566464, guid: 2c7db5afd2c61bf45b8c8fe63f6c0fa9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -815,7 +827,7 @@ AudioSource:
   m_GameObject: {fileID: 557700793}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4326969238261862360, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
   m_audioClip: {fileID: 8300000, guid: 9dd697075262df643bfae577310fec8f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.301
@@ -3282,7 +3294,7 @@ AudioSource:
   m_GameObject: {fileID: 806091673}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4326969238261862360, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
   m_audioClip: {fileID: 8300000, guid: 497822b3dd96d44478d30cc688820b1d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.301
@@ -5140,6 +5152,7 @@ GameObject:
   - component: {fileID: 1087446523}
   - component: {fileID: 1087446522}
   - component: {fileID: 1087446525}
+  - component: {fileID: 1087446526}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5223,7 +5236,7 @@ AudioSource:
   m_GameObject: {fileID: 1087446521}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2382855233466885877, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
   m_audioClip: {fileID: 8300000, guid: 41ea0742ded61f8499bd8061792e4a84, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.192
@@ -5310,6 +5323,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1087446526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087446521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b95ff5dd174a8b41bd473445a56ff80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
 --- !u!1 &1138342474
 GameObject:
   m_ObjectHideFlags: 0
@@ -5564,7 +5590,7 @@ AudioSource:
   m_GameObject: {fileID: 1552956177}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4326969238261862360, guid: 0bf141290f385984aa59e034b37e58db, type: 2}
   m_audioClip: {fileID: 8300000, guid: 9e5def164090eef479a82b9133536adb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.301
