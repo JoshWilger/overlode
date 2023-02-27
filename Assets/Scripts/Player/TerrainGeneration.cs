@@ -104,6 +104,7 @@ public class TerrainGeneration : MonoBehaviour
         Vector3Int[] moreBottomCoords = { new Vector3Int(7, -DEPTH - 13), new Vector3Int(19, -DEPTH - 13), new Vector3Int(31, -DEPTH - 13) };
 
         tilemaps[1].SetTiles(GenerateLayerCoords(DEPTH + 2, 2), Enumerable.Repeat(miscGround[6].placeableTile, WIDTH * 2).ToArray());
+        tilemaps[0].SetTiles(GenerateLayerCoords(DEPTH + 2, 2, 6, 15), Enumerable.Repeat(background[0].placeableTile, 12).ToArray());
         tilemaps[1].SetTiles(GenerateLayerCoords(DEPTH + 2, 2, 6, 15), Enumerable.Repeat(miscGround[8].placeableTile, 12).ToArray());
         tilemaps[2].SetTiles(topCoords, new TileBase[] { miscGround[4].placeableTile, miscGround[4].placeableTile });
 

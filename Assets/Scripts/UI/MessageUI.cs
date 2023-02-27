@@ -50,6 +50,7 @@ public class MessageUI : MonoBehaviour
         {
             musicAud.clip = music[currentMessageIndex - 1];
         }
+        musicAud.time = 0;
         musicAud.Play();
         Debug.Log(musicAud.clip.name);
     }
