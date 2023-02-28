@@ -49,8 +49,6 @@ public class TerrainGeneration : MonoBehaviour
                 int layerLength = Mathf.Min(ground.Length, minerals.Length);
                 int layerNum = Mathf.Min(Mathf.FloorToInt(y / ((float)(DEPTH / layerLength) + 1 + holyRolly)), layerLength);
 
-                tilemaps[0].SetTile(tilePos, background[0].placeableTile);
-
                 tilemaps[1].SetTile(tilePos,  isAir ? null : 
                     layerNum == 2 && holyRolly < 0.2f ? miscGround[0].placeableTile : 
                     layerNum == 3 && holyRolly < 0.5f ? miscGround[1].placeableTile : 
@@ -78,8 +76,6 @@ public class TerrainGeneration : MonoBehaviour
             }
         }
         Debug.Log("Artifacts: " + string.Join(" ", artifactCounter));
-
-        GenerateBottom();
     }
     
     // TODO: Better mineral, lava, and stone distribution

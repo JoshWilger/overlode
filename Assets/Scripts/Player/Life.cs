@@ -19,7 +19,7 @@ public class Life : MonoBehaviour
     [SerializeField] private Tilemap mineralTilemap;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         dead = false;
         coll = GetComponent<BoxCollider2D>();

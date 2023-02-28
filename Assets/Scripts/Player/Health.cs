@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
     private bool hasHitWall;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();

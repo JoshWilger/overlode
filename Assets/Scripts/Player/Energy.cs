@@ -16,7 +16,7 @@ public class Energy : MonoBehaviour
     public bool decreaseEnergy;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         energy = 0.55f;
         decreaseEnergy = true;

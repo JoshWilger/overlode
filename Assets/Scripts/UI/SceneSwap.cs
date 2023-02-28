@@ -8,7 +8,7 @@ public class SceneSwap : MonoBehaviour
 {
     [SerializeField] private string sceneName;
 
-    private void Start()
+    private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(SwapScene);
     }

@@ -24,7 +24,7 @@ public class MessageUI : MonoBehaviour
     public int currentMessageIndex;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         currentMessageIndex = 0;
     }

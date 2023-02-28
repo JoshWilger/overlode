@@ -35,7 +35,7 @@ public class ItemUsage : MonoBehaviour
     private List<GameObject> items;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         movementScript = GetComponent<Movement>();
         miningScript = GetComponent<Mining>();
