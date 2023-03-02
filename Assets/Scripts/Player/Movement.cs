@@ -12,6 +12,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private AudioClip fly;
     [SerializeField] private AudioClip drill;
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float xDivisor;
+    [SerializeField] private float yDivisor;
+    [SerializeField] private float cruise;
     [SerializeField] private float playerToCeilGap = 0.1f;
 
     private Rigidbody2D rb;
@@ -55,20 +58,23 @@ public class Movement : MonoBehaviour
             weight = CountMineralWeight();
             Invoke(nameof(UpdateRecently), 1);
         }
+
+        Vector2 force;
         if (dirY > 0f && (!IsGrounded() || !IsACeiling()))
         {
-            rb.velocity = new Vector2(dirX * (amount / (weight + 1f)), dirY * 1.2f * (amount / (weight + 1f)));
+            force = new Vector2(dirX / 2f * (amount / (weight + 1f)) / xDivisor, dirY / 5f * (amount / (weight + 1f)) / yDivisor);
             energyScript.UpdateEnergy(300f);
         }
         else if (dirX != 0f && (!IsGrounded()))
         {
-            rb.velocity = new Vector2(dirX * (amount / (weight + 1f)), MathF.Abs(dirX / (amount *  20f)));
+            force = new Vector2(dirX / 2f * (amount / (weight + 1f) / xDivisor), MathF.Abs(dirX / 5f * cruise));
             energyScript.UpdateEnergy(600f);
         }
         else
         {
-            rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+            force = new Vector2(dirX > 0.1f ? moveSpeed : dirX < -0.1f ? -moveSpeed : -dirX, 0);
         }
+        rb.AddForce(force);
 
         UpdateAnimationState();
     }
@@ -85,10 +91,15 @@ public class Movement : MonoBehaviour
 
         if (dirX > 0f)
         {
-            if (IsAWall(Vector2.right))
+            if (IsAWall(Vector2.right) && IsGrounded())
             {
                 state = MovementState.drillside;
                 newClip = drill;
+            }
+            else if (!IsGrounded())
+            {
+                state = MovementState.flying;
+                newClip = fly;
             }
             else
             {
@@ -99,10 +110,15 @@ public class Movement : MonoBehaviour
         }
         else if (dirX < 0f)
         {
-            if (IsAWall(Vector2.left))
+            if (IsAWall(Vector2.left) && IsGrounded())
             {
                 state = MovementState.drillside;
                 newClip = drill;
+            }
+            else if (!IsGrounded())
+            {
+                state = MovementState.flying;
+                newClip = fly;
             }
             else
             {
@@ -116,25 +132,27 @@ public class Movement : MonoBehaviour
             state = MovementState.drilldown;
             newClip = drill;
         }
-        else if (dirY > 0.001f && IsACeiling())
+        else if (dirY > 0.001f)
         {
-            state = MovementState.drillup;
-            newClip = drill;
+            if (IsGrounded() && IsACeiling())
+            {
+                state = MovementState.drillup;
+                newClip = drill;
+            }
+            else
+            {
+                state = MovementState.flying;
+                newClip = fly;
+            }
+        }
+        else if (!IsGrounded())
+        {
+            state = MovementState.falling;
+            newClip = null;
         }
         else
         {
             state = MovementState.idle;
-            newClip = null;
-        }
-
-        if (rb.velocity.y > 0.001f)
-        {
-            state = MovementState.flying;
-            newClip = fly;
-        }
-        else if (rb.velocity.y < -0.001f)
-        {
-            state = MovementState.falling;
             newClip = null;
         }
 
