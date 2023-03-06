@@ -276,7 +276,7 @@ public class ItemUsage : MonoBehaviour
                 currentTile = baseTilemap.GetTile(new Vector3Int(newX, playerY + directionAdders[i, 1]));
                 if (!currentTile && newX < TerrainGeneration.WIDTH && newX > 0)
                 {
-                    transform.position = new Vector3(playerX + 0.5f + directionAdders[i, 0], playerY + directionAdders[i, 1]);
+                    transform.position = new Vector3(playerX + 0.5f + directionAdders[i, 0], playerY + directionAdders[i, 1] + 0.5f);
                     baseTilemap.SetTile(new Vector3Int(playerX, playerY), blockItem.placeableTile);
 
                     item.GetComponent<AudioSource>().Play();

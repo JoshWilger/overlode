@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Lava
   itemDescription: 
-  placeableTile: {fileID: 11400000, guid: 560e3b9e56e706942b63d112402bf405, type: 2}
+  placeableTile: {fileID: 11400000, guid: ea9aac070c32b7d46a9c0cc9c47304ea, type: 2}
   itemType: 4
-  destructable: 1
+  upgradeType: {fileID: 0}
   itemWorth: 0
   amountCollected: 0

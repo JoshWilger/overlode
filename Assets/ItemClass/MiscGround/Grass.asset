@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Grass
   itemDescription: 
-  placeableTile: {fileID: 11400000, guid: eaa91f69c223b994e874186e13bdc377, type: 2}
+  placeableTile: {fileID: 11400000, guid: c116693635ad5994ea7f8833496f7565, type: 2}
   itemType: 4
   upgradeType: {fileID: 0}
   itemWorth: 5

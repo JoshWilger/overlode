@@ -40,11 +40,9 @@ public class SpawnScrollingObjects : MonoBehaviour
                 }
             }
             highestY += diff;
-            Debug.Log(highestY);
         }
         else if (rightHeight < spawnMe.transform.position.y && objects.Count > 0)
         {
-            Debug.Log($"Destroying {objects.Count} {spawnMe.name}");
             foreach (var item in objects)
             {
                 Destroy(item);
