@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
 using UnityEngine.UI;
+using System;
+using System.Linq;
 
 public class Mining : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class Mining : MonoBehaviour
     [SerializeField] private Animator breaking;
     [SerializeField] private Animator collectionAnim;
     [SerializeField] private Transform move;
+    [SerializeField] private GameObject dirtChunk;
+    [SerializeField] private GameObject rockChunk;
     [SerializeField] private Tilemap baseTilemap;
     [SerializeField] private Tilemap mineralTilemap;
     [SerializeField] private TextMeshProUGUI moneyText;
@@ -36,12 +40,14 @@ public class Mining : MonoBehaviour
     private bool mining;
     private bool hurtRecently;
     private bool gasExploding;
+    private bool chunkin;
     private int currentDirectionNum;
     private int previousDirectionNum;
     private Vector3Int currentTile;
     private Vector3Int previousTile;
     private ItemClass[] artifacts;
     private ItemClass[] minerals;
+    private TileBase[] terrain;
 
     // Start is called before the first frame update
     private void Awake()
@@ -54,8 +60,10 @@ public class Mining : MonoBehaviour
         currentTile = new Vector3Int(10000, 10000);
         artifacts = atlas.CreateInstance(ItemClass.ItemType.artifact);
         minerals = atlas.CreateInstance(ItemClass.ItemType.mineral);
+        terrain = atlas.CreateInstance(ItemClass.ItemType.ground).Select(t => t.placeableTile).ToArray();
         hurtRecently = false;
         gasExploding = false;
+        chunkin = false;
     }
 
     private void FixedUpdate()
@@ -102,7 +110,34 @@ public class Mining : MonoBehaviour
         if (mining)
         {
             energyScript.UpdateEnergy(50f);
+
+            if (!chunkin)
+            {
+                chunkin = true;
+                Invoke(nameof(GenerateChunks), 0.1f);
+            }
         }
+    }
+
+    private void GenerateChunks()
+    {
+        GameObject chunk;
+        var tile = baseTilemap.GetTile(currentTile);
+        if (tile && Array.IndexOf(terrain, tile) > 3)
+        {
+            chunk = Instantiate(rockChunk);
+        }
+        else if (tile)
+        {
+            chunk = Instantiate(dirtChunk);
+        }
+        else
+        {
+            chunkin = false;
+            return;
+        }
+        chunk.transform.position = currentTile + new Vector3(0.5f, 0.5f, chunk.transform.position.z);
+        chunkin = false;
     }
 
     private void UpdateHurtRecently()
@@ -127,7 +162,7 @@ public class Mining : MonoBehaviour
                 && currentTile.y > -TerrainGeneration.DEPTH - 2 
                 && !gasExploding 
                 && tile != shopBlock.placeableTile
-                &&  7f / (Mathf.Abs(currentTile.y + TerrainGeneration.DEPTH) + 1) > Random.value)
+                &&  7f / (Mathf.Abs(currentTile.y + TerrainGeneration.DEPTH) + 1) > UnityEngine.Random.value)
             {
                 gasExploding = true;
                 move.position = new Vector3(currentTile.x + 0.5f, currentTile.y + 0.5f, 2);
