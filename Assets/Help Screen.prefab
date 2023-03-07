@@ -1201,7 +1201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Keep an eye on your heath (red) and energy (blue) in the upper left corner
+  m_text: Keep an eye on your health (red) and energy (blue) in the upper left corner
     to stay alive. Use the shops on the far left and far right to replenish them...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

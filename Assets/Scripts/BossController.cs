@@ -103,7 +103,7 @@ public class BossController : MonoBehaviour
         musicAud.PlayDelayed(0.5f);
 
         mainCanvas.SetActive(false);
-        uiController.pauseToggle.enabled = false;
+        uiController.pauseToggle.interactable = false;
         cameraController.credits = true;
         Invoke(nameof(ChangeBackground), 50f);
         finalCashText.text = "Final Cash: $" + (22165000L + long.Parse(moneyText.text.Substring(1))).ToString("N0");

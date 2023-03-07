@@ -128,32 +128,38 @@ public class UIController : MonoBehaviour
             {
                 message.SetActive(false);
                 focus.SetActive(false);
+                pauseToggle.interactable = true;
             }
             else if (charging.activeSelf)
             {
                 charging.SetActive(false);
                 focus.SetActive(false);
+                pauseToggle.interactable = true;
             }
             else if (factory.activeSelf)
             {
                 factory.SetActive(false);
                 focus.SetActive(false);
+                pauseToggle.interactable = true;
             }
             else if (garage.activeSelf)
             {
                 garage.SetActive(false);
                 focus.SetActive(false);
+                pauseToggle.interactable = true;
             }
             else if (shop.activeSelf)
             {
                 shop.SetActive(false);
                 focus.SetActive(false);
+                pauseToggle.interactable = true;
             }
             else if (help.activeSelf)
             {
                 help.SetActive(false);
                 focus.SetActive(false);
                 Paused(false);
+                pauseToggle.interactable = true;
             }
             else
             {
@@ -167,6 +173,7 @@ public class UIController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         bool collided = false;
+        pauseToggle.interactable = false;
 
         if (collision.gameObject.CompareTag("Charging"))
         {
@@ -205,6 +212,7 @@ public class UIController : MonoBehaviour
             else
             {
                 exited = true;
+                pauseToggle.interactable = true;
             }
         }
     }
@@ -244,6 +252,7 @@ public class UIController : MonoBehaviour
             exited = true;
             focus.SetActive(false);
             energyScript.decreaseEnergy = true;
+            pauseToggle.interactable = true;
             if (messageUiScript.currentMessageIndex > 2 && Random.value < earthquakeChance)
             {
                 earthquakeWarn.SetBool("show", true);
