@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private HudUI hudController;
     [SerializeField] private MessageUI messageUiScript;
     [SerializeField] private TerrainGeneration terrainGenerationScript;
+    [SerializeField] private CameraController cameraControllerScript;
     [SerializeField] private GameObject focus;
     [SerializeField] private GameObject help;
     [SerializeField] private GameObject message;
@@ -258,6 +259,7 @@ public class UIController : MonoBehaviour
                 earthquakeWarn.SetBool("show", true);
                 earthquakeWarn.speed = 4f;
                 Invoke(nameof(DoEarthquake), 1.5f);
+                cameraControllerScript.shake = true;
             }
         }
     }
@@ -266,5 +268,6 @@ public class UIController : MonoBehaviour
     {
         terrainGenerationScript.Earthquake();
         earthquakeWarn.SetBool("show", false);
+        cameraControllerScript.shake = false;
     }
 }

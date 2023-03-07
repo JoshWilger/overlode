@@ -6,6 +6,7 @@ public class ChickenMovement : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private Health healthScript;
+    [SerializeField] private CameraController cameraControllerScript;
     [SerializeField] private float damageAffector;
     [SerializeField] private Collider2D playerColl;
     [SerializeField] private GameObject laser;
@@ -56,6 +57,7 @@ public class ChickenMovement : MonoBehaviour
         anim.speed = 0;
         rb.velocity = Vector2.down;
         CancelInvoke();
+        cameraControllerScript.shake = false;
         loop.clip = walkSound;
         loop.Stop();
     }
@@ -146,6 +148,7 @@ public class ChickenMovement : MonoBehaviour
         laserCollider.enabled = false;
         invoked = false;
         doingAttack = false;
+        cameraControllerScript.shake = false;
     }
 
     private void DoDamage()
@@ -160,7 +163,7 @@ public class ChickenMovement : MonoBehaviour
             Debug.Log("Oh! " + damage);
             healthScript.UpdateHealth(damage);
         }
-
+        cameraControllerScript.shake = true;
         aud.clip = peckSound;
         aud.Play();
     }

@@ -74,7 +74,7 @@ public class BossController : MonoBehaviour
         }
         else if (health <= 0 && nextBoss)
         {
-            health = 0.1f;
+            health = 1f;
             bossBar.SetActive(false);
             golem.enabled = false;
             Invoke(nameof(EndingSequence), golemSpawnDelay);

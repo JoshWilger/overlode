@@ -8,8 +8,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float minPosition;
     [SerializeField] private float maxPosition;
     [SerializeField] private float creditsScrollSpeed;
+    [SerializeField] private float shakeAmount;
 
     public bool credits = false;
+    public bool shake = false;
 
     // Update is called once per frame
     private void FixedUpdate()
@@ -21,7 +23,13 @@ public class CameraController : MonoBehaviour
         }
         else if (!credits)
         {
-            transform.position = new Vector3(Mathf.Clamp(player.position.x, minPosition, maxPosition), player.position.y, transform.position.z);
+            transform.position = new Vector3(Mathf.Clamp(player.position.x, minPosition, maxPosition), player.position.y + (shake ? shakeAmount : 0), transform.position.z);
+            if (shake)
+            {
+                shakeAmount = -shakeAmount;
+                Debug.Log("shaking");
+
+            }
         }
     }
 }

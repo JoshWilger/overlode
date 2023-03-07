@@ -125,8 +125,7 @@ public class TerrainGeneration : MonoBehaviour
 
     public void Earthquake()
     {
-        Debug.Log("Earthquake!!");
-
+        int amount = 0;
         for (int x = 0; x < WIDTH; x++)
         {
             if (!tilemaps[1].HasTile(new Vector3Int(x, -100)))
@@ -143,9 +142,14 @@ public class TerrainGeneration : MonoBehaviour
                         {
                             tilemaps[t].SetTile(pos, isAir ? t == 0 ? background[0].placeableTile : null : tilemaps[t].GetTile(currentCoord));
                         }
+                        if (!isAir)
+                        {
+                            amount++;
+                        }
                     }
                 }
             }
         }
+        Debug.Log($"Earthquake!! Replaced {amount} blocks");
     }
 }

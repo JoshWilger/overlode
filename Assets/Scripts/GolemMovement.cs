@@ -7,6 +7,7 @@ public class GolemMovement : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
     [SerializeField] private Health healthScript;
+    [SerializeField] private CameraController cameraControllerScript;
     [SerializeField] private float damageAffector;
     [SerializeField] private GameObject message;
     [SerializeField] private Collider2D playerColl;
@@ -47,6 +48,7 @@ public class GolemMovement : MonoBehaviour
         anim.SetTrigger("throw");
         anim.speed = 0.3f;
         loop.clip = walkSound;
+        cameraControllerScript.shake = true;
     }
 
     private void OnDisable()
@@ -55,6 +57,7 @@ public class GolemMovement : MonoBehaviour
         anim.SetTrigger("throw");
         anim.speed = 0;
         rb.velocity = Vector2.down;
+        cameraControllerScript.shake = false;
         loop.Stop();
     }
 
@@ -62,6 +65,7 @@ public class GolemMovement : MonoBehaviour
     {
         doingAttack = false;
         invoked = false;
+        cameraControllerScript.shake = false;
     }
 
     private void MessageActive()
@@ -147,6 +151,7 @@ public class GolemMovement : MonoBehaviour
     {
         invoked = false;
         doingAttack = false;
+        cameraControllerScript.shake = false;
     }
 
     private void DoDamage()
@@ -161,7 +166,7 @@ public class GolemMovement : MonoBehaviour
             Debug.Log("Oh! " + damage);
             healthScript.UpdateHealth(damage);
         }
-
+        cameraControllerScript.shake = true;
         aud.clip = stabSound;
         aud.Play();
     }

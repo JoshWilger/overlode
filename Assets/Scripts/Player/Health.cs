@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     [SerializeField] private ItemAtlas atlas;
+    [SerializeField] private CameraController cameraControllerScript;
     [SerializeField] private LayerMask ground;
     [SerializeField] private Image healthBar;
     [SerializeField] private float xVelocityDamageThreshold;
@@ -83,12 +84,19 @@ public class Health : MonoBehaviour
         canBeDamaged = true;
     }
 
+    private void DisableShake()
+    {
+        cameraControllerScript.shake = false;
+    }
+
     public void UpdateHealth(float removalAmount)
     {
         health -= removalAmount;
         UpdateHealthBar();
         hurt.SetTrigger("hurt");
         aud.Play();
+        cameraControllerScript.shake = true;
+        Invoke(nameof(DisableShake), removalAmount);
     }
 
     public void UpdateHealthBar()
