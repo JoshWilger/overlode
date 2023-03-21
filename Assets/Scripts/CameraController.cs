@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     {
         if (credits && transform.position.y < 9f)
         {
-            var amount = transform.position.y > 0f ? Mathf.Abs(transform.position.y - 9f) / 100f : Mathf.Abs(transform.position.y + 0.1f - player.position.y) / 100f;
+            var amount = transform.position.y > 0f ? Mathf.Abs(transform.position.y - 9f) / 100f : Mathf.Abs(transform.position.y + 0.3f - player.position.y) / 100f;
             transform.position = new Vector3(transform.position.x, transform.position.y + (amount < creditsScrollSpeed ? amount : creditsScrollSpeed), transform.position.z);
         }
         else if (!credits)
@@ -27,8 +27,6 @@ public class CameraController : MonoBehaviour
             if (shake)
             {
                 shakeAmount = -shakeAmount;
-                Debug.Log("shaking");
-
             }
         }
     }

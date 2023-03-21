@@ -71,7 +71,7 @@ public class FactoryUI : MonoBehaviour
             UpdateAlpha(i);
 
             quantity[i].text = "x" + minerals[i].amountCollected;
-            mineralInfo[i].text = minerals[i].itemName + " \t($" + minerals[i].itemWorth + ")\n$" + addMe;
+            mineralInfo[i].text = minerals[i].itemName + "\t($" + minerals[i].itemWorth + ")\n$" + addMe;
             totalCounter += addMe;
         }
 
