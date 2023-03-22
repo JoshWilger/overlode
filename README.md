@@ -1,6 +1,3 @@
 # Project Info
 
-A work in progress personal project that involves learning Unity for the first time with the help of a few YouTube videos and Google. 
-The game being created is a mining simulator which is based off of a dated flash internet game called "Motherload".
-I played the game when I was younger, and have now become more appreciative of the simple design and stylistic narrative, which I hope to replicate with my version.
-The project was started in late November 2022 and continues to be worked on weekly in the hopes of finishing by late January.
+A solo project made in over three months with the goals of learning the game engine Unity, gaining experience in creating a full game, and recreating a flash game favorite called "[Motherload](https://www.crazygames.com/game/motherload)". Starting off by following [YouTube tutorials](https://www.youtube.com/watch?v=Ii-scMenaOQ&list=PLrnPJCHvNZuCVTz6lvhR81nnaf1a-b67U&index=1) to learn basic player movement, animations, and collisions, the project took off with designing each specific mechanic in Motherload from scratch, such as mining, health, upgrades, items, proceedural generation, and a whole lot more. The project also involved making many improvements from the original, such as more simplistic user interfaces, upbeat and mulitrack background music, and more details and animations throughout the whole game.
