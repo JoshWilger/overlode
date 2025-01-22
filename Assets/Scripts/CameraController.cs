@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,17 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxPosition;
     [SerializeField] private float creditsScrollSpeed;
     [SerializeField] private float shakeAmount;
+    [SerializeField] private Canvas mainCanvas;
 
     public bool credits = false;
     public bool shake = false;
+
+    private Camera camera;
+
+    private void Start()
+    {
+        camera = GetComponent<Camera>();
+    }
 
     // Update is called once per frame
     private void FixedUpdate()
@@ -23,7 +32,9 @@ public class CameraController : MonoBehaviour
         }
         else if (!credits)
         {
-            transform.position = new Vector3(Mathf.Clamp(player.position.x, minPosition, maxPosition), player.position.y + (shake ? shakeAmount : 0), transform.position.z);
+            var horizontalExtent = camera.orthographicSize * Screen.width / Screen.height;
+            
+            transform.position = new Vector3(Mathf.Clamp(player.position.x,horizontalExtent + minPosition, Math.Abs(horizontalExtent - maxPosition)), player.position.y + (shake ? shakeAmount : 0), transform.position.z);
             if (shake)
             {
                 shakeAmount = -shakeAmount;

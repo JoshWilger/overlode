@@ -8682,10 +8682,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1577181479}
-  minPosition: 6.3
-  maxPosition: 29.7
+  minPosition: 0
+  maxPosition: 36
   creditsScrollSpeed: 0.1
   shakeAmount: 0.1
+  mainCanvas: {fileID: 1685215610}
   credits: 0
   shake: 0
 --- !u!82 &519420034
