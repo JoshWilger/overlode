@@ -18,6 +18,7 @@ public class HudUI : MonoBehaviour
     [SerializeField] private Image storageProgress;
     [SerializeField] private float itemCooldown;
     [SerializeField] public float disabledTransparency;
+    [SerializeField] private AudioSource selectItemAudio;
 
     public Toggle activeToggle;
 
@@ -261,6 +262,7 @@ public class HudUI : MonoBehaviour
             var activeImage = activeToggle.GetComponentInChildren<Image>();
 
             selectedImage.sprite = activeImage.sprite;
+            selectItemAudio.Play();
 
             selectedItem.GetComponentInChildren<TextMeshProUGUI>().text = activeToggle.GetComponentInChildren<TextMeshProUGUI>().text;
 

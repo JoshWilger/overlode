@@ -13,7 +13,7 @@ public class ItemAtlas : ScriptableObject
     [SerializeField] private ItemClass[] indestructables;
     [SerializeField] private ItemClass[] upgrades;
 
-    public float[] currentUpgradeAmounts = { 10f, 20f, 7f, 10f, 150f, 0f };
+    public float[] currentUpgradeAmounts = { 10f, 20f, 7f, 10f, 50f, 0f };
 
     public enum UpgradeTypes
     {
