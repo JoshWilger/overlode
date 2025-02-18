@@ -6,8 +6,6 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform player;
-    [SerializeField] private float minPosition;
-    [SerializeField] private float maxPosition;
     [SerializeField] private float creditsScrollSpeed;
     [SerializeField] private float shakeAmount;
     [SerializeField] private Canvas mainCanvas;
@@ -15,11 +13,11 @@ public class CameraController : MonoBehaviour
     public bool credits = false;
     public bool shake = false;
 
-    private Camera camera;
+    private Camera playerCamera;
 
     private void Start()
     {
-        camera = GetComponent<Camera>();
+        playerCamera = GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -32,9 +30,9 @@ public class CameraController : MonoBehaviour
         }
         else if (!credits)
         {
-            var horizontalExtent = camera.orthographicSize * Screen.width / Screen.height;
+            var horizontalExtent = playerCamera.orthographicSize * Screen.width / Screen.height;
             
-            transform.position = new Vector3(Mathf.Clamp(player.position.x,horizontalExtent + minPosition, Math.Abs(horizontalExtent - maxPosition)), player.position.y + (shake ? shakeAmount : 0), transform.position.z);
+            transform.position = new Vector3(Mathf.Clamp(player.position.x,horizontalExtent + TerrainGeneration.WORLD_OFFSET, Math.Abs(horizontalExtent - (TerrainGeneration.WORLD_OFFSET + TerrainGeneration.WIDTH))), player.position.y + (shake ? shakeAmount : 0), transform.position.z);
             if (shake)
             {
                 shakeAmount = -shakeAmount;

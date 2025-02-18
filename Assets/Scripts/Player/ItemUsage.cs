@@ -274,7 +274,7 @@ public class ItemUsage : MonoBehaviour
             {
                 var newX = playerX + directionAdders[i, 0];
                 currentTile = baseTilemap.GetTile(new Vector3Int(newX, playerY + directionAdders[i, 1]));
-                if (!currentTile && newX < TerrainGeneration.WIDTH && newX > 0)
+                if (!currentTile && newX < (TerrainGeneration.WIDTH + TerrainGeneration.WORLD_OFFSET) && newX > TerrainGeneration.WORLD_OFFSET)
                 {
                     transform.position = new Vector3(playerX + 0.5f + directionAdders[i, 0], playerY + directionAdders[i, 1] + 0.5f);
                     baseTilemap.SetTile(new Vector3Int(playerX, playerY), blockItem.placeableTile);

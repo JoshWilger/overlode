@@ -43,7 +43,7 @@ public class ChickenMovement : MonoBehaviour
         loop = laser.GetComponent<AudioSource>();
         doingAttack = true;
         invoked = true;
-        transform.position = new Vector3(TerrainGeneration.WIDTH / 2, -560f, transform.position.z);
+        transform.position = new Vector3((TerrainGeneration.WIDTH + TerrainGeneration.WORLD_OFFSET) / 2, -TerrainGeneration.DEPTH - 10, transform.position.z);
         rb.velocity = new Vector2(0, movementSpeed);
         anim.SetTrigger("laser");
         anim.speed = 0.5f;
@@ -127,7 +127,7 @@ public class ChickenMovement : MonoBehaviour
             case 2:
                 anim.SetTrigger("laser");
                 loop.Stop();
-                laserHinge.anchor = sprite.flipX ? new Vector2(-0.9f, 0) : new Vector2(-0.9f, 0);
+                laserHinge.anchor = sprite.flipX ? new Vector2(0.9f, 0) : new Vector2(-0.9f, 0);
                 laserHinge.connectedAnchor = sprite.flipX ? new Vector2(1.9f, 0) : new Vector2(-1.9f, 0);
                 aud.clip = laserSound;
                 aud.Play();
